@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+body {
+	font-family: 'Noto Sans TC', sans-serif;
+}
+</style>
+</head>
+
+<body>
+<table>
+<tr><th>課表</th><th id="wk"></th></tr>
+<tr><th>8:10~9:00</th><td id="l1"></td></tr>
+<tr><th>9:10~10:00</th><td id="l2"></td></tr>
+<tr><th>10:10~11:00</th><td id="l3"></td></tr>
+<tr><th>11:10~12:00</th><td id="l4"></td></tr>
+<tr><th>13:00~13:50</th><td id="l5"></td></tr>
+<tr><th>14:00~14:50</th><td id="l6"></td></tr>
+<tr><th>15:10~16:00</th><td id="l7"></td></tr>
+<tr><th>16:10~17:00</th><td id="l8"></td></tr>
+</table>
+</body>
+<script>
+var d = new Date();
+var today = d.getDay();
+var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+var no = ["假日", "假日", "假日", "假日", "假日", "假日", "假日", "假日"];
+var mon = ["化學", "體育", "英文", "地科", "國文", "數學", "物理", "歷史"];
+var tue = ["國文", "國文", "英文", "生物", "自習", "國防", "數學", "數學"];
+var wen = ["生科", "生科", "國文", "數學", "體育", "地科", "地理", "國文"];
+var thu = ["英文", "公民", "生物", "化學", "自習", "專研", "專研", "專研"];
+var fri = ["數學", "數學", "物理", "英文", "歷史", "美術", "班會", "社團"];
+var ics = [no, mon, tue, wen, thu, fri, no];
+document.getElementById("wk").innerHTML = days[today];
+document.getElementById("l1").innerHTML = ics[today][0];
+document.getElementById("l2").innerHTML = ics[today][1];
+document.getElementById("l3").innerHTML = ics[today][2];
+document.getElementById("l4").innerHTML = ics[today][3];
+document.getElementById("l5").innerHTML = ics[today][4];
+document.getElementById("l6").innerHTML = ics[today][5];
+document.getElementById("l7").innerHTML = ics[today][6];
+document.getElementById("l8").innerHTML = ics[today][7];
+</script>
+</html>
