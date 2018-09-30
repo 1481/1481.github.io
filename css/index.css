@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+a {
+	color: deepskyblue;
+	text-decoration: none;
+}
+a:hover {
+	color: skyblue;
+	text-decoration: none;
+}
+a:visited {
+	color: deepskyblue;
+	text-decoration: none;
+}
