@@ -11,6 +11,7 @@ body {
 </head>
 
 <body>
+日期: <input type="date" id="date"><input type="button" onclick="f()">
 <table>
 <tr><th>課表</th><th id="wk"></th></tr>
 <tr><th>8:10~9:00</th><td id="l1"></td></tr>
@@ -34,6 +35,8 @@ var wen = ["生科", "生科", "國文", "數學", "體育", "地科", "地理",
 var thu = ["英文", "公民", "生物", "化學", "自習", "專研", "專研", "專研"];
 var fri = ["數學", "數學", "物理", "英文", "歷史", "美術", "班會", "社團"];
 var ics = [no, mon, tue, wen, thu, fri, no];
+w();
+function w() {
 document.getElementById("wk").innerHTML = days[today];
 document.getElementById("l1").innerHTML = ics[today][0];
 document.getElementById("l2").innerHTML = ics[today][1];
@@ -43,5 +46,12 @@ document.getElementById("l5").innerHTML = ics[today][4];
 document.getElementById("l6").innerHTML = ics[today][5];
 document.getElementById("l7").innerHTML = ics[today][6];
 document.getElementById("l8").innerHTML = ics[today][7];
+}
+function f() {
+	var date = document.getElementById("date").value;
+	d = new Date(date);
+	today = d.getDay;
+	w();
+}
 </script>
 </html>
