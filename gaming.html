@@ -24,6 +24,6 @@ body {
 <script>
     var bsd = xhr.json("https://cors1.000webhostapp.com/?url=https://statsbrawl.com/api/clubs/9C8JJU8");
     document.getElementById("bscdtp").innerHTML = "Trophies: " + bsd.trophies;
-    document.getElementById("bscd").innerHTML = "Online: " + bsd.onlineMembers;
+    document.getElementById("bscd").innerHTML = "Online: " + bsd.onlineMembers + " / " + bsd.membersCount;
 </script>
 </body>
