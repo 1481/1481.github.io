@@ -28,17 +28,18 @@ table {
 <tr><th>15:10~16:00</th><td id="l7"></td></tr>
 <tr><th>16:10~17:00</th><td id="l8"></td></tr>
 </table>
-</body>
+<script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
 <script>
 var d = new Date();
 var today = d.getDay();
 var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+var cfile = xhr.json("curriculums/107.2.json");
 var no = ["假日", "假日", "假日", "假日", "假日", "假日", "假日", "假日"];
-var mon = ["化學", "體育", "英文", "地科", "國文", "數學", "物理", "歷史"];
-var tue = ["國文", "國文", "英文", "生物", "自習", "國防", "數學", "數學"];
-var wen = ["生科", "生科", "國文", "數學", "體育", "地科", "地理", "國文"];
-var thu = ["英文", "公民", "生物", "化學", "自習", "專研", "專研", "專研"];
-var fri = ["數學", "數學", "物理", "英文", "歷史", "美術", "班會", "社團"];
+var mon = cfile[0];
+var tue = cfile[1];
+var wen = cfile[2];
+var thu = cfile[3];
+var fri = cfile[4];
 var ics = [no, mon, tue, wen, thu, fri, no];
 w();
 
@@ -60,4 +61,5 @@ function f() {
 	w();
 }
 </script>
+</body>
 </html>
