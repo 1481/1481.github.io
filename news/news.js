@@ -18,6 +18,9 @@ function drawNews(title, content, author, time) {
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("div");
     
+    newsTitle.innerHTML = title;
+    newsContent.innerHTML = content;
+    newsFooter.innerHTML = "Author: "+author+"    "+time;
     
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
