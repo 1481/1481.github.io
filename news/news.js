@@ -1,7 +1,13 @@
 var nlll = "pqlau"; // News Lists List Location
 var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
-for(var i = nl.length-1; i >= 0; i--) {
+var endN;
+if(nl.length-6 >= 0) {
+    endN = nl.length-6;
+} else {
+    endN = 0;
+}
+for(var i = nl.length-1; i >= endN; i--) {
     var n = getNews(nl[i]);
     drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString());
 }
