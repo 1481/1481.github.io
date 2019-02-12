@@ -21,7 +21,7 @@ function drawNews(title, content, author, time) {
     
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
-    newsFooter.innerHTML = "Author: "+author+String.fromCharCode(9)+time;
+    newsFooter.innerHTML = "Author: "+author+"  "+time;
     
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
