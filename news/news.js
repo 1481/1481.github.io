@@ -15,13 +15,13 @@ function getNews(loc) {
 function drawNews(title, content, author, time) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
-    var newsTitle = document.createElement("h3");
+    var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("div");
     
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
-    newsFooter.innerHTML = "Author: "+author+"    "+time;
+    newsFooter.innerHTML = "Author: "+author+String.fromCharCode(9)+time;
     
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
