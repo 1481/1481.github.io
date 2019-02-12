@@ -17,11 +17,12 @@ function drawNews(title, content, author, time) {
     var newsDiv = document.createElement("div");
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
-    var newsFooter = document.createElement("div");
+    var newsFooter = document.createElement("p");
     
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
     newsFooter.innerHTML = "Author: "+author+"  "+time;
+    newsFooter.style.whiteSpace = "pre";
     
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
