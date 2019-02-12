@@ -39,7 +39,7 @@
             };
             var newpost = JSON.parse(xhr.post("https://api.myjson.com/bins", JSON.stringify(article))).uri.substr(28);
             var nl = xhr.json("https://api.myjson.com/bins/" + nll[nll.length-1]);
-            nl.append(newpost);
+            nl.push(newpost);
             xhr.put("https://api.myjson.com/bins/" + nll[nll.length-1], JSON.stringify(nl));
             alert("Article Uploaded!");
         }
