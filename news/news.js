@@ -22,6 +22,8 @@ function drawNews(title, content, author, time) {
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
     newsFooter.innerHTML = "Author: "+author+"\t"+time;
+	newsDiv.style.borderStyle = "solid none none none";
+	newsDiv.style.borderWidths = "0.4rem";
     newsFooter.style.whiteSpace = "pre";
     
     newsDiv.appendChild(newsTitle);
