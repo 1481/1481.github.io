@@ -11,6 +11,16 @@ function getList(loc) {
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
-function drawNews() {
+function drawNews(title, content, author, time) {
+    var newsBlock = document.getElementById("newsBlock");
+    var newsDiv = document.createElement("div");
+    var newsTitle = document.createElement("h3");
+    var newsContent = document.createElement("p");
+    var newsFooter = document.createElement("div");
     
+    
+    newsDiv.appendChild(newsTitle);
+    newsDiv.appendChild(newsContent);
+    newsDiv.appendChild(newsFooter);
+    newsBlock.appendChild(newsDiv);
 }
