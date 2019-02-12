@@ -3,6 +3,7 @@ var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
 for(var i = nl.length-1; i >= 0; i--) {
     var n = getNews(nl[i]);
+    drawNews(n.title, n.content, n.author, n.time);
 }
 
 function getList(loc) {
