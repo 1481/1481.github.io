@@ -27,9 +27,15 @@
     <h3>Author</h3>
   	<input id="author" type="text" placeholder="Author">
     <br>
-    <button onclick="uploadArticle()">Upload</button>
+    <button onclick="checker()">Upload</button>
     <script>
         var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
+	function checker() {
+	    if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
+	       return;
+	    }
+	    uploadArticle();
+	}
         function uploadArticle() {
             var article = {
                 "title": elm.id("title").value,
