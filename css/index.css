@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 a {
-	color: deepskyblue;
+	color: #00fff5;
 	text-decoration: none;
 }
 a:hover {
@@ -9,6 +9,6 @@ a:hover {
 	text-decoration: none;
 }
 a:visited {
-	color: deepskyblue;
+	color: #00fff5;
 	text-decoration: none;
 }
