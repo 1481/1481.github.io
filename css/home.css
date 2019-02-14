@@ -23,3 +23,15 @@ div#wrap {
     top: 6rem;
     text-align: center;
 }
+a {
+	color: #00fff5;
+	text-decoration: none;
+}
+a:hover {
+	color: skyblue;
+	text-decoration: none;
+}
+a:visited {
+	color: #00fff5;
+	text-decoration: none;
+}
