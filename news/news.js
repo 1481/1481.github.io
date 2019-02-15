@@ -28,8 +28,6 @@ function drawNews(title, content, author, time) {
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
     newsFooter.innerHTML = "Author: "+author+"\t\t"+time;
-    newsDiv.style.borderStyle = "solid none none none";
-    newsDiv.style.borderWidths = "0.15rem";
     newsDiv.className = "News w3-card w3-round-large w3-white w3-margin";
     newsFooter.style.whiteSpace = "pre";
     
