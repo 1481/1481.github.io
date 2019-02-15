@@ -33,14 +33,14 @@ td {
 日期: <input type="date" id="date" onchange="f()">
 <table>
 <tr><th>課表</th><th id="wk"></th></tr>
-<tr><th>8:10~9:00</th><td id="l1"></td></tr>
-<tr><th>9:10~10:00</th><td id="l2"></td></tr>
-<tr><th>10:10~11:00</th><td id="l3"></td></tr>
-<tr><th>11:10~12:00</th><td id="l4"></td></tr>
-<tr><th>13:00~13:50</th><td id="l5"></td></tr>
-<tr><th>14:00~14:50</th><td id="l6"></td></tr>
-<tr><th>15:10~16:00</th><td id="l7"></td></tr>
-<tr><th>16:10~17:00</th><td id="l8"></td></tr>
+<tr id="r1"><th>8:10~9:00</th><td id="l1"></td></tr>
+<tr id="r2"><th>9:10~10:00</th><td id="l2"></td></tr>
+<tr id="r3"><th>10:10~11:00</th><td id="l3"></td></tr>
+<tr id="r4"><th>11:10~12:00</th><td id="l4"></td></tr>
+<tr id="r5"><th>13:00~13:50</th><td id="l5"></td></tr>
+<tr id="r6"><th>14:00~14:50</th><td id="l6"></td></tr>
+<tr id="r7"><th>15:10~16:00</th><td id="l7"></td></tr>
+<tr id="r8"><th>16:10~17:00</th><td id="l8"></td></tr>
 <tr class="now"><td id="afterSchool" colspan="2"></td></tr>
 </table>
 <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
@@ -59,7 +59,7 @@ var ics = [no, mon, tue, wen, thu, fri, no];
 w();
 var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate());
 document.getElementById("date").value = nowDate;
-
+setInterval(function(){when();}, 60*1000);
 function w() {
 document.getElementById("wk").innerHTML = days[today];
 document.getElementById("l1").innerHTML = ics[today][0];
@@ -80,7 +80,7 @@ function f() {
 }
 function when() {
 for(var i = 1; i< 9; i++) {
-document.getElementById("l"+i).className = "";
+document.getElementById("r"+i).className = "";
 }
 document.getElementById("afterSchool").innerHTML = "";
 var le;
@@ -96,7 +96,7 @@ case 16:le = 8;break;
 default:le = -1;
 }
 if(le>-1) {
-document.getElementById("l"+le).className = "now";
+document.getElementById("r"+le).className = "now";
 } else {
 document.getElementById("afterSchool").innerHTML = "已經放學囉！";
 }
