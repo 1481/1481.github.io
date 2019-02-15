@@ -52,6 +52,9 @@ var thu = cfile[3];
 var fri = cfile[4];
 var ics = [no, mon, tue, wen, thu, fri, no];
 w();
+var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate());
+alert(nowDate);
+document.getElementById("date").value = nowDate;
 
 function w() {
 document.getElementById("wk").innerHTML = days[today];
