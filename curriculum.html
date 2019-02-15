@@ -41,7 +41,7 @@ td {
 <tr><th>14:00~14:50</th><td id="l6"></td></tr>
 <tr><th>15:10~16:00</th><td id="l7"></td></tr>
 <tr><th>16:10~17:00</th><td id="l8"></td></tr>
-<tr class="now"><th id="nTime"></th><td id="afterSchool"></td></tr>
+<tr class="now"><td id="afterSchool" colspan="2"></td></tr>
 </table>
 <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
 <script>
@@ -82,7 +82,6 @@ function when() {
 for(var i = 1; i< 9; i++) {
 document.getElementById("l"+i).className = "";
 }
-document.getElementById("nTime").innerHTML = "";
 document.getElementById("afterSchool").innerHTML = "";
 var le;
 switch(new Date().getHours()) {
