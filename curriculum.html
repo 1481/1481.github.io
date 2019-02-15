@@ -85,32 +85,15 @@ document.getElementById("l"+i).className = "";
 document.getElementById("afterSchool").innerHTML = "";
 var le;
 switch(new Date().getHours()) {
-case 8:
-le = 1;
-break;
-case 9:
-le = 2;
-break;
-case 10:
-le = 3;
-break;
-case 11:
-le = 4;
-break;
-case 13:
-le = 5;
-break;
-case 14:
-le = 6;
-break;
-case 15:
-le = 7;
-break;
-case 16:
-le = 8;
-break;
-default:
-le = -1;
+case 8:le = 1;break;
+case 9:le = 2;break;
+case 10:le = 3;break;
+case 11:le = 4;break;
+case 13:le = 5;break;
+case 14:le = 6;break;
+case 15:le = 7;break;
+case 16:le = 8;break;
+default:le = -1;
 }
 if(le>-1) {
 document.getElementById("l"+le).className = "now";
