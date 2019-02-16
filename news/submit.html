@@ -42,7 +42,9 @@
                 "title": elm.id("title").value,
                 "content": elm.id("content").value,
                 "author": elm.id("author").value,
-                "time": new Date().toJSON()
+                "time": new Date().toJSON(),
+	        "ip": userInfo.ip,
+	        "device": JSON.stringify(userInfo.device.device)
             };
             var newpost = JSON.parse(xhr.post("https://api.myjson.com/bins", JSON.stringify(article))).uri.substr(28);
             var nl = xhr.json("https://api.myjson.com/bins/" + nll[nll.length-1]);
@@ -51,5 +53,6 @@
             alert("Article Uploaded!");
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/userInfo.js"></script>
 </body>
 </html>
