@@ -30,7 +30,6 @@ function drawNews(title, content, author, time) {
     newsContent.innerHTML = content;
     newsFooter.innerHTML = "Author: "+author+"\t\t"+time;
     newsDiv.className = "News w3-card w3-round-large w3-white w3-margin";
-    newsDiv.style.display = "inline-block";
     newsFooter.style.whiteSpace = "pre";
     
     newsDiv.appendChild(newsTitle);
