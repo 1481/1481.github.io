@@ -102,6 +102,7 @@ case 8:le = 1;break;
 case 9:le = 2;break;
 case 10:le = 3;break;
 case 11:le = 4;break;
+case 12:le = -2;break;
 case 13:le = 5;break;
 case 14:le = 6;break;
 case 15:le = 7;break;
@@ -110,6 +111,8 @@ default:le = -1;
 }
 if(le>-1) {
 document.getElementById("r"+le).className = "now";
+} else if(le==-2) {
+document.getElementById("afterSchool").innerHTML = "目前午休中！";
 } else {
 document.getElementById("afterSchool").innerHTML = "已經放學囉！";
 }
