@@ -8,5 +8,9 @@ document.body.appendChild(loadingMsg);
 
 function goPage(url) {
     loadingMsg.style.display = "";
+    localStorage.pPage = location.href;
     location.href = url;
+}
+function goBack() {
+    location.href = localStorage.pPage;
 }
