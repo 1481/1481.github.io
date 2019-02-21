@@ -12,5 +12,7 @@ function goPage(url) {
     location.href = url;
 }
 function goBack() {
-    location.href = localStorage.pPage;
+    var temppPage = localStorage.pPage;
+    localStorage.pPage = "";
+    location.href = temppPage;
 }
