@@ -34,8 +34,17 @@
     }
     .News {
         width: 90%;
-        max-width: 30rem;
         display: inline-block;
+    }
+    @media only screen and (min-width: 800px) {
+        .News {
+        width: 60%;
+        }
+    }
+    @media only screen and (min-width: 1200px) {
+        .News {
+        width: 40%;
+        }
     }
 </style>
 <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
