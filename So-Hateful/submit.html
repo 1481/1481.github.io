@@ -72,10 +72,14 @@
             };
 			if(elm.id("img").value) {
 				var x = elm.id("img").value;
-				x = x.replace("https://imgur.com/a/", "");
-				x = x.replace("http://imgur.com/a/", "");
-				x = x.replace("https://m.imgur.com/a/", "");
-				x = x.replace("http://m.imgur.com/a/", "");
+				if(x.includes("https://imgur.com/a/") || x.includes("https://m.imgur.com/a/")) {
+				    alert("Upload Failed: image URL wrong.");
+				    return;
+				}
+				x = x.replace("https://imgur.com/", "");
+				x = x.replace("http://imgur.com/", "");
+				x = x.replace("https://m.imgur.com/", "");
+				x = x.replace("http://m.imgur.com/", "");
 				x = "https://imgur.com/download/" + x;
 				article.content += '<img src="' + x + '" width="75%"></img>';
 			}
@@ -87,7 +91,7 @@
 	    location.href = "./";
         }
         function showInfo(tar) {
-            var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload' target='_blank'>imgur.com</a>.<br>Step 2: Paste the image URL below. (something like https://imgur.com/a/XXXXXXX)<br><input id='img'></div>";
+            var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload' target='_blank'>imgur.com</a>.<br>Step 2: Paste the image URL below. (something like https://imgur.com/XXXXXXX or https://m.imgur.com/XXXXXXX, NOT https://imgur.com/a/XXXXXXX)<br><input id='img'></div>";
             tar.outerHTML = InfoDIV;
         }
     </script>
