@@ -13,6 +13,9 @@ for(var i = nl.length-1; i >= endN; i--) {
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
+function getList(loc) {
+    return xhr.json("https://api.myjson.com/bins/"+loc);
+}
 function drawNews(title, content, author, time) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
