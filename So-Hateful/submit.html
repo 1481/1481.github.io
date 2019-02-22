@@ -47,6 +47,7 @@
   	<input id="title" type="text" placeholder="Title" style="width: 80%; max-width: 35rem;">
     <h3>Content</h3>
 	<textarea id="content" type="text" rows="5" placeholder="Content" style="width: 80%; max-width: 35rem;"></textarea>
+	<button onclick="showInfo(this)">How To Upload Image?</button>
     <h3>Author</h3>
   	<input id="author" type="text" placeholder="Author" style="width: 80%; max-width: 35rem;">
     <br>
@@ -75,6 +76,10 @@
             xhr.put("https://api.myjson.com/bins/" + nll[nll.length-1], JSON.stringify(nl));
             alert("Article Uploaded!");
 	    location.href = "./";
+        }
+        function showInfo(tar) {
+            var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload'>imgur.com</a>.<br>Step 2: Paste the image URL below. (something like https://imgur.com/a/XXXXXXX)<br><input id='img'></div>";
+            tar.outerHTML = InfoDIV;
         }
     </script>
     <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/userInfo.js"></script>
