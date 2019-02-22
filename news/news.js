@@ -1,7 +1,4 @@
-drawNews("歡迎投稿", "<h3>歡迎任何人投稿: <a href='javascript:location.href=\"submit\"' style='color: blue'>我要投稿！</a></h3>", "ADMIN", "置頂文章");
-var nlll = "pqlau"; // News Lists List Location
-var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
-var nl = getList(nll[nll.length-1]);
+var nl = getList("1h3p6u");
 var endN;
 if(nl.length-6 >= 0) {
     endN = nl.length-6;
@@ -13,9 +10,6 @@ for(var i = nl.length-1; i >= endN; i--) {
     drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString());
 }
 
-function getList(loc) {
-    return xhr.json("https://api.myjson.com/bins/"+loc);
-}
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
