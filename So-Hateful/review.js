@@ -1,9 +1,9 @@
 var cantUse = [
     "jacob"
 ];
-function reviewSub(tar) {
-    for(var i = 0; i < cantUse.length; i++) {
-        if(tar.includes(cantUse[i])) {
+function reviewSub(tar, dic) {
+    for(var i = 0; i < dic.length; i++) {
+        if(tar == dic[i]) {
             return false;
         }
     }
