@@ -83,6 +83,10 @@
 				x = "https://imgur.com/download/" + x;
 				article.content += '<img src="' + x + '" width="75%"></img>';
 			}
+		if(!reviewSub(elm.id("author").value, cantUse)) {
+			alert("Upload Failed");
+			return;
+		}
             var newpost = JSON.parse(xhr.post("https://api.myjson.com/bins", JSON.stringify(article))).uri.substr(28);
             var nl = xhr.json("https://api.myjson.com/bins/" + nll[nll.length-1]);
             nl.push(newpost);
