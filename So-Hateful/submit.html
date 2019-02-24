@@ -54,6 +54,9 @@
     <br>
     <button onclick="checker()" style="font-size: 1.2rem">Upload</button>
     <script>
+		var cantUse = [
+			"jacob"
+		];
         var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
 	function checker() {
 	    if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
