@@ -84,7 +84,7 @@
 				x = x.replace("https://m.imgur.com/", "");
 				x = x.replace("http://m.imgur.com/", "");
 				x = "https://imgur.com/download/" + x;
-				article.content += '<img src="' + x + '" width="75%"></img>';
+				article.content += '<br><img src="' + x + '" width="75%"></img>';
 			}
 		if(!reviewSub(elm.id("author").value, cantUse)) {
 			alert("Upload Failed");
