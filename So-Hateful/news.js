@@ -1,4 +1,5 @@
 drawNews("歡迎投稿", "<h3>歡迎任何人投稿: <a href='javascript:location.href=\"submit\"' style='color: blue'>我要投稿！</a></h3>", "ADMIN", "置頂文章");
+var p = urldata("p") ? urldata("p") : 1;
 var nlll = "pqlau"; // News Lists List Location
 var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
@@ -36,4 +37,12 @@ function drawNews(title, content, author, time) {
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
     newsBlock.appendChild(newsDiv);
+}
+function reloadNews() {
+    document.getElementById("newsBlock").innerHTML = "";
+    for(var i = nl.length-(1+6*(p-1)); i >= nl.length-(1+6*p); i--) {
+        if(i < 0) {break;}
+        var n = getNews(nl[i]);
+        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString());
+    }
 }
