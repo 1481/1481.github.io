@@ -1,5 +1,5 @@
 drawNews("歡迎投稿", "<h3>歡迎任何人投稿: <a href='javascript:location.href=\"submit\"' style='color: blue'>我要投稿！</a></h3>", "ADMIN", "置頂文章");
-var p = (urldata("p")!=-1) ? urldata("p") : 1;
+var p = (urldata("p")!="://1481.tk/So-Hateful/") ? urldata("p") : 1;
 var nlll = "pqlau"; // News Lists List Location
 var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
