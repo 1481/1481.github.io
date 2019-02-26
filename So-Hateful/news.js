@@ -3,16 +3,8 @@ var p = (urldata("p")!=-1) ? urldata("p") : 1;
 var nlll = "pqlau"; // News Lists List Location
 var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
-var endN;
-if(nl.length-6 >= 0) {
-    endN = nl.length-6;
-} else {
-    endN = 0;
-}
-for(var i = nl.length-1; i >= endN; i--) {
-    var n = getNews(nl[i]);
-    drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString());
-}
+
+reloadNews();
 
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
