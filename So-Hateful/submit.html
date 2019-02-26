@@ -73,7 +73,7 @@
 	        "ip": userInfo.ip,
 	        "device": JSON.stringify(userInfo.device.device)
             };
-			if(elm.id("img").value) {
+			if(elm.id("img") && elm.id("img").value) {
 				var x = elm.id("img").value;
 				if(x.includes("https://imgur.com/a/") || x.includes("https://m.imgur.com/a/")) {
 				    alert("Upload Failed: image URL wrong.");
