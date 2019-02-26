@@ -32,8 +32,8 @@ function drawNews(title, content, author, time) {
     newsBlock.appendChild(newsDiv);
 }
 function reloadNews() {
-    drawNews("歡迎投稿", "<h3>歡迎任何人投稿: <a href='javascript:location.href=\"submit\"' style='color: blue'>我要投稿！</a></h3>", "ADMIN", "置頂文章");
     document.getElementById("newsBlock").innerHTML = "";
+    drawNews("歡迎投稿", "<h3>歡迎任何人投稿: <a href='javascript:location.href=\"submit\"' style='color: blue'>我要投稿！</a></h3>", "ADMIN", "置頂文章");
     for(var i = nl.length-(1+6*(p-1)); i >= nl.length-(1+6*p); i--) {
         if(i < 0) {break;}
         var n = getNews(nl[i]);
