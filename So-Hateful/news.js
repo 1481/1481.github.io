@@ -4,8 +4,8 @@ var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList(nll[nll.length-1]);
 
 reloadNews();
-document.getElementById("pPage").href = "https://1481.tk/So-Hateful/?p="+((p!=1) ? (parseInt(p)-1) : 1);
-document.getElementById("nPage").href = "https://1481.tk/So-Hateful/?p="+(parseInt(p)+1);
+document.getElementById("pPage").href = "javascript:goPage(?p="+((p!=1) ? (parseInt(p)-1) : 1) + ")";
+document.getElementById("nPage").href = "javascript:goPage(?p="+(parseInt(p)+1) + ")";
 
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
