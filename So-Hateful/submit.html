@@ -39,6 +39,7 @@
 </style>
 <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/element.min.js"></script>
+<script src="convertURL.js"></script>
 </head>
 <body>
     <a style="position: fixed;top: 0.8rem;left: 0.5rem;" onclick="javascript:history.go(-1)">&lt; Back</a>
@@ -67,7 +68,7 @@
         function uploadArticle() {
             var article = {
                 "title": elm.id("title").value,
-                "content": elm.id("content").value,
+                "content": convertURL(elm.id("content")),
                 "author": elm.id("author").value,
                 "time": new Date().toJSON(),
 	        "ip": userInfo.ip,
