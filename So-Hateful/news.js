@@ -6,6 +6,8 @@ var nl = getList(nll[nll.length-1]);
 reloadNews();
 document.getElementById("pPage").href = "javascript:goPage('?p="+((p!=1) ? (parseInt(p)-1) : 1) + "')";
 document.getElementById("nPage").href = "javascript:goPage('?p="+(parseInt(p)+1) + "')";
+document.getElementById("pPageb").href = document.getElementById("pPage").href;
+document.getElementById("nPageb").href = document.getElementById("nPage").href;
 
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
