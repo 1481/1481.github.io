@@ -56,7 +56,8 @@
     <button onclick="checker()" style="font-size: 1.2rem">Upload</button>
     <script>
 		var cantUse = [
-			"jacob"
+			"jacob",
+			"振可"
 		];
         var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
 	function checker() {
@@ -88,7 +89,7 @@
 				article.content += '<br><img src="' + x + '" width="75%"></img>';
 			}
 		if(!reviewSub(elm.id("author").value, cantUse)) {
-			alert("Upload Failed");
+			alert("Upload Failed: Content contains unacceptable words.");
 			return;
 		}
             var newpost = JSON.parse(xhr.post("https://api.myjson.com/bins", JSON.stringify(article))).uri.substr(28);
