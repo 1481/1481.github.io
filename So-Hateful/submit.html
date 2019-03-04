@@ -88,7 +88,7 @@
 				x = "https://imgur.com/download/" + x;
 				article.content += '<br><img src="' + x + '" width="75%"></img>';
 			}
-		if(!reviewSub(elm.id("author").value, cantUse)) {
+		if(!reviewSub(elm.id("author").value, cantUse) || !reviewSub(elm.id("title").value, cantUse)) {
 			alert("Upload Failed: Content contains unacceptable words.");
 			return;
 		}
