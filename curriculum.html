@@ -75,7 +75,7 @@ var thu = cfile[3];
 var fri = cfile[4];
 var ics = [no, mon, tue, wen, thu, fri, no];
 w();
-var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate());
+var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate().toString().padStart(2,"0"));
 document.getElementById("date").value = nowDate;
 setInterval(function(){when();}, 60*1000);
 function w() {
