@@ -1,3 +1,4 @@
+var chosen;
 var p = ((urldata("p")!="://1481.tk/So-Hateful/") ? urldata("p") : 1);
 var nlll = "pqlau"; // News Lists List Location
 var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
@@ -15,7 +16,7 @@ function getList(loc) {
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
-function drawNews(title, content, author, time, n = {}) {
+function drawNews(title, content, author, time, n = {}, id = "") {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
     var newsTitle = document.createElement("h2");
@@ -35,6 +36,8 @@ function drawNews(title, content, author, time, n = {}) {
         newsDiv.innerHTML += '<hr color="lightgray">';
         loadComments(n, newsDiv);
     }
+    newsDiv.setAttribute('data-id', id);
+    newsDiv.onclick = function() {chosen = this.dataset.id;};
     newsBlock.appendChild(newsDiv);
 }
 function reloadNews() {
@@ -43,7 +46,7 @@ function reloadNews() {
     for(var i = nl.length-(1+6*(p-1)); i >= nl.length-(1+6*p); i--) {
         if(i < 0) {break;}
         var n = getNews(nl[i]);
-        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n);
+        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n, nl[i]);
     }
 }
 // Comments Plugin
