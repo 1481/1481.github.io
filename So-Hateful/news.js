@@ -37,7 +37,7 @@ function drawNews(title, content, author, time, n = {}, id = "") {
         loadComments(n, newsDiv);
     }
     newsDiv.setAttribute('data-id', id);
-    newsDiv.onclick = function() {chosen = this.dataset.id;};
+    newsDiv.onclick = function() {chosen = this.dataset.id; elm.id("comment-div").style.display="block";};
     newsBlock.appendChild(newsDiv);
 }
 function reloadNews() {
