@@ -15,7 +15,7 @@ function getList(loc) {
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
-function drawNews(title, content, author, time) {
+function drawNews(title, content, author, time, n = {}) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
     var newsTitle = document.createElement("h2");
@@ -31,6 +31,10 @@ function drawNews(title, content, author, time) {
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
+    if(n.comments) {
+        newsDiv.innerHTML += '<hr color="lightgray">';
+        loadComments(n, newsDiv);
+    }
     newsBlock.appendChild(newsDiv);
 }
 function reloadNews() {
@@ -39,7 +43,7 @@ function reloadNews() {
     for(var i = nl.length-(1+6*(p-1)); i >= nl.length-(1+6*p); i--) {
         if(i < 0) {break;}
         var n = getNews(nl[i]);
-        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString());
+        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n);
     }
 }
 // Comments Plugin
@@ -57,11 +61,14 @@ function uploadComment() {
     console.log(xhr.put(news, JSON.stringify(x)));
 }
 function loadComments(newsObj, mom) {
+    var cq = 0;
     var comments = newsObj.comments;
     for(var i = comments.length - 1; i >= 0; i--) {
         var l = document.createElement("div");
         l.classList.add("comment");
         l.innerHTML = comments[i].content + "  -- " + comments[i].user;
         mom.appendChild(l);
+        cq++;
     }
+    return cq;
 }
