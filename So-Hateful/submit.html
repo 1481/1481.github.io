@@ -1,103 +1,103 @@
 
 <html>
 <head>
-<title>NEW SUBMIT - HSNU 1481</title>
-<link href="../css/index.css" type="text/css" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1" >
-<style>
-    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-    body {
-        font-family: 'Noto Sans TC', sans-serif;
-        background-color: #3a85ff;
-        color: white;
-        margin-top: 1rem;
-        text-align: center;
-    }
-    a {
-        color: #00fff5;
-        text-decoration: none;
-    }
-    a:hover {
-        color: skyblue;
-        text-decoration: none;
-    }
-    a:visited {
-        color: #00fff5;
-        text-decoration: none;
-    }
-    input {
-		border: 0;
-		-webkit-appearance: none;
-		height: 2.6rem;
-		font-size: 1.15rem;
-    }
-    textarea {
-        border: 0;
-		-webkit-appearance: none;
-		font-size: 1.15rem;
-    }
-</style>
-<script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/element.min.js"></script>
-<script src="convertURL.js"></script>
+    <title>NEW SUBMIT - HSNU 1481</title>
+    <link href="../css/index.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #3a85ff;
+            color: white;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        a {
+            color: #00fff5;
+            text-decoration: none;
+        }
+        a:hover {
+            color: skyblue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #00fff5;
+            text-decoration: none;
+        }
+        input {
+            border: 0;
+            -webkit-appearance: none;
+            height: 2.6rem;
+            font-size: 1.15rem;
+        }
+        textarea {
+            border: 0;
+            -webkit-appearance: none;
+            font-size: 1.15rem;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/element.min.js"></script>
+    <script src="convertURL.js"></script>
 </head>
 <body>
     <a style="position: fixed;top: 0.8rem;left: 0.5rem;" onclick="javascript:history.go(-1)">&lt; Back</a>
     <h1>NEW SUBMIT</h1>
     <h3>Article Title</h3>
-  	<input id="title" type="text" placeholder="Title" style="width: 80%; max-width: 35rem;">
+    <input id="title" type="text" placeholder="Title" style="width: 80%; max-width: 35rem;">
     <h3>Content</h3>
-	<textarea id="content" type="text" rows="5" placeholder="Content" style="width: 80%; max-width: 35rem;"></textarea>
-	<br><button onclick="showInfo(this)">How To Upload Image?</button>
+    <textarea id="content" type="text" rows="5" placeholder="Content" style="width: 80%; max-width: 35rem;"></textarea>
+    <br><button onclick="showInfo(this)">How To Upload Image?</button>
     <h3>Author</h3>
-  	<input id="author" type="text" placeholder="Author" style="width: 80%; max-width: 35rem;">
+    <input id="author" type="text" placeholder="Author" style="width: 80%; max-width: 35rem;">
     <br>
     <br>
     <button onclick="checker()" style="font-size: 1.2rem">Upload</button>
     <script>
-		var cantUse = [
-			"jacob",
-			"振可"
-		];
+        var cantUse = [
+            "jacob",
+            "振可"
+        ];
         var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
-	function checker() {
-	    if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
-	       return;
-	    }
-	    uploadArticle();
-	}
+        function checker() {
+            if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
+                return;
+            }
+            uploadArticle();
+        }
         function uploadArticle() {
             var article = {
                 "title": elm.id("title").value,
                 "content": convertURL(elm.id("content")),
                 "author": elm.id("author").value,
                 "time": new Date().toJSON(),
-	        "ip": userInfo.ip,
-	        "device": JSON.stringify(userInfo.device.device)
+                "ip": userInfo.ip,
+                "device": JSON.stringify(userInfo.device.device)
             };
-			if(elm.id("img") && elm.id("img").value) {
-				var x = elm.id("img").value;
-				if(x.includes("https://imgur.com/a/") || x.includes("https://m.imgur.com/a/")) {
-				    alert("Upload Failed: image URL wrong.");
-				    return;
-				}
-				x = x.replace("https://imgur.com/", "");
-				x = x.replace("http://imgur.com/", "");
-				x = x.replace("https://m.imgur.com/", "");
-				x = x.replace("http://m.imgur.com/", "");
-				x = "https://imgur.com/download/" + x;
-				article.content += '<br><img src="' + x + '" width="75%"></img>';
-			}
-		if(!reviewSub(elm.id("author").value, cantUse) || !reviewSub(elm.id("title").value, cantUse)) {
-			alert("Upload Failed: Content contains unacceptable words.");
-			return;
-		}
+            if(elm.id("img") && elm.id("img").value) {
+                var x = elm.id("img").value;
+                if(x.includes("https://imgur.com/a/") || x.includes("https://m.imgur.com/a/")) {
+                    alert("Upload Failed: image URL wrong.");
+                    return;
+                }
+                x = x.replace("https://imgur.com/", "");
+                x = x.replace("http://imgur.com/", "");
+                x = x.replace("https://m.imgur.com/", "");
+                x = x.replace("http://m.imgur.com/", "");
+                x = "https://imgur.com/download/" + x;
+                article.content += '<br><img src="' + x + '" width="75%"></img>';
+            }
+            if(!reviewSub(elm.id("author").value, cantUse) || !reviewSub(elm.id("title").value, cantUse)) {
+                alert("Upload Failed: Content contains unacceptable words.");
+                return;
+            }
             var newpost = JSON.parse(xhr.post("https://api.myjson.com/bins", JSON.stringify(article))).uri.substr(28);
             var nl = xhr.json("https://api.myjson.com/bins/" + nll[nll.length-1]);
             nl.push(newpost);
             xhr.put("https://api.myjson.com/bins/" + nll[nll.length-1], JSON.stringify(nl));
             alert("Article Uploaded!");
-	    location.href = "./";
+            location.href = "./";
         }
         function showInfo(tar) {
             var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload' target='_blank'>imgur.com</a>.<br>Step 2: Paste the image URL below. (something like https://imgur.com/XXXXXXX or https://m.imgur.com/XXXXXXX, NOT https://imgur.com/a/XXXXXXX)<br><input id='img'></div>";
