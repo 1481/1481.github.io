@@ -1,127 +1,127 @@
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="icon" href="icon.jpg" type="image/ico"/>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="icon.jpg">
-<link rel="apple-touch-startup-image" href="icon.jpg">
-<title>1481 課表</title>
-<style>
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-html, body {
-	font-family: 'Noto Sans TC', Arial, sans-serif;
-	font-size: 18px;
-	text-align: center;
-	width: 98%;
-	margin-top: 1rem;
-	background-color: #3a85ff;
-}
-table {
-	font-size: 1.6rem;
-	text-align: center;
-	margin: 0 auto;
-	width: 90%;
-	max-width: 20rem;
-}
-td {
-	width: 50%;
-}
-.now {
-	color: white;
-}
-a {
-	color: #00fff5;
-	text-decoration: none;
-}
-a:hover {
-	color: skyblue;
-	text-decoration: none;
-}
-a:visited {
-	color: #00fff5;
-	text-decoration: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="icon.jpg" type="image/ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon.jpg">
+    <link rel="apple-touch-startup-image" href="icon.jpg">
+    <title>1481 課表</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        html, body {
+            font-family: 'Noto Sans TC', Arial, sans-serif;
+            font-size: 18px;
+            text-align: center;
+            width: 98%;
+            margin-top: 1rem;
+            background-color: #3a85ff;
+        }
+        table {
+            font-size: 1.6rem;
+            text-align: center;
+            margin: 0 auto;
+            width: 90%;
+            max-width: 20rem;
+        }
+        td {
+            width: 50%;
+        }
+        .now {
+            color: white;
+        }
+        a {
+            color: #00fff5;
+            text-decoration: none;
+        }
+        a:hover {
+            color: skyblue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #00fff5;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-<a style="position: fixed;top: 0.8rem;left: 0.5rem;" onclick="javascript:history.go(-1)">&lt; Back</a>
-日期: <input type="date" id="date" onchange="f()">
-<table>
-<tr><th>課表</th><th id="wk"></th></tr>
-<tr id="r1"><th>8:10~9:00</th><td id="l1"></td></tr>
-<tr id="r2"><th>9:10~10:00</th><td id="l2"></td></tr>
-<tr id="r3"><th>10:10~11:00</th><td id="l3"></td></tr>
-<tr id="r4"><th>11:10~12:00</th><td id="l4"></td></tr>
-<tr id="r5"><th>13:00~13:50</th><td id="l5"></td></tr>
-<tr id="r6"><th>14:00~14:50</th><td id="l6"></td></tr>
-<tr id="r7"><th>15:10~16:00</th><td id="l7"></td></tr>
-<tr id="r8"><th>16:10~17:00</th><td id="l8"></td></tr>
-<tr class="now"><td id="afterSchool" colspan="2"></td></tr>
-</table>
-<script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
-<script>
-var d = new Date();
-var today = d.getDay();
-var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-var cfile = xhr.json("curriculums/107.2.json");
-var no = ["假日", "假日", "假日", "假日", "假日", "假日", "假日", "假日"];
-var mon = cfile[0];
-var tue = cfile[1];
-var wen = cfile[2];
-var thu = cfile[3];
-var fri = cfile[4];
-var ics = [no, mon, tue, wen, thu, fri, no];
-w();
-var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate().toString().padStart(2,"0"));
-document.getElementById("date").value = nowDate;
-setInterval(function(){when();}, 60*1000);
-function w() {
-document.getElementById("wk").innerHTML = days[today];
-document.getElementById("l1").innerHTML = ics[today][0];
-document.getElementById("l2").innerHTML = ics[today][1];
-document.getElementById("l3").innerHTML = ics[today][2];
-document.getElementById("l4").innerHTML = ics[today][3];
-document.getElementById("l5").innerHTML = ics[today][4];
-document.getElementById("l6").innerHTML = ics[today][5];
-document.getElementById("l7").innerHTML = ics[today][6];
-document.getElementById("l8").innerHTML = ics[today][7];
-when();
-}
-function f() {
-	var date = document.getElementById("date").value;
-	var nd = new Date(date);
-	today = nd.getDay();
-	w();
-}
-function when() {
-for(var i = 1; i< 9; i++) {
-document.getElementById("r"+i).className = "";
-}
-document.getElementById("afterSchool").innerHTML = "";
-var le;
-switch(new Date().getHours()) {
-case 8:le = 1;break;
-case 9:le = 2;break;
-case 10:le = 3;break;
-case 11:le = 4;break;
-case 12:le = -2;break;
-case 13:le = 5;break;
-case 14:le = 6;break;
-case 15:le = 7;break;
-case 16:le = 8;break;
-default:le = -1;
-}
-if(le>-1) {
-document.getElementById("r"+le).className = "now";
-} else if(le==-2) {
-document.getElementById("afterSchool").innerHTML = "目前午休中！";
-} else {
-document.getElementById("afterSchool").innerHTML = "已經放學囉！";
-}
-}
-</script>
+    <a style="position: fixed;top: 0.8rem;left: 0.5rem;" onclick="javascript:history.go(-1)">&lt; Back</a>
+    日期: <input type="date" id="date" onchange="f()">
+    <table>
+        <tr><th>課表</th><th id="wk"></th></tr>
+        <tr id="r1"><th>8:10~9:00</th><td id="l1"></td></tr>
+        <tr id="r2"><th>9:10~10:00</th><td id="l2"></td></tr>
+        <tr id="r3"><th>10:10~11:00</th><td id="l3"></td></tr>
+        <tr id="r4"><th>11:10~12:00</th><td id="l4"></td></tr>
+        <tr id="r5"><th>13:00~13:50</th><td id="l5"></td></tr>
+        <tr id="r6"><th>14:00~14:50</th><td id="l6"></td></tr>
+        <tr id="r7"><th>15:10~16:00</th><td id="l7"></td></tr>
+        <tr id="r8"><th>16:10~17:00</th><td id="l8"></td></tr>
+        <tr class="now"><td id="afterSchool" colspan="2"></td></tr>
+    </table>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
+    <script>
+        var d = new Date();
+        var today = d.getDay();
+        var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+        var cfile = xhr.json("curriculums/107.2.json");
+        var no = ["假日", "假日", "假日", "假日", "假日", "假日", "假日", "假日"];
+        var mon = cfile[0];
+        var tue = cfile[1];
+        var wen = cfile[2];
+        var thu = cfile[3];
+        var fri = cfile[4];
+        var ics = [no, mon, tue, wen, thu, fri, no];
+        w();
+        var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate().toString().padStart(2,"0"));
+        document.getElementById("date").value = nowDate;
+        setInterval(function(){when();}, 60*1000);
+        function w() {
+            document.getElementById("wk").innerHTML = days[today];
+            document.getElementById("l1").innerHTML = ics[today][0];
+            document.getElementById("l2").innerHTML = ics[today][1];
+            document.getElementById("l3").innerHTML = ics[today][2];
+            document.getElementById("l4").innerHTML = ics[today][3];
+            document.getElementById("l5").innerHTML = ics[today][4];
+            document.getElementById("l6").innerHTML = ics[today][5];
+            document.getElementById("l7").innerHTML = ics[today][6];
+            document.getElementById("l8").innerHTML = ics[today][7];
+            when();
+        }
+        function f() {
+            var date = document.getElementById("date").value;
+            var nd = new Date(date);
+            today = nd.getDay();
+            w();
+        }
+        function when() {
+            for(var i = 1; i< 9; i++) {
+                document.getElementById("r"+i).className = "";
+            }
+            document.getElementById("afterSchool").innerHTML = "";
+            var le;
+            switch(new Date().getHours()) {
+                case 8:le = 1;break;
+                case 9:le = 2;break;
+                case 10:le = 3;break;
+                case 11:le = 4;break;
+                case 12:le = -2;break;
+                case 13:le = 5;break;
+                case 14:le = 6;break;
+                case 15:le = 7;break;
+                case 16:le = 8;break;
+                default:le = -1;
+            }
+            if(le>-1) {
+                document.getElementById("r"+le).className = "now";
+            } else if(le==-2) {
+                document.getElementById("afterSchool").innerHTML = "目前午休中！";
+            } else {
+                document.getElementById("afterSchool").innerHTML = "已經放學囉！";
+            }
+        }
+    </script>
 </body>
 </html>
