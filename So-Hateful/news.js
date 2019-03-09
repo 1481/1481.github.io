@@ -10,6 +10,8 @@ document.getElementById("nPage").href = "javascript:goPage('?p="+(parseInt(p)+1)
 document.getElementById("pPageb").href = document.getElementById("pPage").href;
 document.getElementById("nPageb").href = document.getElementById("nPage").href;
 
+document.querySelector('a').addEventListener('click', function(e) {e.stopPropagation();}, false);
+
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
