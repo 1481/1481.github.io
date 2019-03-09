@@ -29,6 +29,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.innerHTML = "#" + number;
     newsId.style.position = "absolute";
     newsId.style.margin = "1rem";
+    newsId.onclick = function(event) {window.open("https://1481.tk/So-Hateful/share?id="+this.innerHTML.substr(1));event.stopPropagation();};
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
