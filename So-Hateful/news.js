@@ -34,6 +34,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsDiv.className = "News w3-card w3-round-large w3-white w3-margin";
     newsFooter.style.whiteSpace = "pre";
 
+    newsDiv.appendChild(newsId);
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
