@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>So Hateful Shared - HSNU 1481</title>
+    <link href="../css/index.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/urldata.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../icon.jpg" type="image/ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="../icon.jpg">
+    <link rel="apple-touch-startup-image" href="../icon.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #3a85ff;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        h1#title {
+            color: white;
+        }
+        a {
+            color: #00fff5;
+            text-decoration: none;
+        }
+        a:hover {
+            color: skyblue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #00fff5;
+            text-decoration: none;
+        }
+        .News {
+            width: 90%;
+            display: inline-block;
+            word-break: break-word;
+        }
+        .comment {
+            margin: -0.4rem 2rem 0.8rem 2rem;
+        }
+        @media only screen and (min-width: 800px) {
+            .News {
+                width: 60%;
+            }
+        }
+        @media only screen and (min-width: 1200px) {
+            .News {
+                width: 40%;
+                margin: 16px 20%!important;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/xhr.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/element.js"></script>
+</head>
+<body>
+    <a href="https://1481.tk/So-Hateful/"><h1 id="title">So Hateful</h1></a>
+    <div id="newsBlock"></div>
+    <div id="comment-div" class="w3-display-container w3-lightgray" style="z-index: 10; position: fixed; display: none">
+        <div class="w3-display-middle w3-white w3-card w3-round w3-padding" style="position: fixed;">
+            <p style="text-align: right; margin: -0.1rem; font-size: 1.6rem; cursor: pointer;" onclick="elm.id('comment-div').style.display='none'">✕</p>
+            <h3>Comment</h3>
+            <textarea id="comment-content" class="w3-input" style="width: 20rem;"></textarea>
+            <h3>Author</h3>
+            <input id="comment-user" class="w3-input" style="width: 20rem;">
+            <br>
+            <button class="w3-button" onclick="elm.id('comment-div').style.display='none';uploadComment()">Upload</button>
+        </div>
+    </div>
+    <script src="../js/some.js" async></script>
+    <script src="onenews.js" defer></script>
+    <script src="convertURL.js" defer></script>
+</body>
+</html>
