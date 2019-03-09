@@ -22,13 +22,13 @@ function drawNews(title, content, author, time, n = {}, id = "") {
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("p");
-    
+
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
     newsFooter.innerHTML = "Author: "+author+"\t\t"+time;
     newsDiv.className = "News w3-card w3-round-large w3-white w3-margin";
     newsFooter.style.whiteSpace = "pre";
-    
+
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
@@ -56,6 +56,7 @@ function uploadComment() {
         "user": elm.id("comment-user").value,
         "time": new Date().toJSON()
     };
+    var news = "https://api.myjson.com/bins/" + chosen;
     var x = xhr.json(news);
     if(typeof(x.comments) == "undefined") {
         x.comments = [];
