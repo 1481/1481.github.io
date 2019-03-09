@@ -1,6 +1,9 @@
 var chosen;
-var nid = ((urldata("id")!="://1481.tk/So-Hateful/share") ? urldata("id") : -1);
+var nid = (!urldata("id").includes("1481.tk/So-Hateful/") ? urldata("id") : -1);
 nid = parseInt(nid);
+if(nid<0) {
+    location.href="./";
+}
 var nlll = "pqlau"; // News Lists List Location
 //var nll = xhr.json("https://api.myjson.com/bins/"+nlll);
 var nl = getList("ojq3a");
