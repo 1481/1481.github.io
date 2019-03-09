@@ -16,12 +16,17 @@ function getList(loc) {
 function getNews(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
-function drawNews(title, content, author, time, n = {}, id = "") {
+function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
+    var newsId = document.createElement("p");
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("p");
+
+    newsId.innerHTML = "#" + number;
+    newsId.style.position = "absolute";
+    newsId.style.margin = "1rem";
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
@@ -46,7 +51,7 @@ function reloadNews() {
     for(var i = nl.length-(1+6*(p-1)); i >= nl.length-(1+6*p); i--) {
         if(i < 0) {break;}
         var n = getNews(nl[i]);
-        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n, nl[i]);
+        drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n, nl[i], i);
     }
 }
 // Comments Plugin
@@ -63,6 +68,7 @@ function uploadComment() {
     }
     x.comments.push(comment);
     console.log(xhr.put(news, JSON.stringify(x)));
+    reloadNews();
 }
 function loadComments(newsObj, mom) {
     var cq = 0;
