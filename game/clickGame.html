@@ -22,7 +22,7 @@ function makeMoney() {
         points += 500 + parseInt(500 * Math.random());
         localStorage.clickGamePoints = points;
     } else {
-        var x = TIME(Date.now()-localStorage.clickGameTime);
+        var x = TIME((60*60*1000+time)-Date.now());
         alert("You have to wait "+x[0]+" hours, "+x[1]+" minutes, "+x[2]+" seconds, and "+x[3]+" milliseconds to use that again.");
     }
     document.getElementById("p").innerHTML = points;
