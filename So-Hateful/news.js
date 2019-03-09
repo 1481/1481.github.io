@@ -33,7 +33,7 @@ function drawNews(title, content, author, time, n = {}, id = "") {
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
     if(n.comments) {
-        newsDiv.innerHTML += '<hr color="lightgray">';
+        newsDiv.innerHTML += '<hr color="lightgray" style="box-shadow: 0 3px 6px 0 rgb(0,0,0);">';
         loadComments(n, newsDiv);
     }
     newsDiv.setAttribute('data-id', id);
@@ -69,8 +69,16 @@ function loadComments(newsObj, mom) {
     var comments = newsObj.comments;
     for(var i = comments.length - 1; i >= 0; i--) {
         var l = document.createElement("div");
+        var c = document.createElement("span");
+        var u = document.createElement("span");
         l.classList.add("comment");
-        l.innerHTML = comments[i].content + "  -- " + comments[i].user;
+        c.style.float = "left";
+        u.style.float = "right";
+        u.style.color = "gray";
+        c.innerHTML = comments[i].content;
+        u.innerHTML = " -- " + comments[i].user;
+        l.appendChild(c);
+        l.appendChild(u);
         mom.appendChild(l);
         cq++;
     }

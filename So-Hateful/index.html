@@ -41,6 +41,9 @@
             display: inline-block;
             word-break: break-word;
         }
+        comment {
+            margin: -0.4rem 2rem 0.8rem 2rem;
+        }
         @media only screen and (min-width: 800px) {
             .News {
                 width: 60%;
@@ -78,7 +81,7 @@
             <h3>Author</h3>
             <input id="comment-user" class="w3-input" style="width: 20rem;">
             <br>
-            <button class="w3-button" onclick="uploadComment()">Upload</button>
+            <button class="w3-button" onclick="elm.id('comment-div').style.display='none';uploadComment()">Upload</button>
         </div>
     </div>
     <script src="../js/some.js" async></script>
