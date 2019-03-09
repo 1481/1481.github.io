@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Click Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="text-align: center">
+<br>
+<h2>Your Balance: <span id="p"></span></h2>
+<button id="makeMoney" onclick="makeMoney()"></button>
+<br>
+
+<script>
+var time = localStorage.clickGameTime ? parseInt(localStorage.clickGameTime) : 0;
+var points = localStorage.clickGamePoints ? parseInt(localStorage.clickGamePoints) : 0;
+document.getElementById("p").innerHTML = points;
+
+function makeMoney() {
+    if(Date.now() > time + 60*60*1000) {
+        localStorage.clickGameTime = Date.now();
+        points += 500 + 500*Math.random();
+        localStorage.clickGamePoints = points;
+    } else {
+        alert("You have to wait");
+    }
+    document.getElementById("p").innerHTML = points;
+}
+
+</script>
+</body>
+</html>
