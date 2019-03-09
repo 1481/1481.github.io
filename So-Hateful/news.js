@@ -67,12 +67,13 @@ function uploadComment() {
 function loadComments(newsObj, mom) {
     var cq = 0;
     var comments = newsObj.comments;
-    for(var i = comments.length - 1; i >= 0; i--) {
+    for(var i =  0; i < comments.length; i--) {
         let l = document.createElement("div");
         let c = document.createElement("span");
         let u = document.createElement("span");
         l.classList.add("comment");
         c.style.float = "left";
+        c.style.clear = "left";
         u.style.float = "right";
         u.style.color = "gray";
         c.innerHTML = comments[i].content;
