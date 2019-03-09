@@ -22,11 +22,27 @@ function makeMoney() {
         points += 500 + parseInt(500 * Math.random());
         localStorage.clickGamePoints = points;
     } else {
-        alert("You have to wait 1 hour to use that again.");
+        var x = TIME(Date.now()-localStorage.clickGameTime);
+        alert("You have to wait "+x[0]+" hours, "+x[1]+" minutes, "+x[2]+" seconds, and "+x[3]+" milliseconds to use that again.");
     }
     document.getElementById("p").innerHTML = points;
 }
-
+function TIME(time) {
+    var h=0, m=0, s=0;
+    while(time>=60*60*1000) {
+        time -= (60*60*1000);
+        h++;
+    }
+    while(time>=60*1000) {
+        time -= (60*1000);
+        m++;
+    }
+    while(time>=1000) {
+        time -= (1000);
+        s++;
+    }
+    return [h, m, s, time];
+}
 </script>
 </body>
 </html>
