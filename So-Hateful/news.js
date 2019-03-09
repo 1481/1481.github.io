@@ -60,7 +60,7 @@ function reloadNews() {
 // Comments Plugin
 function uploadComment() {
     var comment = {
-        "content": elm.id("comment-content").value,
+        "content": convertURL(elm.id("comment-content")),
         "user": elm.id("comment-user").value,
         "time": new Date().toJSON()
     };
