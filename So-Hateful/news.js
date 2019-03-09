@@ -65,6 +65,9 @@ function uploadComment() {
         "user": elm.id("comment-user").value,
         "time": new Date().toJSON()
     };
+    if(!comment.content || !comment.user) {
+        return;
+    }
     var news = "https://api.myjson.com/bins/" + chosen;
     var x = xhr.json(news);
     if(typeof(x.comments) == "undefined") {
