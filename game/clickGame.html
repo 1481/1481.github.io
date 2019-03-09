@@ -7,7 +7,7 @@
 <body style="text-align: center">
 <br>
 <h2>Your Balance: <span id="p"></span></h2>
-<button id="makeMoney" onclick="makeMoney()"></button>
+<button id="makeMoney" onclick="makeMoney()">Give Me Money!</button>
 <br>
 
 <script>
@@ -18,10 +18,11 @@ document.getElementById("p").innerHTML = points;
 function makeMoney() {
     if(Date.now() > time + 60*60*1000) {
         localStorage.clickGameTime = Date.now();
-        points += 500 + 500*Math.random();
+        time = localStorage.clickGameTime;
+        points += 500 + parseInt(500 * Math.random());
         localStorage.clickGamePoints = points;
     } else {
-        alert("You have to wait");
+        alert("You have to wait 1 hour to use that again.");
     }
     document.getElementById("p").innerHTML = points;
 }
