@@ -77,7 +77,7 @@ function loadComments(newsObj, mom) {
         u.style.float = "right";
         u.style.color = "gray";
         c.innerHTML = comments[i].content;
-        u.innerHTML = " -- " + comments[i].user + "  " + new Date(comments[i].time).toLocaleString();
+        u.innerHTML = " -- " + comments[i].user + " - " + new Date(comments[i].time).toLocaleString();
         l.appendChild(c);
         l.appendChild(u);
         mom.appendChild(l);
