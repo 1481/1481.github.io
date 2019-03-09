@@ -68,9 +68,9 @@ function loadComments(newsObj, mom) {
     var cq = 0;
     var comments = newsObj.comments;
     for(var i = comments.length - 1; i >= 0; i--) {
-        var l = document.createElement("div");
-        var c = document.createElement("span");
-        var u = document.createElement("span");
+        let l = document.createElement("div");
+        let c = document.createElement("span");
+        let u = document.createElement("span");
         l.classList.add("comment");
         c.style.float = "left";
         u.style.float = "right";
