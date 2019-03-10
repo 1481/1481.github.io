@@ -79,6 +79,7 @@ function loadComments(newsObj, mom) {
         l.classList.add("comment");
         c.style.float = "left";
         c.style.clear = "left";
+        c.style.textAlign = "left";
         u.style.float = "right";
         u.style.color = "gray";
         c.innerHTML = comments[i].content;
