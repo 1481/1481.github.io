@@ -86,6 +86,7 @@ function loadComments(newsObj, mom) {
         let u = document.createElement("span");
         l.classList.add("comment");
         c.style.float = "left";
+        c.style.textAlign = "left";
         c.style.clear = "left";
         u.style.float = "right";
         u.style.color = "gray";
