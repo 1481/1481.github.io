@@ -67,6 +67,12 @@
             uploadArticle();
         }
         function uploadArticle() {
+            if(Date.now() < 5*60*1000 + localStorage.submitCoolDown) {
+                alert("Please wait about 5 minutes to upload again.");
+                return;
+            } else {
+                localStorage.submitCoolDown = Date.now();
+            }
             var article = {
                 "title": elm.id("title").value,
                 "content": convertURL(elm.id("content")),
