@@ -31,7 +31,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.style.color = "#3a85ff";
     newsId.style.margin = "1rem";
     newsId.target = "_blank";
-    newsId.href = "javascript:window.open('https://1481.tk/So-Hateful/share?id="+number+"', '_blank');event.cancelBubble=true;";
+    newsId.href = "javascript:window.open('https://1481.tk/So-Hateful/share?id="+number+"', '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);";
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
