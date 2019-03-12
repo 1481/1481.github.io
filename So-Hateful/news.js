@@ -32,7 +32,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.style.margin = "1rem";
     newsId.target = "_blank";
     newsId.href = "https://1481.tk/So-Hateful/share?id="+number;
-    newsId.addEventListener('click', function(e) {e.stopPropagation();}, false);
+    newsId.addEventListener('click', function(event){event.stopImmediatePropagation();}, false);
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
