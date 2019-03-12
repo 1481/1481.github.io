@@ -27,6 +27,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsFooter = document.createElement("p");
 
     newsId.innerHTML = "#" + number;
+    newsId.style.display = "block";
     newsId.style.position = "absolute";
     newsId.style.margin = "1rem";
     newsId.target = "_blank";
