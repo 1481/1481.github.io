@@ -10,7 +10,6 @@ document.getElementById("nPage").href = "javascript:goPage('?p="+(parseInt(p)+1)
 document.getElementById("pPageb").href = document.getElementById("pPage").href;
 document.getElementById("nPageb").href = document.getElementById("nPage").href;
 
-document.querySelector('a').addEventListener('click', function(e) {e.stopPropagation();}, false);
 
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
@@ -33,6 +32,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.style.margin = "1rem";
     newsId.target = "_blank";
     newsId.href = "https://1481.tk/So-Hateful/share?id="+number;
+    newsId.addEventListener('click', function(e) {e.stopPropagation();}, false);
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
