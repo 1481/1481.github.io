@@ -21,7 +21,7 @@ function getNews(loc) {
 function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
-    var newsId = document.createElement("p");
+    var newsId = document.createElement("a");
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("p");
@@ -29,7 +29,8 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.innerHTML = "#" + number;
     newsId.style.position = "absolute";
     newsId.style.margin = "1rem";
-    newsId.onclick = function(event) {window.open("https://1481.tk/So-Hateful/share?id="+number);event.stopPropagation();};
+    newsId.target = "_blank";
+    newsId.href = "https://1481.tk/So-Hateful/share?id="+number;
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
