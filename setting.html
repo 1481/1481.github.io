@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Settings - HSNU 1481</title>
+    <link href="css/home.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="icon.jpg" type="image/ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon.jpg">
+    <link rel="apple-touch-startup-image" href="icon.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .hide {
+            display: none;
+        }
+        // NEW BG
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            background: linear-gradient(#4179fc,pink);
+            padding: 0.5rem 0 0 0;
+            background-repeat: no-repeat;
+            //background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <h2>SETTINGS</h2>
+    <div id="settings">
+        <div>
+            <a href="javascript:goPage('curriculum')">線上查看課表</a>
+        </div>
+        <br/>
+        <div> <a href="javascript:goPage('news')">NEWS</a> </div>
+        <br/>
+        <div> <a href="javascript:goPage('So-Hateful')">So Hateful</a> </div>
+        <br/>
+        <div> <a href="javascript:goPage('game')">GAMES</a> </div>
+        <br/>
+        <div class="hide"> <a href="javascript:goPage('資專')">資訊專研</a> </div>
+    </div>
+    <script src="js/some.js"></script>
+    <script>window.scrollTo(0,24);</script>
+</body>
+</html>
