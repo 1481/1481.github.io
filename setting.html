@@ -46,7 +46,7 @@
     <div id="settings" style="position: relative; text-align: center;">
         <div class="setting-item">
             <label class="setting-label">Web Font: </label>
-            <select>
+            <select id="sysfont" class="setting-input">
                 <option value="0">Noto Sans TC (Default)</option>
                 <option value="1">Noto Serif TC</option>
                 <option value="2">Arial</option>
@@ -76,5 +76,19 @@
     </div>
     <script src="js/some.js"></script>
     <script>window.scrollTo(0,24);</script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js" defer></script>
+    <script>
+        var fontsList = xhr.json("fonts.json");
+        
+        function save() {
+            localStorage["SysFont"] = JSON.stringify(fontsList[document.getElementById("sysfont").value]);
+            if(document.getElementById("sysfont").value) {
+                localStorage["SysHomeImage"] = document.getElementById("sysfont").value;
+            } else {
+                localStorage["SysUseHomeImage"] = "false";
+                localStorage["SysHomeImage"] = "";
+            }
+        }
+    </script>
 </body>
 </html>
