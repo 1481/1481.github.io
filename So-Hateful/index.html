@@ -89,5 +89,12 @@
     <script src="../js/some.js" async></script>
     <script src="news.js" defer></script>
     <script src="convertURL.js" defer></script>
+    <style id="custom-style-tag"></style>
+    <script>
+        if(localStorage["SysFont"]) {
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+        }
+    </script>
 </body>
 </html>
