@@ -87,9 +87,10 @@
             localStorage["SysFont"] = JSON.stringify(fontsList[document.getElementById("sysfont").value]);
             // Home Image
             if(document.getElementById("homeImg").value) {
+                localStorage["SysUseHomeImage"] = "1";
                 localStorage["SysHomeImage"] = document.getElementById("homeImg").value;
             } else {
-                localStorage["SysUseHomeImage"] = "0";
+                localStorage["SysUseHomeImage"] = "";
                 localStorage["SysHomeImage"] = "";
             }
             // EOF
