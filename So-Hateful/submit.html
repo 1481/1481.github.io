@@ -42,7 +42,8 @@
     <script src="convertURL.js"></script>
 </head>
 <body>
-    <a style="position: fixed;top: 0.8rem;left: 0.5rem;" onclick="javascript:history.go(-1)">&lt; Back</a>
+    <a style="position: fixed;top: 0.8rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
+    <a style="position: fixed;top: 0.8rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
     <h1>NEW SUBMIT</h1>
     <h3>Article Title</h3>
     <input id="title" type="text" placeholder="Title" style="width: 80%; max-width: 35rem;">
@@ -112,5 +113,12 @@
     </script>
     <script src="review.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.4/js/userInfo.js"></script>
+    <style id="custom-style-tag"></style>
+    <script>
+        if(localStorage["SysFont"]) {
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+        }
+    </script>
 </body>
 </html>
