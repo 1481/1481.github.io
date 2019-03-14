@@ -56,7 +56,8 @@
             document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name;
         }
         if(localStorage["SysUseHomeImage"]) {
-            document.body.style.backgroundImage = "url('"+localStorage["SysHomeImage"]+"')";
+            document.body.style.background = "url('"+localStorage["SysHomeImage"]+"') no-repeat center center fixed";
+            document.body.style.backgroundSize = "cover";
         }
     </script>
 </body>
