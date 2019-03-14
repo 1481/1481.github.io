@@ -31,6 +31,7 @@
             //background-attachment: fixed;
         }
     </style>
+    <style id="custom-style-tag"></style>
 </head>
 <body>
     <h1>HSNU 1481</h1>
@@ -49,5 +50,14 @@
     <a style="position: fixed;bottom: 0.5rem;right: 0.5rem;" href="status">Status</a>
     <script src="js/some.js"></script>
     <script>window.scrollTo(0,24);</script>
+    <script>
+        if(localStorage["SysFont"]) {
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name;
+        }
+        if(localStorage["SysUseHomeImage"]) {
+            document.body.style.backgroundImage = "url('"+localStorage["SysHomeImage"]+"')";
+        }
+    </script>
 </body>
 </html>
