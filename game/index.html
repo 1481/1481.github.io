@@ -33,7 +33,11 @@ a:visited {
 <p><a href="javascript:location.href='dotGame'">PLAY</a></p>
 <h2>Click Game</h2>
 <p><a href="javascript:location.href='clickGame'">PLAY</a></p>
-<script>
-    
-</script>
+    <style id="custom-style-tag"></style>
+    <script>
+        if(localStorage["SysFont"]) {
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+        }
+    </script>
 </body>
