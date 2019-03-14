@@ -53,7 +53,7 @@
     <script>
         if(localStorage["SysFont"]) {
             document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name;
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
         }
         if(localStorage["SysUseHomeImage"]) {
             document.body.style.background = "url('"+localStorage["SysHomeImage"]+"') no-repeat center center fixed";
