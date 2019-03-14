@@ -57,7 +57,7 @@
         </div>
         <div class="setting-item">
             <label class="setting-label">Homepage Image: </label>
-            <input id="" class="setting-input" placeholder="Image URL"></input>
+            <input id="homeImg" class="setting-input" placeholder="Image URL"></input>
         </div>
         <div class="setting-item hide">
             <label class="setting-label"></label>
@@ -81,13 +81,16 @@
         var fontsList = xhr.json("fonts.json");
         
         function save() {
+            // Font
             localStorage["SysFont"] = JSON.stringify(fontsList[document.getElementById("sysfont").value]);
-            if(document.getElementById("sysfont").value) {
-                localStorage["SysHomeImage"] = document.getElementById("sysfont").value;
+            // Home Image
+            if(document.getElementById("homeImg").value) {
+                localStorage["SysHomeImage"] = document.getElementById("homeImg").value;
             } else {
-                localStorage["SysUseHomeImage"] = "false";
+                localStorage["SysUseHomeImage"] = "0";
                 localStorage["SysHomeImage"] = "";
             }
+            // EOF
         }
     </script>
 </body>
