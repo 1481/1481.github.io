@@ -93,7 +93,7 @@
     <style id="custom-style-tag"></style>
     <script>
         if(localStorage["SysFont"]) {
-            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');h1, h2, h3 {font-family: "+JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important;}";
             document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important";
         }
     </script>
