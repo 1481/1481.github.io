@@ -94,7 +94,7 @@
     <script>
         if(localStorage["SysFont"]) {
             document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important";
         }
     </script>
 </body>
