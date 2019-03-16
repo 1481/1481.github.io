@@ -24,7 +24,7 @@ div#wrap {
     text-align: center;
 }
 a {
-	color: #00fff5;
+	color: aqua;
 	text-decoration: none;
 }
 a:hover {
@@ -32,6 +32,6 @@ a:hover {
 	text-decoration: none;
 }
 a:visited {
-	color: #00fff5;
+	color: aqua;
 	text-decoration: none;
 }
