@@ -116,7 +116,16 @@
     </script>
     <style id="custom-style-tag"></style>
     <script>
+        document.getElementById("sysfont").options.selectedIndex = fontSelect();
+        if(localStorage["SysUseHomeImage"]) {
+            document.getElementById("homeImg").value = localStorage["SysHomeImage"];
+        }
         styleChange();
+        function fontSelect() {
+            var x = document.getElementById("sysfont").options.length;
+            while(document.getElementById("sysfont").options[--x].innerHTML != JSON.parse(localStorage["SysFont"]).name) {}
+            return x;
+        }
         function styleChange() {
             if(localStorage["SysFont"]) {
                 document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
@@ -124,19 +133,5 @@
             }
         }
     </script>
-    <style>
-        /* Previewing Fonts
-        @import url('https://fonts.googleapis.com/css?family=Noto+Serif+TC');
-        @import url('https://fonts.googleapis.com/css?family=Quicksand');
-        @import url('https://fonts.googleapis.com/css?family=Sniglet');
-        @import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
-        @import url('https://fonts.googleapis.com/css?family=Neucha');
-        @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
-        @import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script');
-        @import url('https://fonts.googleapis.com/css?family=Lobster+Two');
-        @import url('https://fonts.googleapis.com/css?family=Satisfy');
-        @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
-        */
-    </style>
 </body>
 </html>
