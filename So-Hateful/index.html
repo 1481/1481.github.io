@@ -92,8 +92,9 @@
     <script src="convertURL.js" defer></script>
     <style id="custom-style-tag"></style>
     <script>
+        var cs = document.getElementById("custom-style-tag");
         if(localStorage["SysFont"]) {
-            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');h1, h2, h3 {font-family: "+JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important;}";
+            cs.innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');h1, h2, h3 {font-family: "+JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important;}";
             document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
         }
         if(localStorage["SysHyperColor"]) {
