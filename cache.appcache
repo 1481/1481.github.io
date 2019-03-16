@@ -1,0 +1,38 @@
+CACHE MANIFEST
+# v1 - 2019-03-16
+# Testing Application Cache
+index.html
+
+# CSS Files
+css/index.css
+css/home.css
+https://www.w3schools.com/w3css/4/w3.css
+https://fonts.googleapis.com/css?family=Noto+Sans+TC
+
+# JS Files
+js/some.js
+https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/urldata.js
+https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js
+https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/element.js
+https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/userInfo.js
+https://cdn.jsdelivr.net/npm/jscolor-picker@2/jscolor.min.js
+
+# Splashscreens Photos
+splashscreens/install.jpg
+splashscreens/ipad_splash.png
+splashscreens/ipadpro1_splash.png
+splashscreens/ipadpro2_splash.png
+splashscreens/ipadpro3_splash.png
+splashscreens/iphone5_splash.png
+splashscreens/iphone6_splash.png
+splashscreens/iphoneplus_splash.png
+splashscreens/iphonex_splash.png
+splashscreens/iphonexr_splash.png
+splashscreens/iphonexsmax_splash.png
+
+# Curriculum Files
+curriculum.html
+curriculum/107.2.json
+
+# Setting Page Files
+fonts.json
