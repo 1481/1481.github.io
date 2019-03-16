@@ -3,6 +3,8 @@
     <title>Settings - HSNU 1481</title>
     <link href="css/home.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <meta name="description" content="網站設定 - 師大附中數理資優班">
+    <meta property="og:image" content="preview.jpg">
     <link rel="icon" href="icon.jpg" type="image/ico"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,7 +29,7 @@
             padding: 0.5rem 0 0 0;
             background-repeat: no-repeat;
             background-size: cover;
-            //background-attachment: fixed;
+            /* background-attachment: fixed; */
         }
         .setting-item {
             display: grid;
@@ -46,8 +48,11 @@
 <body>
     <a style="position: fixed;top: 1.2rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
     <a style="position: fixed;top: 1.2rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
-    <h2 style="position: relative; margin: 2rem; text-align: center;">SETTINGS</h2>
+    <h2 style="position: relative; margin: 2rem; text-align: center; font-size: 2.4rem;">SETTINGS</h2>
     <div id="settings" style="position: relative; text-align: center;">
+        <div style="grid-column: span 2;">
+            <p>Globel Settings</p>
+        </div>
         <div class="setting-item">
             <label class="setting-label">Web Font: </label>
             <select id="sysfont" class="setting-input" onchange="save()">
@@ -56,6 +61,7 @@
                 <option disabled>Recommendations</option>
                 <option value="4">Sniglet</option>
                 <option value="6">Neucha</option>
+                <option value="12">Baloo</option>
                 <option disabled>Others</option>
                 <option value="1">Noto Serif TC</option>
                 <option value="2">Arial</option>
@@ -66,7 +72,6 @@
                 <option value="9">Lobster Two</option>
                 <option value="10">Satisfy</option>
                 <option value="11">Fredericka the Great</option>
-                <option value="12">Baloo</option>
             </select>
         </div>
         <div class="setting-item">
