@@ -44,17 +44,24 @@
             text-align: left;
             margin: 0 0 1rem 0;
         }
+        #settings {
+            position: relative;
+            text-align: center;
+            display: grid;
+            grid-template-columns: auto;
+            grid-row-gap: 0.5rem;
+        }
     </style>
 </head>
 <body>
     <a style="position: fixed;top: 1.2rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
     <a style="position: fixed;top: 1.2rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
     <h2 style="position: relative; margin: 2rem; text-align: center; font-size: 2.4rem;">SETTINGS</h2>
-    <div id="settings" style="position: relative;text-align: center;display: grid;grid-template-columns: auto;">
+    <div id="settings">
         <div style="grid-column: span 2;">
             <h2>Globel Settings</h2>
         </div>
-
+        <!-- For Web Font -->
         <label class="setting-label">Web Font </label>
         <select id="sysfont" class="setting-input" onchange="save()">
             <option disabled="">Default</option>
@@ -74,18 +81,20 @@
             <option value="10">Satisfy</option>
             <option value="11">Fredericka the Great</option>
         </select>
-
+        <!-- For Homepage Image -->
         <label class="setting-label">Homepage Image </label>
         <div>
             <input id="homeImg" class="setting-input" placeholder="Image URL" style="max-width: 600px;width: 75%;float: left;margin: 0 2% 0 0;">
             <button onclick="document.getElementById('homeImg').value=''" style="width: 20%;max-width: 100px;float: left;">Default</button><br>
             <input type="file" onchange="processImg(this.files[0],document.getElementById('homeImg'),function(){save();})" style="float: left;">
         </div>
-
-        <div class="setting-item hide">
-            <label class="setting-label"></label>
-            <input id="" class="setting-input" placeholder="">
-        </div>
+        <!-- For Hyperlink Color  -->
+        <label class="setting-label">Hyperlink Color</label>
+        <input id="SysHyperColor" class="setting-input jscolor" value="00FFFF" style="height: 1.3rem">
+        <!-- For Hyperlink Hovered Color  -->
+        <label class="setting-label">Hovered Hyperlink Color</label>
+        <input id="SysHoveredHyperColor" class="setting-input jscolor" value="87CEEB" style="height: 1.3rem">
+        <!-- For Future  -->
         <div class="setting-item hide">
             <label class="setting-label"></label>
             <input id="" class="setting-input" placeholder="">
@@ -120,8 +129,12 @@
         function processImg(input, output, func=function(){}) {
             var reader  = new FileReader();
             reader.addEventListener("load", function () {
-                output.value = reader.result;
-                func();
+                if(reader.result.length <= 4000000) {
+                    output.value = reader.result;
+                    func();
+                } else {
+                    alert("Failed: This image is too large.\nMaybe you can upload to Imgur or resize it?");
+                }
             }, false);
             if (input) {
                 reader.readAsDataURL(input);
@@ -147,5 +160,6 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/jscolor-picker@2/jscolor.min.js"></script>
 </body>
 </html>
