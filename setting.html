@@ -123,6 +123,9 @@
                 localStorage["SysUseHomeImage"] = "";
                 localStorage["SysHomeImage"] = "";
             }
+            localStorage["SysHyperColor"] = document.getElementById("SysHyperColor").value;
+            localStorage["SysHoveredHyperColor"] = document.getElementById("SysHoveredHyperColor").value;
+
             alert("Change Saved!");
             styleChange();
         }
@@ -154,9 +157,16 @@
             return x;
         }
         function styleChange() {
+            var cs = document.getElementById("custom-style-tag");
             if(localStorage["SysFont"]) {
-                document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+                cs.innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
                 document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+            }
+            if(localStorage["SysHyperColor"]) {
+                cs.innerHTML += "a {color: "+localStorage["SysHyperColor"]+" !important}a:visited {color: "+localStorage["SysHyperColor"]+" !important}";
+            }
+            if(localStorage["SysHoveredHyperColor"]) {
+                cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
             }
         }
     </script>
