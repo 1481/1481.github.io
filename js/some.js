@@ -1,8 +1,8 @@
 var loadingMsg = document.createElement("div");
 loadingMsg.style.display = "none";
 loadingMsg.style.position = "fixed";
-loadingMsg.style.top = "0.1rem";
-loadingMsg.style.left = "0.1rem";
+loadingMsg.style.top = "2.4rem";
+loadingMsg.style.left = "0.2rem";
 loadingMsg.style.zIndex = "9999";
 loadingMsg.innerHTML = "Loading...";
 document.body.appendChild(loadingMsg);
