@@ -122,8 +122,8 @@
                 localStorage["SysUseHomeImage"] = "";
                 localStorage["SysHomeImage"] = "";
             }
-            localStorage["SysHyperColor"] = document.getElementById("SysHyperColor").value;
-            localStorage["SysHoveredHyperColor"] = document.getElementById("SysHoveredHyperColor").value;
+            localStorage["SysHyperColor"] = "#"+document.getElementById("SysHyperColor").value;
+            localStorage["SysHoveredHyperColor"] = "#"+document.getElementById("SysHoveredHyperColor").value;
 
             alert("Change Saved!");
             styleChange();
