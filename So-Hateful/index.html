@@ -96,6 +96,12 @@
             document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');h1, h2, h3 {font-family: "+JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC' !important;}";
             document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
         }
+        if(localStorage["SysHyperColor"]) {
+            cs.innerHTML += "a {color: "+localStorage["SysHyperColor"]+" !important}a:visited {color: "+localStorage["SysHyperColor"]+" !important}";
+        }
+        if(localStorage["SysHoveredHyperColor"]) {
+            cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
+        }
     </script>
 </body>
 </html>
