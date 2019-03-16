@@ -82,6 +82,12 @@
             document.body.style.background = "url('"+localStorage["SysHomeImage"]+"') no-repeat center center fixed";
             document.body.style.backgroundSize = "cover";
         }
+        if(localStorage["SysHyperColor"]) {
+            cs.innerHTML += "a {color: "+localStorage["SysHyperColor"]+" !important}a:visited {color: "+localStorage["SysHyperColor"]+" !important}";
+        }
+        if(localStorage["SysHoveredHyperColor"]) {
+            cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
+        }
     </script>
 </body>
 </html>
