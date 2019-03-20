@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1 - 2019-03-16
+# v1.0.1 - 2019-03-20
 # Testing Application Cache
 index.html
 
@@ -32,7 +32,7 @@ splashscreens/iphonexsmax_splash.png
 
 # Curriculum Files
 curriculum.html
-curriculum/107.2.json
+curriculums/107.2.json
 
 # Setting Page Files
 fonts.json
