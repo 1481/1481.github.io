@@ -11,3 +11,12 @@ function goPage(url) {
     loadingMsg.style.display = "";
     location.href = url;
 }
+
+window.addEventListener("offline", function(e) { 
+    var off = document.createElement("p");
+    off.innerHTML = "You are OFFLINE now. Please connect the Internet.";
+    off.style.position = "fixed";
+    off.style.top = "1.6rem";
+    off.style.color = "red";
+    document.body.appendChild(off);
+});
