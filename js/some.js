@@ -11,12 +11,21 @@ function goPage(url) {
     loadingMsg.style.display = "";
     location.href = url;
 }
-
+// Offline Detect
+var off = document.createElement("p");
+off.style.display = "none";
+off.style.position = "fixed";
+off.style.top = "1.6rem";
+off.style.color = "red";
+off.id = "ifOffline";
+document.body.appendChild(off);
 window.addEventListener("offline", function(e) { 
-    var off = document.createElement("p");
+    var off = document.getElementById("ifOffline");
     off.innerHTML = "You are OFFLINE now. Please connect the Internet.";
-    off.style.position = "fixed";
-    off.style.top = "1.6rem";
-    off.style.color = "red";
-    document.body.appendChild(off);
+    off.style.display = "block";
+    document.getElementsByTagName("body")[0].ononline = function() {
+        off.style.color = "green";
+        off.innerHTML = "You are ONLINE now.";
+        setTimeout(function() {off.style.display = "none";}, 2000);
+    };
 });
