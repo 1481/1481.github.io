@@ -71,6 +71,7 @@
     <script src="js/some.js"></script>
     <script>//window.scrollTo(0,24);</script>
     <script>
+        window.addEventListener('pageshow', function(event) {
         var cs = document.getElementById("custom-style-tag");
         if((!window.navigator.standalone) && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
             document.getElementById('installInfo').style.display = "block";
@@ -89,6 +90,7 @@
         if(localStorage["SysHoveredHyperColor"]) {
             cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
         }
+        };
     </script>
 </body>
 </html>
