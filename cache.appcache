@@ -4,10 +4,10 @@ CACHE MANIFEST
 #index.html
 
 # CSS Files
-css/index.css
-css/home.css
+#css/index.css
+#css/home.css
 https://www.w3schools.com/w3css/4/w3.css
-https://fonts.googleapis.com/css?family=Noto+Sans+TC
+#https://fonts.googleapis.com/css?family=Noto+Sans+TC
 
 # JS Files
 js/some.js
