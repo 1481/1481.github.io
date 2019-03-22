@@ -3,13 +3,13 @@
   "name": "HSNU 1481",
   "icons": [
     {
-      "src": "/icon.jpg",
-      "type": "image/jpeg",
+      "src": "/icon.png",
+      "type": "image/png",
       "sizes": "192x192"
     },
   {
-    "src": "/icon.jpg",
-    "type": "image/jpeg",
+    "src": "/icon.png",
+    "type": "image/png",
     "sizes": "512x512"
   }
   ],
