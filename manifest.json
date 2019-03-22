@@ -1,0 +1,21 @@
+{
+  "short_name": "HSNU 1481",
+  "name": "HSNU 1481",
+  "icons": [
+    {
+      "src": "/icon.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+  {
+    "src": "/icon.jpg",
+    "type": "image/jpeg",
+    "sizes": "512x512"
+  }
+  ],
+  "start_url": "/",
+  "background_color": "#3a85ff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3a85ff"
+}
