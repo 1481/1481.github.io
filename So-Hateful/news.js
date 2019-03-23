@@ -71,6 +71,8 @@ function reloadNews() {
         var n = getNews(nl[i]);
         drawNews(n.title, n.content, n.author, new Date(n.time).toLocaleString(), n, nl[i], i);
     }
+    document.getElementsByClassName("NIDs")[0].style.display = "none";
+    document.getElementsByClassName("SHAREARTI")[0].style.display = "none";
 }
 // Comments Plugin
 function uploadComment() {
