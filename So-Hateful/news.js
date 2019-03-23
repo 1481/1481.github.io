@@ -84,6 +84,7 @@ function uploadComment() {
     if(!comment.content || !comment.user) {
         return;
     }
+    elm.id("comment-content").value = "";
     var news = "https://api.myjson.com/bins/" + chosen;
     var x = xhr.json(news);
     if(typeof(x.comments) == "undefined") {
