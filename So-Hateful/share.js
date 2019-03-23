@@ -9,7 +9,7 @@ function share(articleID) {
             }
         },
         "suffix": {
-            "option": "UNGUESSABLE"
+            "option": "SHORT"
         }
     };
     var url = xhr.post("https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8", JSON.stringify(rb));
