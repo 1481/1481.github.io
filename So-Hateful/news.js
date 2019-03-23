@@ -26,6 +26,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsFooter = document.createElement("p");
     var newsShare = document.createElement("a");
 
+    newsId.classList.add("NIDs");
     newsId.innerHTML = "#" + number;
     newsId.style.display = "block";
     newsId.style.position = "absolute";
@@ -34,7 +35,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.style.cursor = "pointer";
     newsId.href = "javascript:window.open('https://1481.tk/So-Hateful/share?id='"+number", '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);";
     
-    newsShare.classList.add("fas", "fa-share-square");
+    newsShare.classList.add("fas", "fa-share-square", "SHAREARTI");
     newsShare.style.display = "block";
     newsShare.style.position = "absolute";
     newsShare.style.color = "#383a3c";
