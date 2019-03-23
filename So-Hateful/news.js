@@ -20,11 +20,11 @@ function getNews(loc) {
 function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
-    var newsId = document.createElement("span");
+    var newsId = document.createElement("a");
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("p");
-    var newsShare = document.createElement("i");
+    var newsShare = document.createElement("a");
 
     newsId.innerHTML = "#" + number;
     newsId.style.display = "block";
@@ -32,7 +32,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsId.style.color = "#3a85ff";
     newsId.style.margin = "1rem";
     newsId.style.cursor = "pointer";
-    newsId.onclick = function(){window.open('https://1481.tk/So-Hateful/share?id='+number, '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);};
+    newsId.href = "javascript:window.open('https://1481.tk/So-Hateful/share?id='"+number", '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);";
     
     newsShare.classList.add("fas", "fa-share-square");
     newsShare.style.display = "block";
@@ -41,7 +41,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsShare.style.margin = "1rem";
     newsShare.style.right = "1rem";
     newsShare.style.cursor = "pointer";
-    newsShare.onclick = function() {share(number)};
+    newsShare.href = "javascript:share("+number+");setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);";
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
