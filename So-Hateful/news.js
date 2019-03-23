@@ -20,18 +20,28 @@ function getNews(loc) {
 function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
-    var newsId = document.createElement("a");
+    var newsId = document.createElement("span");
     var newsTitle = document.createElement("h2");
     var newsContent = document.createElement("p");
     var newsFooter = document.createElement("p");
+    var newsShare = document.createElement("i");
 
     newsId.innerHTML = "#" + number;
     newsId.style.display = "block";
     newsId.style.position = "absolute";
     newsId.style.color = "#3a85ff";
     newsId.style.margin = "1rem";
-    newsId.target = "_blank";
-    newsId.href = "javascript:window.open('https://1481.tk/So-Hateful/share?id="+number+"', '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);";
+    newsId.style.cursor = "pointer";
+    newsId.onclick = function(){window.open('https://1481.tk/So-Hateful/share?id='+number, '_blank');setTimeout(function(){elm.id('comment-div').style.display='none'}, 5);};
+    
+    newsShare.classList.add("fas", "fa-share-square");
+    newsShare.style.display = "block";
+    newsShare.style.position = "absolute";
+    newsShare.style.color = "#383a3c";
+    newsShare.style.margin = "1rem";
+    newsShare.style.right = "1rem";
+    newsShare.style.cursor = "pointer";
+    newsShare.onclick = function() {share('https://1481.tk/So-Hateful/share?id='+number)};
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
@@ -40,6 +50,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsFooter.style.whiteSpace = "pre";
 
     newsDiv.appendChild(newsId);
+    newsDiv.appendChild(newsShare);
     newsDiv.appendChild(newsTitle);
     newsDiv.appendChild(newsContent);
     newsDiv.appendChild(newsFooter);
