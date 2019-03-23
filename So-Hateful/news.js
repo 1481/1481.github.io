@@ -41,7 +41,7 @@ function drawNews(title, content, author, time, n = {}, id = "", number = 0) {
     newsShare.style.margin = "1rem";
     newsShare.style.right = "1rem";
     newsShare.style.cursor = "pointer";
-    newsShare.onclick = function() {share('https://1481.tk/So-Hateful/share?id='+number)};
+    newsShare.onclick = function() {share(number)};
 
     newsTitle.innerHTML = title;
     newsContent.innerHTML = content;
