@@ -15,7 +15,6 @@ function share(articleID) {
     var url = xhr.post("https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8", JSON.stringify(rb));
     Swal.fire({
         title: '<strong>Share</strong>',
-        type: 'text',
         html:
         '<input id="artiID" value="'+JSON.parse(url).shortLink+'" style="min-width: 80%; min-height: 2rem; font-size: 1.6rem;">' +
         '<button id="ShareArticle" style="display: none" data-clipboard-target="#artiID">COPY</button>',
