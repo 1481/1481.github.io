@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Log Out</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/icon.jpg"/>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+        authDomain: "hsnu-1481-website.firebaseapp.com",
+        databaseURL: "https://hsnu-1481-website.firebaseio.com",
+        projectId: "hsnu-1481-website",
+        storageBucket: "hsnu-1481-website.appspot.com",
+        messagingSenderId: "405025421965"
+    };
+    firebase.initializeApp(config);
+    </script>
+</head>
+<body style="text-align: center">
+    <h1>Log Out...</h1>
+    <script>
+    firebase.auth().signOut().then(() => {
+        alert("Log Out Successful.");
+    }, () => {
+        alert("Failed To Logout. Please Try Again Later.");
+    });
+    location.href = "/auth";
+    </script>
+</body>
+</html>

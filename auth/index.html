@@ -64,6 +64,18 @@
     </div>
     <script>window.scrollTo(0,24);</script>
     <script>
+    document.getElementById("email").addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) {
+            document.getElementById("pass").focus();
+        }
+    });
+    document.getElementById("pass").addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) {
+            login();
+        }
+    });
     function login() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("pass").value;
