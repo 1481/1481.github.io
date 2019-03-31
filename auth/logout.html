@@ -22,12 +22,15 @@
 <body style="text-align: center">
     <h1>Log Out...</h1>
     <script>
-    firebase.auth().signOut().then(() => {
-        alert("Log Out Successful.");
-    }, () => {
-        alert("Failed To Logout. Please Try Again Later.");
-    });
-    location.href = "/auth";
+    setTimeout(() => {
+        firebase.auth().signOut().then(() => {
+            alert("Log Out Successful.");
+            location.href = "/auth";
+        }, () => {
+            alert("Failed To Logout. Please Try Again Later.");
+            window.history.back();
+        });
+    }, 1000);
     </script>
 </body>
 </html>
