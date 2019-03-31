@@ -19,6 +19,14 @@
     };
     firebase.initializeApp(config);
     </script>
+    <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user) {
+            alert("Please Log Out First.");
+            location.href = "/";
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="limiter">
