@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/icon.jpg"/>
+    <link rel="stylesheet" type="text/css" href="com/all.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+        authDomain: "hsnu-1481-website.firebaseapp.com",
+        databaseURL: "https://hsnu-1481-website.firebaseio.com",
+        projectId: "hsnu-1481-website",
+        storageBucket: "hsnu-1481-website.appspot.com",
+        messagingSenderId: "405025421965"
+    };
+    firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-50 p-b-90">
+                <div class="login100-form validate-form flex-sb flex-w">
+                    <span class="login100-form-title p-b-51">Login</span>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Email is required">
+                        <input class="input100" type="text" id="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                        <input class="input100" type="password" id="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-t-3 p-b-24">
+                        <div>
+                            <a href="signup" class="txt1">Sign Up</a>
+                        </div>
+
+                        <div>
+                            <a href="javascript:forgot();" class="txt1">Forgot?</a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn" onclick="login()">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>window.scrollTo(0,24);</script>
+    <script>
+    function login() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("pass").value;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((user) => {
+            window.user = {
+                "email": user.user.email,
+                "uid": user.user.uid,
+                "verified": user.user.emailVerified
+            };
+            console.log(firebase.auth());
+            localStorage.auth = JSON.stringify(window.user);
+            alert("Login Successful.");
+            if(!window.user.verified) {
+                alert("Please Verified Your Email Soon.");
+            }
+        })
+        .catch((error) => {
+            var authCode = error.code;
+            var authMsg = error.message;
+            if(authCode == "auth/wrong-password") {
+                alert("Wrong Password. Please Try Again.");
+            } else if(authCode == "auth/user-not-found") {
+                alert("Sorry, We Can't Found That User. Please Try Again.");
+            } else if(authCode == "auth/invalid-email email") {
+                alert("Make Sure You Have Entered The Correct Email.");
+            } else if(authCode == "auth/user-disabled") {
+                alert("Sorry, Your Account Has Been Disabled.")
+            }
+        });
+    }
+    function forgot() {
+        firebase.auth().sendPasswordResetEmail(prompt("Enter Your Email: "));
+        alert("Password Reset Mail Sended!");
+    }
+    </script>
+</body>
+</html>

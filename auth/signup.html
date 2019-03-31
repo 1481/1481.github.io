@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/icon.jpg"/>
+    <link rel="stylesheet" type="text/css" href="com/all.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+        authDomain: "hsnu-1481-website.firebaseapp.com",
+        databaseURL: "https://hsnu-1481-website.firebaseio.com",
+        projectId: "hsnu-1481-website",
+        storageBucket: "hsnu-1481-website.appspot.com",
+        messagingSenderId: "405025421965"
+    };
+    firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-50 p-b-90">
+                <div class="login100-form validate-form flex-sb flex-w">
+                    <span class="login100-form-title p-b-51">Sign Up</span>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Email is required">
+                        <input class="input100" type="text" id="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                        <input class="input100" type="password" id="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                        <input class="input100" type="password" id="pass2" placeholder="Confirm Password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-t-3 p-b-24">
+                        <div>
+                            <a href="./" class="txt1">Login</a>
+                        </div>
+
+                        <div>
+                            <a href="javascript:alert('Sign Up Page')" class="txt1">?</a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn" onclick="signup()">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>window.scrollTo(0,24);</script>
+    <script>
+    function signup() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("pass").value;
+        var password2 = document.getElementById("pass2").value;
+        if(password !== password2) {
+            alert("Password And Confirm Password Are Different.");
+            return;
+        }
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+            window.user = user.user;
+            localStorage.auth = JSON.stringify(window.user);
+            alert("Sign Up Successful.");
+            window.user.sendEmailVerification().then(() => {
+                alert("Please Verified Your Email.\nYour Email: "+user.user.email);
+            });
+        })
+        .catch((error) => {
+            var authCode = error.code;
+            var authMsg = error.message;
+            if(authCode == "auth/email-already-in-use") {
+                alert("This Email Is Already In Use. Please Try Another Email.");
+            } else if(authCode == "auth/weak-password") {
+                alert("Sorry, Your Password Is Too Weak. Please Try Again.");
+            } else if(authCode == "auth/invalid-email") {
+                alert("Make Sure You Have Entered The Correct Email.");
+            }
+        });
+    }
+    </script>
+</body>
+</html>
