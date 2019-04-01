@@ -4,7 +4,9 @@
     <title>成績分析工具 - HSNU 1481</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         html {
             width: 100%;
@@ -12,19 +14,72 @@
         body {
             margin: 0 0.4rem;
         }
+        #tool {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
     <div id="tool">
         <h1>{{title}}</h1>
+        <canvas id="chart" width="100%" height="60%"></canvas>
+        <div class="w3-center"><button class="w3-button w3-green w3-round w3-margin w3-xlarge" style="padding: 0.6rem 1.8rem" onclick="">{{button}}</button></div>
+        </canvas>
+    </div>
+    <div style="height: 4.6rem"></div>
+    <div style="position: fixed; bottom: 0; height: 4.6rem">
+        <p>Copyright © 2019 <a href="https://1481.tk">HSNU 1481</a>. <br>All rights reserved.</p>
     </div>
     <script>
         var tool = new Vue({
             el: '#tool',
             data: {
-                title: '成績分析'
+                title: '成績分析',
+                button: '開始'
             }
-        })
+        });
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['上學期一段', '上學期二段', '上學期三段', '下學期一段', '下學期二段', '下學期三段'],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0)'
+                ],
+                datasets: [{
+                    label: '國文',
+                    data: [75, 85, 70, 60, 90, 80],
+                    backgroundColor: 'rgba(255, 87, 34, 0.2)',
+                    borderColor: 'rgba(255, 87, 34, 0.5)',
+                    lineTension: 0,
+                    fill: false
+                },
+                {
+                    label: '英文',
+                    data: [80, 75, 70, 90, 90, 60],
+                    backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                    borderColor: 'rgba(255, 193, 7, 0.5)',
+                    lineTension: 0,
+                    fill: false
+                },
+                {
+                    label: '數學',
+                    data: [40, 60, 50, 60, 55, 65],
+                    backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                    borderColor: 'rgba(33, 150, 243, 0.5)',
+                    lineTension: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {beginAtZero: true, max: 100}
+                    }]
+                }
+            }
+        });
     </script>
 </body>
 </html>
