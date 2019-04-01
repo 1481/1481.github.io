@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>成績分析工具 - HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        html {
+            width: 100%;
+        }
+        body {
+            margin: 0 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="tool">
+        <h1>{{title}}</h1>
+    </div>
+    <script>
+        var tool = new Vue({
+            el: '#tool',
+            data: {
+                title: '成績分析'
+            }
+        })
+    </script>
+</body>
+</html>
