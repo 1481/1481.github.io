@@ -8,13 +8,13 @@
 </head>
 <body style="text-align: center">
 <h1>CALCULATOR</h1>
-<textarea id="result" rows="10" style="width: 90%; overflow-x: auto; white-space: nowrap;" readonly placeholder="The result will be showed here."></textarea>
+<textarea id="result" rows="10" style="width: 90%; overflow-x: auto; white-space: pre;" readonly placeholder="The result will be showed here."></textarea>
 <input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
 <button onclick="showResult()">Calculate</button>
 
 <script>
 function showResult() {
-document.getElementById("result").innerHTML += math.eval(document.getElementById("expr").value) + "\n";
+document.getElementById("result").innerHTML += document.getElementById("expr").value + " = " + math.eval(document.getElementById("expr").value) + "\n";
 document.getElementById("expr").value = "";
 }
 </script>
