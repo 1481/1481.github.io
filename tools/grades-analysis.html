@@ -105,8 +105,10 @@
         if(firebaseAuthOK) {
             document.getElementsByTagName("button")[0].onclick = () => {};
         } else {
-            document.getElementsByTagName("button")[0].onclick = () => {window.open("https://1481.tk/auth/", "_blank")};
-            alert("Please login and reload this page.");
+            document.getElementsByTagName("button")[0].onclick = () => {
+                window.open("https://1481.tk/auth/", "_blank");
+                alert("Please login and reload this page.");
+            };
         }
     </script>
 </body>
