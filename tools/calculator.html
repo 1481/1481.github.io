@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CALCULATOR - HSNU 1481</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjs@5.8.0/dist/math.min.js"></script>
+</head>
+<body style="text-align: center">
+<textarea id="result" rows="10" style="width: 90%" readonly placeholder="The result will be showed here."></textarea>
+<input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
+<button onclick="showResult()">Calculate</button>
+
+<script>
+function showResult() {
+document.getElementById("result").innerHTML += math.eval(document.getElementById("expr").value) + "\n";
+document.getElementById("expr").value = "";
+}
+</script>
+</body>
+</html>
