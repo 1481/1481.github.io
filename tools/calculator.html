@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>CALCULATOR - HSNU 1481</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/mathjs@5.8.0/dist/math.min.js"></script>
+    <title>CALCULATOR - HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@5.8.0/dist/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 </head>
 <body style="text-align: center">
-<h1>CALCULATOR</h1>
-<textarea id="result" rows="10" style="width: 90%; overflow-x: auto; white-space: pre;" readonly placeholder="The result will be showed here."></textarea>
-<input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
-<button onclick="showResult()">Calculate</button>
-
-<script>
-function showResult() {
-document.getElementById("result").innerHTML += document.getElementById("expr").value + " = " + math.eval(document.getElementById("expr").value) + "\n";
-document.getElementById("expr").value = "";
-}
-</script>
+    <h1>CALCULATOR</h1>
+    <textarea id="result" rows="10" style="width: 90%; overflow-x: auto; white-space: pre;" readonly placeholder="The result will be showed here." onclick="copy()" data-clipboard-target="#result"></textarea>
+    <input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
+    <br><button onclick="showResult()">Calculate</button>
+    
+    <script>
+        new ClipboardJS('#result');
+        function showResult() {
+            document.getElementById("result").innerHTML += document.getElementById("expr").value + " = " + math.eval(document.getElementById("expr").value) + "\n";
+            document.getElementById("expr").value = "";
+        }
+        function copy() {
+            if(!document.getElementById("result").innerHTML) {
+                alert("Please enter something below first.");
+            } else {
+                alert("Copied!");
+            }
+        }
+    </script>
 </body>
 </html>
