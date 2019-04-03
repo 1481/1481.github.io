@@ -26,6 +26,7 @@
         function showResult() {
             document.getElementById("result").innerHTML += document.getElementById("expr").value + " = " + math.eval(document.getElementById("expr").value) + "\n";
             document.getElementById("expr").value = "";
+            document.getElementById("result").scrollTop = document.getElementById("result").scrollHeight;
         }
         function copy() {
             if(!document.getElementById("result").innerHTML) {
