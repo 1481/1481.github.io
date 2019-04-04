@@ -20,7 +20,19 @@
     <textarea id="result" rows="10" style="width: 90%; overflow-x: auto; white-space: pre;" readonly placeholder="The result will be showed here." onclick="copy()" data-clipboard-target="#result"></textarea>
     <input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
     <br><button onclick="showResult()">Calculate</button>
-    
+    <br>
+    <p>Functions Usage</p>
+    <dl>
+        <dt>sin, cos, ...</dt>
+        <dd>sin(radian), cos(degree deg) ...</dd>
+        <dd>ex: sin(45 deg), cos(pi)</dd>
+        <dt>log<sub>e</sub>x, log<sub>2</sub>x, log<sub>10</sub>x</dt>
+        <dd>log(number), log2(number), log10(number), log(radix, number)</dd>
+        <dd>ex: log(e), log2(2), log10(10), log(7,7)</dd>
+        <dt>x<sup>y</sup>, <sup>y</sup>√x</dt>
+        <dd>x^y, x^(1/y)</dd>
+        <dd>ex: 10^3, 4^0.5</dd>
+    </dl>
     <script>
         new ClipboardJS('#result');
         function showResult() {
