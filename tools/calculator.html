@@ -21,6 +21,7 @@
     <input id="expr" style="width: 90%" placeholder="Enter Expression" onkeypress="if(event.keyCode==13){showResult();}">
     <br><button onclick="showResult()">Calculate</button>
     <br>
+    <div style="text-align: left">
     <p>Functions Usage</p>
     <dl>
         <dt>sin, cos, ...</dt>
@@ -33,6 +34,7 @@
         <dd>x^y, x^(1/y)</dd>
         <dd>ex: 10^3, 4^0.5</dd>
     </dl>
+    </div>
     <script>
         new ClipboardJS('#result');
         function showResult() {
