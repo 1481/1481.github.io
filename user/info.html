@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Info - HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="使用者資訊 | HSNU 1481">
+    <link rel="icon" href="/icon.jpg"/>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS/js/urldata.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.firestore();
+        var getData = db.collection("OPEN").doc("User");
+        var ui = {};
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body, h1, h2, h3 , h4, h5, h6, p, span {
+            font-family: 'Noto Sans TC', Arial, sans-serif;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body class="hide">
+    <div style="margin: 0px auto; width: 90%; max-width: 800px;">
+        <div id="info">
+            <h2><span id="name"></span> <i id="verified" class="fas fa-check-circle hide" style="font-size: 1rem; color: RoyalBlue"></i></h2>
+            <hr style="width: 100%">
+            <p id="des"></p>
+            <p id="time">帳號創建日期: </p>
+        </div>
+    </div>
+    <script>
+        getData.get().then((data) => {
+            if(data.exists) {
+                var td = data.data();
+                if(td[urldata("user")]) {
+                    console.log("Found User!");
+                    db.collection("OPEN").doc("User").collection("users").doc(urldata("user")).get().then((d) => {
+                        console.log("Checking User Data...");
+                        if(d.exists) {
+                            console.log("Loading User Data...");
+                            document.getElementById("name").innerHTML += d.data().name;
+                            document.getElementById("des").innerHTML += d.data().description;
+                            document.getElementById("time").innerHTML += new Date(d.data().joinTime).toLocaleDateString();
+                            if(d.data().verified) {
+                                document.getElementById("verified").classList.remove("hide");
+                            }
+                            document.body.classList.remove("hide")
+                        }
+                    });
+                }
+            } else {
+                console.log("User Not Found");
+                alert("User Not Found");
+                history.back();
+            }
+        }).catch((error) => {
+            alert("Error: " + error);
+        });
+    </script>
+</body>
+</html>
