@@ -39,7 +39,7 @@
 <body class="hide">
     <div style="margin: 0px auto; width: 90%; max-width: 800px;">
         <div id="info">
-            <h2><span id="name"></span> <i id="verified" class="fas fa-check-circle hide" style="font-size: 1rem; color: RoyalBlue"></i></h2>
+            <h2><span id="name"></span> <i id="verified" class="fas fa-check-circle hide" style="font-size: 1.15rem; color: RoyalBlue"></i></h2>
             <hr style="width: 100%">
             <p id="des"></p>
             <p id="time">帳號創建日期: </p>
@@ -64,6 +64,9 @@
                             document.body.classList.remove("hide")
                         }
                     });
+                } else {
+                    alert("User Not Found");
+                    history.back();
                 }
             } else {
                 console.log("User Not Found");
