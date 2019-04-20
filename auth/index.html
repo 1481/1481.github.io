@@ -20,10 +20,13 @@
     firebase.initializeApp(config);
     </script>
     <script>
+    var cubl = 1;
     firebase.auth().onAuthStateChanged(function(user) {
-        if(user) {
+        if(user && cubl) {
             alert("Please Log Out First.");
             location.href = "/";
+        } else {
+            cubl = 0;
         }
     });
     </script>
