@@ -95,6 +95,7 @@
             if(!window.user.verified) {
                 alert("Please Verified Your Email Soon.");
             }
+            location.href = "/";
         })
         .catch((error) => {
             var authCode = error.code;
