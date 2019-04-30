@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #3a85ff;
+            background-color: #e8fabd;
             color: white;
             margin-top: 1rem;
             text-align: center;
@@ -25,16 +25,18 @@
             color: #00fff5;
             text-decoration: none;
         }
-        input {
-            border: 0;
-            -webkit-appearance: none;
-            height: 2.6rem;
-            font-size: 1.15rem;
+        body {
+            font-size: 1.2rem;
         }
-        textarea {
-            border: 0;
-            -webkit-appearance: none;
-            font-size: 1.15rem;
+        input[type=text], textarea {
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        input[type=text]:focus, textarea:focus {
+            border: 2px solid #4179fc;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js"></script>
@@ -44,17 +46,17 @@
 <body>
     <a style="position: fixed;top: 0.8rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
     <a style="position: fixed;top: 0.8rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
-    <h1>NEW SUBMIT</h1>
-    <h3>Article Title</h3>
-    <input id="title" type="text" placeholder="Title" style="width: 80%; max-width: 35rem;">
-    <h3>Content</h3>
-    <textarea id="content" type="text" rows="5" placeholder="Content" style="width: 80%; max-width: 35rem;"></textarea>
-    <br><button onclick="showInfo(this)">How To Upload Image?</button>
-    <h3>Author</h3>
-    <input id="author" type="text" placeholder="Author" style="width: 80%; max-width: 35rem;">
-    <br>
-    <br>
-    <button onclick="checker()" style="font-size: 1.2rem">Upload</button>
+    <h2 style="text-align: center">Submit New Article</h2>
+    <div>
+        <label>Title</label>
+        <input type="text" id="title">
+        <label>Content</label>
+        <textarea id="content" rows="5"></textarea>
+        <br><button onclick="showInfo(this)" style="margin: 2px 0 8px">How To Upload Image?</button><br>
+        <label>Author</label>
+        <input type="text" id="author">
+        <button onclick="checker()">Submit</button>
+    </div>
     <script>
         var cantUse = [
             "jacob",
@@ -107,7 +109,7 @@
             location.href = "./";
         }
         function showInfo(tar) {
-            var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload' target='_blank'>imgur.com</a>.<br>Step 2: Paste the image URL below. (something like https://imgur.com/XXXXXXX or https://m.imgur.com/XXXXXXX, NOT https://imgur.com/a/XXXXXXX)<br><input id='img'></div>";
+            var InfoDIV = "<div>Step 1: Upload image to <a href='https://imgur.com/upload' target='_blank'>imgur.com</a>.<br>Step 2: Paste the image URL below.<br>(something like https://imgur.com/XXXXXXX or https://m.imgur.com/XXXXXXX, NOT https://imgur.com/a/XXXXXXX)<br><input type='text' id='img' placeholder='https://imgur.com/XXXXXXX'></div>";
             tar.outerHTML = InfoDIV;
         }
     </script>
