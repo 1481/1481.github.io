@@ -11,7 +11,7 @@ var db = firebase.firestore();
 db.collection("NEWS").orderBy("Time", "desc").limit(6).get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         var article = doc.data();
-        drawNews(article.Title, article.Content, article.Author, article.Time.toDate());
+        drawNews(article.Title, article.Content, article.Author, article.Time.toDate().toLocaleString());
         console.log(doc.id, " => ", doc.data());
     })
 });
