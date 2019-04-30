@@ -1,3 +1,22 @@
+var config = {
+        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+        authDomain: "hsnu-1481-website.firebaseapp.com",
+        databaseURL: "https://hsnu-1481-website.firebaseio.com",
+        projectId: "hsnu-1481-website",
+        storageBucket: "hsnu-1481-website.appspot.com",
+        messagingSenderId: "405025421965"
+    };
+firebase.initializeApp(config);
+var db = firebase.firestore();
+db.collection("NEWS").orderBy("Time").limit(6).get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        var article = doc.data();
+        drawNews(article.Title, article.Content, article.Author, article.Time.toDate());
+        console.log(doc.id, " => ", doc.data());
+    })
+});
+
+/*
 var nl = getList("1h3p6u");
 var endN;
 if(nl.length-6 >= 0) {
@@ -16,6 +35,7 @@ function getNews(loc) {
 function getList(loc) {
     return xhr.json("https://api.myjson.com/bins/"+loc);
 }
+*/
 function drawNews(title, content, author, time) {
     var newsBlock = document.getElementById("newsBlock");
     var newsDiv = document.createElement("div");
