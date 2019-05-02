@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>SUBMIT NEW ARTICLE - HSNU 1481</title>
+    <link href="../css/index.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.firestore();
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #e8fabd;
+            margin-top: 2rem;
+        }
+        a {
+            color: RoyalBlue;
+            text-decoration: none;
+        }
+        a:hover {
+            color: RoyalBlue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: RoyalBlue;
+            text-decoration: none;
+        }
+        body {
+            font-size: 1.2rem;
+        }
+        input[type=text], textarea {
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        input[type=text]:focus, textarea:focus {
+            border: 2px solid #4179fc;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/element.min.js"></script>
+</head>
+<body>
+    <a style="position: fixed;top: 0.8rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
+    <a style="position: fixed;top: 0.8rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
+    <h2 style="text-align: center">Submit News</h2>
+    <div>
+        <label>Title</label>
+        <input type="text" id="title">
+        <label>Content</label>
+        <textarea id="content" rows="5"></textarea>
+        <label>Author</label>
+        <input type="text" id="author" disabled value="ADMIN">
+        <button onclick="checker()">Submit</button>
+    </div>
+    <p style="font-size: 0.9rem">Copyright © 2019 <a href="https://1481.tk">HSNU 1481</a>. <br>All rights reserved.</p>
+    <script>
+        var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
+        function checker() {
+            if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
+                return;
+            }
+            uploadArticle();
+        }
+        function uploadArticle() {
+            var article = {
+                "title": elm.id("title").value,
+                "content": elm.id("content"),
+                "author": elm.id("author").value,
+                "time": new Date()
+            };
+            // FireStore
+            alert("Article Uploaded!");
+            location.href = "./";
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/userInfo.js"></script>
+    <style id="custom-style-tag"></style>
+    <script>
+        if(localStorage["SysFont"]) {
+            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
+            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+        }
+    </script>
+</body>
+</html>
