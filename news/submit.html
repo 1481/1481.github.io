@@ -89,8 +89,11 @@
                     db.collection("NEWS").doc(article.id.toString()).set(article).then(() => {
                         alert("Article Uploaded!");
                         location.href = "./";
-                    }).catch(() => {
-                        alert("Failed To Upload.");
+                    }).catch((err) => {
+                        if(err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
+                            err = "Missing or insufficient permissions."
+                        }
+                        alert("Failed To Upload. " + err);
                     });
                 })
             });
