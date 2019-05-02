@@ -87,7 +87,7 @@
             db.collection("NEWS").orderBy("Time", "desc").limit(1).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     article.id = 1 + doc.data().id;
-                    db.collection("NEWS").doc(article.id.toString()).set(article).then(() => {
+                    db.collection("NEWS").doc(article.id.toString()+"-"+article.Title).set(article).then(() => {
                         alert("Article Uploaded!");
                         location.href = "./";
                     }).catch((err) => {
