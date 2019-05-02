@@ -68,7 +68,6 @@
     </div>
     <p style="font-size: 0.9rem">Copyright © 2019 <a href="https://1481.tk">HSNU 1481</a>. <br>All rights reserved.</p>
     <script>
-        var nll = xhr.json("https://api.myjson.com/bins/"+"pqlau");
         function checker() {
             if(!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
                 return;
@@ -80,11 +79,21 @@
                 "title": elm.id("title").value,
                 "content": elm.id("content"),
                 "author": elm.id("author").value,
-                "time": new Date()
+                "time": new Date(),
+                "id": 0
             };
             // FireStore
-            alert("Article Uploaded!");
-            location.href = "./";
+            db.collection("NEWS").orderBy("Time", "desc").limit(1).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    article.id = 1 + doc.data().id;
+                    db.collection("NEWS").doc(article.id).set(article).then(() => {
+                        alert("Article Uploaded!");
+                        location.href = "./";
+                    }).catch(() => {
+                        alert("Failed To Upload.");
+                    });
+                })
+            });
         }
     </script>
     <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/userInfo.js"></script>
