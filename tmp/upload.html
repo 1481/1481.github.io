@@ -32,13 +32,14 @@
         const uploader = document.getElementById('uploader');
         fileUploader.addEventListener('change', (e) => {
             var file = e.target.files[0];
-            var storageRef = firebase.storage().ref('new/'+file.name);
-            var task = storageRef.put(file);
+            var s = firebase.storage().ref();
+            var r = s.child('new/'+file.name);
+            var task = r.put(file);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 uploader.value = percentage;
             }, function error(err) {
-                alert("upload failed.\n"+err);
+                alert("upload failed.\n"+JSON.stringify(err));
                 
             },function complete() {
                 alert("upload completed.");
