@@ -23,10 +23,19 @@
 </head>
 <body>
     <div>
+        <input type="file" id="file-uploader" data-target="file-uploader" accept="image/*"/>
     </div>
     <script>
-    
-    
+        const fileUploader = document.querySelector('#file-uploader');
+        fileUploader.addEventListener('change', (e) => {
+            var file = e.target.files[0];
+            var storageRef = firebase.storage().ref();
+            var r = storageRef.child("new/"+file.name);
+            r.put(file).then(function(snapshot) {
+                alert(file.name+" uploaded!");
+            });
+        });
+        
     </script>
 </body>
 </html>
