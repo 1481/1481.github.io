@@ -18,6 +18,7 @@
         messagingSenderId: "405025421965"
     };
     firebase.initializeApp(config);
+    var storage = firebase.app().storage("gs://hsnu-1481-website.appspot.com/new");
     </script>
     
 </head>
@@ -32,9 +33,10 @@
         const uploader = document.getElementById('uploader');
         fileUploader.addEventListener('change', (e) => {
             var file = e.target.files[0];
-            var s = firebase.storage().ref();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
             var r = s.child('new/'+file.name);
-            var task = r.put(file);
+            var task = storageRef.put(file);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 uploader.value = percentage;
