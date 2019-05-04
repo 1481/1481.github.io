@@ -35,7 +35,7 @@
             var file = e.target.files[0];
             var storage = firebase.storage();
             var storageRef = storage.ref();
-            var r = s.child('new/'+file.name);
+            //var r = s.child('new/'+file.name);
             var task = storageRef.put(file);
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
