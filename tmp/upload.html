@@ -38,7 +38,7 @@
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 uploader.value = percentage;
             }, function error(err) {
-                alert("upload failed.");
+                alert("upload failed.\n"+err);
                 
             },function complete() {
                 alert("upload completed.");
