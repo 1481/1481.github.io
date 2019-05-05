@@ -25,18 +25,19 @@
 <body>
     <div>
         <h2>upload file</h2>
-        <input type="file" id="file-uploader" data-target="file-uploader" accept="image/*"/>
+        <input type="file" id="file-uploader" accept="image/*">
         <progress id="uploader" value="0" max="100">0%</progress>
     </div>
     <script>
         const fileUploader = document.querySelector('#file-uploader');
         const uploader = document.getElementById('uploader');
-        fileUploader.addEventListener('change', (e) => {
+        fileUploader.addEventListener('change', function(e) {
             var file = e.target.files[0];
-            var storage = firebase.storage();
-            var storageRef = storage.ref();
-            var r = storageRef.child("new/"+file.name);
-            var task = r.put(file);
+            
+            var storageRef = firebase.storage().ref("new/"+file.name);
+            
+            var task = storageRef.put(file);
+            
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 uploader.value = percentage;
