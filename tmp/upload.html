@@ -18,27 +18,9 @@
         messagingSenderId: "405025421965"
     };
     firebase.initializeApp(config);
+    
     </script>
-    <style>
-        #progress-bar {
-            border-radius: 40px;
-            overflow: hidden;
-            width: 80%;
-            max-width: 800px;
-            span {
-                display: block;
-            }
-        }
-        #bar {
-            background: rgba(0,0,0,0.1);
-        }
-        #progress {
-            background: RoyalBlue;
-            color: #fff;
-            padding: 5px;
-            width: 0px;
-        }
-    </style>
+    
 </head>
 <body>
     <div>
@@ -46,17 +28,13 @@
         <input type="file" id="file-uploader" accept="image/*">
         <button onclick="upload()">Upload</button>
         <br>
-        <div id="progress-bar">
-            <span id="bar">
-                <span id="progress"></span>
-            </span>
-        </div>
+        <progress id="uploader" value="0" max="100">0%</progress>
         <br>
         <p id="msg"></p>
     </div>
     <script>
         var fileUploader = document.getElementById('file-uploader');
-        var progress = document.getElementById('progress');
+        var uploader = document.getElementById('uploader');
         var msg = document.getElementById('msg');
         var atu = 0;
         function upload() {
@@ -73,10 +51,10 @@
             
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-                progress.style.width = percentage + "%";
+                uploader.value = percentage;
                 msg.innerHTML = "uploading... (" + percentage + "%)";
             }, function error(err) {
-                msg.innerHTML = "upload failed. trying to upload again...";
+                msg.innerHTML = "upload failed. trying to upload again...(" + atu + "/3)";
                 atu++;
                 upload();
                 
