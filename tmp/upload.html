@@ -29,8 +29,8 @@
         <progress id="uploader" value="0" max="100">0%</progress>
     </div>
     <script>
-        const fileUploader = document.querySelector('#file-uploader');
-        const uploader = document.getElementById('uploader');
+        var fileUploader = document.getElementById('file-uploader');
+        var uploader = document.getElementById('uploader');
         fileUploader.addEventListener('change', function(e) {
             var file = e.target.files[0];
             
