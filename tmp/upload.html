@@ -27,12 +27,22 @@
         <h2>upload file</h2>
         <input type="file" id="file-uploader" accept="image/*">
         <button onclick="upload()">Upload</button>
+        <br>
         <progress id="uploader" value="0" max="100">0%</progress>
+        <br>
+        <p id="msg"></p>
     </div>
     <script>
         var fileUploader = document.getElementById('file-uploader');
         var uploader = document.getElementById('uploader');
+        var msg = document.getElementById('msg');
+        var atu = 0;
         function upload() {
+            if(atu>3) {
+                msg.innerHTML = "upload failed.";
+                atu = 0;
+                return 0;
+            }
             var file = fileUploader.files[0];
             
             var storageRef = firebase.storage().ref("new/"+file.name);
@@ -42,11 +52,14 @@
             task.on('state_changed', function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 uploader.value = percentage;
+                msg.innerHTML = "uploading... (" + percentage + "%)";
             }, function error(err) {
-                alert("upload failed.\n"+JSON.stringify(err));
+                msg.innerHTML = "upload failed. trying to upload again...";
+                atu++;
+                upload();
                 
             },function complete() {
-                alert("upload completed.");
+                msg.innerHTML = "upload completed. good job!";
             });
         }
         
