@@ -26,13 +26,14 @@
     <div>
         <h2>upload file</h2>
         <input type="file" id="file-uploader" accept="image/*">
+        <button onclick="upload()">Upload</button>
         <progress id="uploader" value="0" max="100">0%</progress>
     </div>
     <script>
         var fileUploader = document.getElementById('file-uploader');
         var uploader = document.getElementById('uploader');
-        fileUploader.addEventListener('change', function(e) {
-            var file = e.target.files[0];
+        function upload() {
+            var file = fileUploader.files[0];
             
             var storageRef = firebase.storage().ref("new/"+file.name);
             
@@ -47,7 +48,7 @@
             },function complete() {
                 alert("upload completed.");
             });
-        });
+        }
         
     </script>
 </body>
