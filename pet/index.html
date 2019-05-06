@@ -45,6 +45,16 @@
             background-color: #4a4a4a;
             border: none;
         }
+        .grid-container {
+            display: grid;
+            grid-column-gap: 8px;
+            grid-template-columns: 3rem 80%;
+            padding: 10px;
+        }
+        .grid-item {
+            padding: 8px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -59,9 +69,9 @@
                     <button class="ghost-dark"><i class="fas fa-table-tennis fa-4x"></i></button>
                 </div>
                 <br>
-                <div>
-                    <i class="fas fa-bolt fa-2x"></i><progress value="90" max="100">90%</progress><br>
-                    <i class="fas fa-heart fa-2x"></i><progress value="70" max="100">70%</progress>
+                <div class="grid-container">
+                    <i class="fas fa-bolt fa-2x grid-item"></i><progress class="grid-item" value="90" max="100">90%</progress>
+                    <i class="fas fa-heart fa-2x grid-item"></i><progress class="grid-item" value="70" max="100">70%</progress>
                 </div>
             </div>
         </div>
