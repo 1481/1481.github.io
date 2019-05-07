@@ -104,10 +104,12 @@
         function feed() {
             petInfo.dog.feed++;
             update();
+            showInfo();
         }
         function play() {
             petInfo.dog.play++;
             update();
+            showInfo();
         }
         function update() {
             ls.petInfo = JSON.stringify(petInfo);
