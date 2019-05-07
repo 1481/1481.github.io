@@ -97,7 +97,7 @@
             var petInfo = JSON.parse(ls.petInfo);
         }
         function clear() {
-            petInfo.dog.clear++;
+            petInfo.dog["clear"]++;
             update();
             showInfo();
         }
@@ -115,7 +115,18 @@
             ls.petInfo = JSON.stringify(petInfo);
         }
         function showInfo() {
-            alert("你已經餵了你的狗"+petInfo.dog.feed+"次\n你已經清理你的狗窩"+petInfo.dog.clear+"次\n你已經跟你的狗玩"+petInfo.dog.play+"次");
+            alert("你已經餵了你的狗"+petInfo.dog.feed+"次\n你已經清理你的狗窩"+petInfo.dog["clear"]+"次\n你已經跟你的狗玩"+petInfo.dog.play+"次");
+            if(petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"] >= 500) {
+                alert("你真是個好主人");
+            } else if(petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"] >= 500) {
+                alert("你真是個好主人");
+            } else if(petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"] >= 200) {
+                alert("你真是個好主人");
+            } else if(petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"] >= 100) {
+                alert("你真是個好主人");
+            } else if(petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"] >= 50) {
+                alert("你真是個好主人");
+            }
         }
     </script>
 </body>
