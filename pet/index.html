@@ -133,6 +133,7 @@
             var petInfo = JSON.parse(ls.petInfo);
         }
         if(!petInfo.dog.level) {petInfo.dog.level = 0;}
+        upgrade();
         function clears() {
             petInfo.dog["clear"]++;
             update();
