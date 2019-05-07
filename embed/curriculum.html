@@ -15,7 +15,6 @@
             font-size: 18px;
             text-align: center;
             width: 98%;
-            margin-top: 1rem;
         }
         table {
             font-size: 1.6rem;
@@ -115,6 +114,8 @@
                 document.getElementById("r"+le).className = "now";
             } else if(le==-2) {
                 document.getElementById("afterSchool").innerHTML = "目前午休中！";
+            } else if(le==-1&&(new Date().getHours()<=7)) {
+                document.getElementById("afterSchool").innerHTML = "還沒上學喔！";
             } else {
                 document.getElementById("afterSchool").innerHTML = "已經放學囉！";
             }
