@@ -151,6 +151,8 @@
         }
         function update() {
             ls.petInfo = JSON.stringify(petInfo);
+            document.getElementById("level").value = petInfo.dog.level;
+            document.getElementById("exp").value = petInfo.dog.feed+petInfo.dog.play+petInfo.dog["clear"];
         }
         function showInfo() {
             alert("你已經餵了你的狗"+petInfo.dog.feed+"次\n你已經清理你的狗窩"+petInfo.dog["clear"]+"次\n你已經跟你的狗玩"+petInfo.dog.play+"次");
@@ -184,6 +186,30 @@
                 a.classList.add("super");
             } else {
                 a.classList.add("L"+petInfo.dog.level);
+            }
+            var x = document.getElementById("exp");
+            switch(petInfo.dog.level) {
+                case 0:
+                    x.max = 50;
+                    break;
+                case 1:
+                    x.max = 100;
+                    break;
+                case 2:
+                    x.max = 200;
+                    break;
+                case 3:
+                    x.max = 500;
+                    break;
+                case 4:
+                    x.max = 1000;
+                    break;
+                case 5:
+                    x.max = 2000;
+                    break;
+                case 6:
+                    x.max = 5000;
+                    break;
             }
             update();
         }
