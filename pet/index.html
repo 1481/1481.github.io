@@ -64,9 +64,9 @@
                 <div><i id="animalImg" class="fas fa-dog" style="font-size: 15rem"></i></div>
                 <br>
                 <div class="btn-group">
-                    <button class="ghost-dark"><i class="fas fa-recycle fa-4x"></i></button>
-                    <button class="ghost-dark"><i class="fas fa-hamburger fa-4x"></i></button>
-                    <button class="ghost-dark"><i class="fas fa-table-tennis fa-4x"></i></button>
+                    <button class="ghost-dark" onclick="clear()"><i class="fas fa-recycle fa-4x"></i></button>
+                    <button class="ghost-dark" onclick="feed()"><i class="fas fa-hamburger fa-4x"></i></button>
+                    <button class="ghost-dark" onclick="play()"><i class="fas fa-table-tennis fa-4x"></i></button>
                 </div>
                 <br>
                 <div class="grid-container">
@@ -80,6 +80,15 @@
         //init
         var ls = localStorage;
         if(!ls.mypet) {
+            var petInfo = {};
+        }
+        function clear() {
+            
+        }
+        function feed() {
+            
+        }
+        function play() {
             
         }
     </script>
