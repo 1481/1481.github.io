@@ -84,7 +84,7 @@
     <style id="custom-style-tag"></style>
 </head>
 <body class="elf">
-    <div class="curtain centered firstScreen">
+    <div class="curtain centered firstScreen" id="screen1">
         <marquee direction="left" height="30" scrolldelay="10" truespeed scrollamount="1" onload="this.stop();setTimeout(function(){this.start();}, 1000);" style="position: absolute; top: 1rem; width: 100%;"><a href="/news/">公告: 徵求班網標誌(點此查看訊息)</a></marquee>
         <div>
             <h1 id="title">HSNU 1481</h1>
@@ -125,6 +125,8 @@
         var cs = document.getElementById("custom-style-tag");
         if((!window.navigator.standalone) && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
             document.getElementById('installInfo').style.display = "block";
+        } else {
+            document.getElementById('screen1').style.padding = "20px 0 0 0";
         }
         if(localStorage["SysFont"]) {
             cs.innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
