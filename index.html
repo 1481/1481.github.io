@@ -2,7 +2,6 @@
 <html lang="zh-Hant-TW">
 <head>
     <title>師大附中 1481 / HSNU 1481</title>
-    <link href="css/home.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/jrainlau/elf@0.0.1/css/elf.min.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
     <meta name="description" content="師大附中數理資優班 | HSNU 1481">
@@ -13,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="HSNU 1481">
     <link rel="apple-touch-icon" href="icon.jpg">
     <link rel="manifest" href="/manifest.json">
-
+    
     <link href="splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="splashscreens/iphoneplus_splash.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
@@ -24,7 +23,7 @@
     <link href="splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-
+    
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
         body {
@@ -39,29 +38,63 @@
         }
         body {
             height: 100%;
+        }
+        .firstScreen {
             background: linear-gradient(#4179fc,pink);
             padding: 0.5rem 0 1rem;
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
         }
+        h1#title {
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: -0.5rem;
+            text-align: center;
+        }
+        p#description {
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        div#wrap {
+            text-align: center;
+        }
+        a {
+            color: aqua;
+            text-decoration: none;
+        }
+        a:hover {
+            color: skyblue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: aqua;
+            text-decoration: none;
+        }
     </style>
     <style id="custom-style-tag"></style>
 </head>
-<body>
-    <marquee direction="left" height="30" scrolldelay="10" truespeed scrollamount="1" onload="this.stop();setTimeout(function(){this.start();}, 600);"><a href="/news/">公告: 徵求班網標誌(點此查看訊息)</a></marquee>
-    <h1>HSNU 1481</h1>
-    <p id="description">Mathematical Gifted Class</p>
-    <div id="wrap">
-        <div> <a href="javascript:goPage('curriculum')">線上查看課表</a> </div>
-        <br/>
-        <div> <a href="javascript:goPage('news')">NEWS</a> </div>
-        <br/>
-        <div> <a href="javascript:goPage('So-Hateful')">So Hateful</a> </div>
-        <br/>
-        <div> <a href="javascript:goPage('game')">GAMES</a> </div>
-        <br/>
-        <div> <a href="javascript:goPage('tools/calculator')">TOOL</a> </div>
+<body class="elf">
+    <div class="curtain centered firstScreen">
+        <marquee direction="left" height="30" scrolldelay="10" truespeed scrollamount="1" onload="this.stop();setTimeout(function(){this.start();}, 1000);" style="position: absolute; top: 1rem;"><a href="/news/">公告: 徵求班網標誌(點此查看訊息)</a></marquee>
+        <div>
+            <h1 id="title">HSNU 1481</h1>
+            <p id="description">Mathematical Gifted Class</p>
+            <div id="wrap">
+                <div> <a href="javascript:goPage('curriculum')">線上查看課表</a> </div>
+                <br/>
+                <div> <a href="javascript:goPage('news')">NEWS</a> </div>
+                <br/>
+                <div> <a href="javascript:goPage('So-Hateful')">So Hateful</a> </div>
+                <br/>
+                <div> <a href="javascript:goPage('game')">GAMES</a> </div>
+                <br/>
+                <div> <a href="javascript:goPage('tools/calculator')">TOOL</a> </div>
+            </div>
+        </div>
+        <a style="position: absolute;bottom: 0.5rem;left: 0.5rem;" href="javascript:goPage('setting')">Settings</a>
+        <a style="position: absolute;bottom: 0.5rem;right: 0.5rem;" href="status">Status</a>
     </div>
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; border-top: 1px solid gray; display: none; z-index: 10; background-color: white;" id="installInfo">
         <img style="width: 30%; max-width: 100px; border-radius: 50%; float: left; margin: 0.5rem" src="splashscreens/install.jpg"></img>
@@ -70,8 +103,6 @@
         <span> | </span>
         <a style="color: #4179fc" href="javascript:alert('1. 點擊下方分享按鈕\n2. 選擇「加入主畫面」(最下面一列)\n3. 等待約5秒讓快取檔案完成下載後按「新增」（非必要，不過可有較好的用戶體驗）')"> More Info?</a>
     </div>
-    <a style="position: fixed;bottom: 0.5rem;left: 0.5rem;" href="javascript:goPage('setting')">Settings</a>
-    <a style="position: fixed;bottom: 0.5rem;right: 0.5rem;" href="status">Status</a>
     <script src="js/some.js"></script>
     <script>//window.scrollTo(0,24);</script>
     <script>
