@@ -79,17 +79,41 @@
     <script>
         //init
         var ls = localStorage;
-        if(!ls.mypet) {
-            var petInfo = {};
+        if(!ls.petInfo) {
+            var petInfo = {
+                "dog": {
+                    "clear": 0,
+                    "feed": 0,
+                    "play": 0
+                },
+                "cat": {
+                    "clear": 0,
+                    "feed": 0,
+                    "play": 0
+                }
+            };
+            ls.petInfo = JSON.stringify(petInfo);
+        } else {
+            var petInfo = JSON.parse(ls.petInfo);
         }
         function clear() {
-            
+            petInfo.dog.clear++;
+            update();
+            showInfo();
         }
         function feed() {
-            
+            petInfo.dog.feed++;
+            update();
         }
         function play() {
-            
+            petInfo.dog.play++;
+            update();
+        }
+        function update() {
+            ls.petInfo = JSON.stringify(petInfo);
+        }
+        function showInfo() {
+            alert("你已經餵了你的狗"+petInfo.dog.feed+"次\n你已經清理你的狗窩"+petInfo.dog.clear+"次\n你已經跟你的狗玩"+petInfo.dog.play+"次");
         }
     </script>
 </body>
