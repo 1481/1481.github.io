@@ -175,15 +175,16 @@
                 petInfo.dog.level = 1;
                 alert("你真是個好主人");
             }
+            upgrade();
         }
-function upgrade() {
-var a = document.getElementById('animalImg');
-if(petInfo.dog.level>=7) {
-a.classList.add("super");
-} else {
-a.classList.add("L"+petInfo.dog.level);
-}
-}
+        function upgrade() {
+            var a = document.getElementById('animalImg');
+            if(petInfo.dog.level>=7) {
+                a.classList.add("super");
+            } else {
+                a.classList.add("L"+petInfo.dog.level);
+            }
+        }
     </script>
 </body>
 </html>
