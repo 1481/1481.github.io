@@ -180,8 +180,12 @@
         } else {
             var petInfo = JSON.parse(ls.petInfo);
         }
-        var pet = "dog";
-        if(petInfo.pet) pet = petInfo.pet;
+        
+        if(!petInfo.pet) {
+            var pet = "dog";
+        } else {
+            var pet = petInfo.pet;
+        }
         if(!petInfo[pet]) petInfo[pet] = {
             "level": 0,
             "clear": 0,
@@ -190,7 +194,7 @@
         };
         // lower support
         if(!petInfo[pet].level) {petInfo[pet].level = 0;}
-        var pn = petInfo.pet;
+        var pn = pet;
         if(pn=="bird") pn = "dove";
         document.getElementById("animalImg").classList.add("fa-"+pn);
         upgrade();
