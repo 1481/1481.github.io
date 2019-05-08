@@ -115,14 +115,14 @@
             <h2>Pets</h2>
             <table style="width: 100%;">
                 <tr>
-                    <td style="text-align: center;" onclick="changePet('dog')"><i class="fas fa-dog fa-6x"></i></td>
-                    <td style="text-align: center;" onclick="changePet('cat')"><i class="fas fa-cat fa-6x"></i></td>
-                    <td style="text-align: center;" onclick="changePet('fish')"><i class="fas fa-fish fa-6x"></i></td>
+                    <td style="text-align: center;" onclick="changePet('dog')"><i class="fas fa-dog fa-6x petsbox" title="dog"></i></td>
+                    <td style="text-align: center;" onclick="changePet('cat')"><i class="fas fa-cat fa-6x petsbox" title="cat"></i></td>
+                    <td style="text-align: center;" onclick="changePet('fish')"><i class="fas fa-fish fa-6x petsbox" title="fish"></i></td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;" onclick="changePet('frog')"><i class="fas fa-frog fa-6x"></i></td>
-                    <td style="text-align: center;" onclick="changePet('bird')"><i class="fas fa-dove fa-6x"></i></td>
-                    <td style="text-align: center;" onclick="changePet('hippo')"><i class="fas fa-hippo fa-6x"></i></td>
+                    <td style="text-align: center;" onclick="changePet('frog')"><i class="fas fa-frog fa-6x petsbox" title="frog"></i></td>
+                    <td style="text-align: center;" onclick="changePet('bird')"><i class="fas fa-dove fa-6x petsbox" title="bird"></i></td>
+                    <td style="text-align: center;" onclick="changePet('hippo')"><i class="fas fa-hippo fa-6x petsbox" title="hippo"></i></td>
                 </tr>
             </table>
         </div>
@@ -250,6 +250,14 @@
                 a.classList.add("super");
             } else {
                 a.classList.add("L"+petInfo[pet].level);
+            }
+            for(var i = 0; i < document.getElementsByClassName("petsbox").length; i++) {
+                var x = document.getElementsByClassName("petsbox")[i];
+                if(petInfo[x.title].level>=7) {
+                    x.classList.add("super");
+                } else {
+                    x.classList.add("L"+petInfo[x.title].level);
+                }
             }
             var x = document.getElementById("exp");
             switch(petInfo[pet].level) {
