@@ -121,30 +121,30 @@ function update() {
 // show informations
 function showInfo() {
     alert("你已經餵了你的"+petsName[pet][0]+petInfo[pet].feed+"次\n你已經清理你的"+petsName[pet][1]+petInfo[pet]["clear"]+"次\n你已經跟你的"+petsName[pet][0]+"玩"+petInfo[pet].play+"次");
-    if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 100) {
+    if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 100) {
         alert("你真是個宇宙無敵超級好主人\n你看！好到你的"+petsName[pet][0]+"都發光了耶！");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 90) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 90) {
         alert("good");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 80) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 80) {
         alert("good");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 70) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 70) {
         alert("good");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 60) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 60) {
         alert("你真是個好到無人能比的好主人");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 50) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 50) {
         alert("你真是個好到不能再好的好主人");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 40) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 40) {
         alert("你真是個超級超級超級好主人");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 30) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 30) {
         alert("你真是個超級超級好主人");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 20) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 20) {
         alert("你真是個超級好主人");
-    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 1000 * 10) {
+    } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 10) {
         alert("你真是個好主人");
     }
-    if(Math.floor(petInfo[pet].exp/1000)>petInfo[pet].level) {
-        petInfo[pet].level = Math.floor(petInfo[pet].exp/1000);
-        petInfo[pet].exp -= petInfo[pet].level * 1000;
+    if(Math.floor(petInfo[pet].exp/100)>petInfo[pet].level) {
+        petInfo[pet].level = Math.floor(petInfo[pet].exp/100);
+        petInfo[pet].exp -= petInfo[pet].level * 100;
     }
     upgrade();
 }
@@ -165,7 +165,7 @@ function upgrade() {
         }
     }
     var x = document.getElementById("exp");
-    x.max = (petInfo[pet].level + 1) * 1000;
+    x.max = (petInfo[pet].level + 1) * 100;
     update();
 }
 // change pet and reload page
