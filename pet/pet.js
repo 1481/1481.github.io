@@ -1,4 +1,5 @@
 // init data
+var speedUp = 1;
 var petsName = {
     "dog": ["狗", "狗窩"],
     "cat": ["貓", "貓砂"],
