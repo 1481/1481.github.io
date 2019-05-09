@@ -139,7 +139,7 @@ rgba(65, 121, 252, 0.5), transparent); display: none; position: fixed;"></div>
         var cs = document.getElementById("custom-style-tag");
         if((!window.navigator.standalone) && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
             document.getElementById('installInfo').style.display = "block";
-        } else {
+        } else if(window.navigator.standalone && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
             document.getElementById('iOS-standalone-head-padding').style.display = "block";
             document.getElementById('iOS-standalone-fixed-padding').style.display = "block";
             document.getElementById('marquee').style.top = "2rem";
