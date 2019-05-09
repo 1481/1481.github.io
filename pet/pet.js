@@ -18,7 +18,7 @@ if(!ls.petInfo) {
             "clear": 0,
             "feed": 0,
             "play": 0,
-            "power": 1
+            "power": 1,
             "latest": 0
         },
         "cat": {
@@ -27,7 +27,7 @@ if(!ls.petInfo) {
             "clear": 0,
             "feed": 0,
             "play": 0,
-            "power": 1
+            "power": 1,
             "latest": 0
         },
         "fish": {
@@ -36,7 +36,7 @@ if(!ls.petInfo) {
             "clear": 0,
             "feed": 0,
             "play": 0,
-            "power": 1
+            "power": 1,
             "latest": 0
         },
         "frog": {
@@ -45,7 +45,7 @@ if(!ls.petInfo) {
             "clear": 0,
             "feed": 0,
             "play": 0,
-            "power": 1
+            "power": 1,
             "latest": 0
         },
         "bird": {
@@ -54,7 +54,7 @@ if(!ls.petInfo) {
             "clear": 0,
             "feed": 0,
             "play": 0,
-            "power": 1
+            "power": 1,
             "latest": 0
         },
         "hippo": {
