@@ -80,11 +80,11 @@ document.getElementById("animalImg").classList.add("fa-"+pn);
 // init UI
 upgrade();
 function checkUsage() {
-    if(petInfo[pet].latest + (60*60*1000) <= Date.now()) {
+    if(petInfo[pet].latest + (30*60*1000) <= Date.now()) {
         petInfo[pet].latest = Date.now();
         return 1;
     } else {
-        alert("你還需要" + Math.floor(((petInfo[pet].latest + (60*60*1000)) - Date.now())/60000) + "分鐘才可對你的" + petsName[pet][0] + "進行操作喔！");
+        alert("你還需要" + Math.floor(((petInfo[pet].latest + (60*60*1000)) - Date.now())/30000) + "分鐘才可對你的" + petsName[pet][0] + "進行操作喔！");
         return 0;
     }
 }
