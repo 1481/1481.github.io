@@ -166,6 +166,9 @@ function upgrade() {
     }
     var x = document.getElementById("exp");
     x.max = (petInfo[pet].level + 1) * 100;
+    if(petInfo[pet].power==3) {
+        document.getElementById("power").classList.add("super");
+    }
     update();
 }
 // change pet and reload page
