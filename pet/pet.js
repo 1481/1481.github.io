@@ -159,7 +159,7 @@ function upgrade() {
         if(petInfo[x.title].level>=100) {
             x.classList.add("super");
         } else {
-            x.classList.add("L"+Math.floor(petInfo[x.title].level));
+            x.classList.add("L"+Math.floor(petInfo[x.title].level/10));
         }
     }
     var x = document.getElementById("exp");
