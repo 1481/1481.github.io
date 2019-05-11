@@ -113,6 +113,7 @@ function play() {
 // sync data
 function update() {
     ls.petInfo = JSON.stringify(petInfo);
+    syncToCloud(petInfo);
     document.getElementById("level").value = petInfo[pet].level;
     document.getElementById("exp").value = petInfo[pet].exp;
     
