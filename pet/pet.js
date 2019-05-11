@@ -115,10 +115,6 @@ function update() {
     if(checkPoint) return;
     ls.petInfo = JSON.stringify(petInfo);
     syncToCloud(petInfo);
-    document.getElementById("level").value = petInfo[pet].level;
-    document.getElementById("exp").value = petInfo[pet].exp;
-    
-    document.getElementById("power").value = petInfo[pet].power;
 }
 // show informations
 function showInfo() {
@@ -171,6 +167,9 @@ function upgrade() {
     if(petInfo[pet].power==3) {
         document.getElementById("power").classList.add("super");
     }
+    document.getElementById("level").value = petInfo[pet].level;
+    document.getElementById("exp").value = petInfo[pet].exp;
+    document.getElementById("power").value = petInfo[pet].power;
     update();
 }
 // change pet and reload page
