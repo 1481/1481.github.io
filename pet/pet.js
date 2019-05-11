@@ -84,7 +84,7 @@ function checkUsage() {
         petInfo[pet].latest = Date.now();
         return 1;
     } else {
-        alert("你還需要" + Math.floor(((petInfo[pet].latest + (30*60*1000)) - Date.now())/60000) + "分鐘才可對你的" + petsName[pet][0] + "進行操作喔！");
+        alert("你的" + petsName[pet][0] + "很累了，你還需要" + Math.floor(((petInfo[pet].latest + (30*60*1000)) - Date.now())/60000) + "分鐘才可以跟你的" + petsName[pet][0] + "互動喔！");
         return 0;
     }
 }
@@ -122,11 +122,11 @@ function showInfo() {
     if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 100) {
         alert("你真是個宇宙無敵超級好主人\n你看！好到你的"+petsName[pet][0]+"都發光了耶！");
     } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 90) {
-        alert("good");
+        alert("WOW！你的"+petsName[pet][0]+"已經超過90等了耶！很少見耶！");
     } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 80) {
-        alert("good");
+        alert("看來你的"+petsName[pet][0]+"已經伴隨你很久了呢");
     } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 70) {
-        alert("good");
+        alert("誰是好主人？就是你！");
     } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 60) {
         alert("你真是個好到無人能比的好主人");
     } else if(petInfo[pet].feed+petInfo[pet].play+petInfo[pet]["clear"] >= 100 * 50) {
@@ -174,10 +174,15 @@ function upgrade() {
 }
 // change pet and reload page
 function changePet(x) {
+    document.getElementById("animalImg").classList.remove("fa-"+pn);
     petInfo.pet = x;
-    update();
+    pet = petInfo.pet;
+    pn = pet;
+    if(pn=="bird") pn = "dove";
+    document.getElementById("animalImg").classList.add("fa-"+pn);
+    upgrade();
     window.scrollTo(0, 0);
-    location.reload();
+    update();
 }
 // get Exp
 function getExp() {
