@@ -10,6 +10,7 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("User Logged In.");
+        checkPoint = 0;
     } else {
         alert("Please Login First.");
         location.href = "/auth/";
@@ -17,6 +18,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 var db = firebase.firestore();
 var Cloud = db.collection("Pet");
+var checkPoint = 1;
 function syncToCloud(f) {
     var doc = Cloud.doc(firebase.auth().currentUser.uid);
     doc.get()
