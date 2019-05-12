@@ -9,9 +9,14 @@ var petsName = {
     "hippo": ["河馬", "後院"]
 };
 var ls = localStorage;
+var cVersion = 2.0;
+if(ls.petInfo && JSON.parse(ls.petInfo).version < cVersion) {
+    ls.removeItem("petInfo");
+}
 // new player
 if(!ls.petInfo) {
     var petInfo = {
+        "version": 2.0,
         "pet": "dog",
         "dog": {
             "level": 0,
