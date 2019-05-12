@@ -33,3 +33,18 @@ function syncToCloud(f) {
         console.log("Sync Failed.");
     });
 }
+function resync() {
+    var doc = Cloud.doc(firebase.auth().currentUser.uid);
+    db.collection("Pet").doc(firebase.auth().currentUser.uid).get()
+    .then((doc) => {
+        if (doc.exists) {
+            petInfo = doc.data();
+        }
+    })
+    .catch((err) => {
+        console.log("reSync Failed.");
+    });
+}
+setInterval(function() {
+    resync();
+}, 60*1000);
