@@ -11,6 +11,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("User Logged In.");
         checkPoint = 0;
+        resync();
     } else {
         alert("Please Login First.");
         location.href = "/auth/";
