@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speed Game | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script>
+        // Point Functions
+        if(!localStorage.speedGamePoints)
+            localStorage.speedGamePoints = "0";
+        var points = getPoint();
+        function getPoint() {
+            return parseInt(localStorage.speedGamePoints);
+        }
+        function addPoint(p=100) {
+            localStorage.speedGamePoints = String(parseInt(localStorage.speedGamePoints) + p);
+            points = getPoint();
+        }
+    </script>
+    <style>
+        .gameContainer {
+            zoom: 1.4;
+        }
+        #speedGame {
+            border:1px solid black;
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container w3-center gameContainer">
+            <h2>Your Points: <span id="p"></span></h2>
+            <div id="speedGame"></div><br>
+            <button class="w3-button w3-round w3-border" id="button">Restart</button>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+    </script> 
+    <script>
+        var ig = true;
+        var delay = parseInt(2000+Math.random()*3000);
+        var s_t = Date.now() + delay;
+        var during;
+        Swal.fire("Warning", "This game is very difficult.<br>Please don't be mad if you lose.", "warning").then(function(){clearTimeout(to);restart()});
+        document.getElementById("p").innerHTML = points;
+        var dot = document.getElementById("speedGame");
+        var button = document.getElementById("button");
+        dot.onclick = function(){check()};
+        button.onclick = function(){clearTimeout(to);restart()};
+        document.addEventListener('keypress', function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13 && ig === true)
+                check();
+        });
+        var to = setTimeout(function(){change()}, delay);
+        function change() {
+            dot.style.backgroundColor = "green";
+            during = 150+Math.random()*250;
+            setTimeout(function() {
+                dot.style.backgroundColor = "red";
+            }, during);
+        }
+        function check() {
+            ig = false;
+            clearTimeout(to);
+            var c = dot.style.backgroundColor;
+            if(c == "green") {
+                addPoint();
+                document.getElementById("p").innerHTML = points;
+                Swal.fire("+100", "Total Points: "+points, "success").then(r=>{restart();ig=true;});
+            } else {
+                if(c == "blue")
+                    Swal.fire("Failed", "To early! " + parseInt(s_t - Date.now())/1000 + " seconds faster.", "error").then(r=>{restart();ig=true;});
+                else
+                    Swal.fire("Failed", "Missed! " + parseInt(Date.now() - (s_t + during))/1000 + " seconds slower.", "error").then(r=>{restart();ig=true;});
+            }
+        }
+        function restart() {
+            delay = 2000+Math.random()*3000;
+            s_t = Date.now() + delay;
+            to = setTimeout(function() {change();}, delay);
+            dot.style.backgroundColor = "blue";
+        }
+    </script>
+</body>
+</html>

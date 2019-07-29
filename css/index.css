@@ -1,14 +1,113 @@
 @charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+body, h1, h2, h3, p, span, a {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.hide {
+    display: none !important;
+}
 a {
-	color: deepskyblue;
-	text-decoration: none;
+    color: orange !important;
+    text-decoration: none;
 }
 a:hover {
-	color: skyblue;
-	text-decoration: none;
+    color: #ffcc77 !important;
+    text-decoration: none;
 }
 a:visited {
-	color: deepskyblue;
-	text-decoration: none;
+    color: orange !important;
+    text-decoration: none;
+}
+.w3-bar-item {
+    padding: 8px 10px !important;
+}
+.BlueGradient {
+    background: linear-gradient(90deg, RoyalBlue, SkyBlue);
+    background-size: 400% 400%;
+    animation: GradientAnimation 10s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.TodayTime {
+    font-weight: 700;
+    position: relative;
+    opacity: 0;
+    animation: FadeInBottom 1s forwards 1;
+}
+.TodayNews {
+    position: relative;
+    opacity: 0;
+    animation-delay: 1s !important;
+    animation: FadeInLeft 1s forwards 1;
+}
+.Curriculum {
+    position: relative;
+    opacity: 0;
+    animation-delay: 2s !important;
+    animation: FadeInLeft 1s forwards 1;
+}
+.curriculum-container {
+    text-align: center;
+}
+.curriculum-item {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    margin: 0 8px;
+}
+.curriculum-time {
+    font-size: 1rem;
+}
+.curriculum-name {
+    margin: -0.8rem 0 0 0;
+    font-size: 1.6rem;
+}
+.footer {
+    position: relative;
+    height: 4rem;
+    opacity: 0;
+    animation-delay: 4s !important;
+    animation: FadeInBottom 1s forwards 1;
+}
+@keyframes GradientAnimation {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+@keyframes FadeInBottom {
+    0% {
+        opacity: 0;
+        bottom: -2rem;
+    }
+    100% {
+        opacity: 1;
+        bottom: 0rem;
+    }
+}
+@keyframes FadeInLeft {
+    0% {
+        opacity: 0;
+        left: -2rem;
+    }
+    100% {
+        opacity: 1;
+        left: 0rem;
+    }
 }

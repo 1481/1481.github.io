@@ -1,169 +1,73 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant-TW">
 <head>
-    <title>師大附中 1481 / HSNU 1481</title>
-    <link href="https://cdn.jsdelivr.net/gh/jrainlau/elf@0.0.1/css/elf.min.css" type="text/css" rel="stylesheet">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <meta name="description" content="師大附中數理資優班 | HSNU 1481">
-    <meta property="og:image" content="preview.jpg">
-    <link rel="icon" href="icon.jpg" type="image/ico"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="HSNU 1481">
-    <link rel="apple-touch-icon" href="icon.jpg">
-    <link rel="manifest" href="/manifest.json">
+    <title>師大附中 1481 | HSNU 1481</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="師大附中數理資優班 | HSNU 1481" name="description">
+    <meta content="preview.jpg" property="og:image">
+    <link href="icon.jpg" rel="icon" type="image/ico">
+    <link href="/manifest.json" rel="manifest">
     
-    <link href="splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/iphoneplus_splash.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <!-- Apple PWA Meta -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="HSNU 1481" name="apple-mobile-web-app-title">
+    <link href="icon.jpg" rel="apple-touch-icon">
+    <link href="splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/iphoneplus_splash.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+    <link href="splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+    <link href="splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
+    <link href="splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
     
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-        .hide {
-            display: none;
-        }
-        // NEW BG
-        html {
-            height: 100%;
-        }
-        body {
-            height: 100%;
-        }
-        .firstScreen {
-            background: linear-gradient(#4179fc,pink);
-            padding: 0.5rem 0 1rem;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-        }
-        .secondScreen {
-            background-color: #eeeedd;
-            padding: 0.5rem 0 1rem;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-        }
-        .footer {
-            padding: 0.5rem 0 1rem;
-            width: 100%;
-            background: linear-gradient(#eeeedd,pink);
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        h1#title {
-            font-size: 3.36rem;
-            color: white;
-            margin-bottom: -0.5rem;
-            text-align: center;
-        }
-        p#description {
-            color: white;
-            font-size: 1.32rem;
-            text-align: center;
-        }
-        div#wrap {
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        a {
-            color: aqua;
-            text-decoration: none;
-        }
-        a:hover {
-            color: skyblue;
-            text-decoration: none;
-        }
-        a:visited {
-            color: aqua;
-            text-decoration: none;
-        }
-    </style>
-    <style id="custom-style-tag"></style>
+    <!-- Styles -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
+    <script src="js/moment-plugin.js"></script>
+    <script src="js/index.js"></script>
 </head>
-<body class="elf">
-    <div id="iOS-standalone-head-padding" style="height: 20px; width: 100%; background-color: #4179fc; display: none;"></div>
-    <div id="iOS-standalone-fixed-padding" style="height: 20px; width: 100%; background-image: linear-gradient(
-        rgba(65, 121, 252, 0.5), rgba(65, 121, 252, 0)); display: none; position: fixed; top: 0px"></div>
-    <div class="curtain centered firstScreen" id="screen1">
-        <marquee id="marquee" direction="left" scrolldelay="10" truespeed scrollamount="1" onload="this.stop();setTimeout(function(){this.start();}, 1000);" style="position: absolute; top: 1rem; width: 100%;"><a href=""></a></marquee>
-        <div>
-            <h1 id="title">HSNU 1481</h1>
-            <p id="description">Mathematical Gifted Class</p>
-            <div id="wrap">
-                <div> <a href="javascript:goPage('curriculum')">查看課表</a> </div>
-                <br/>
-                <div> <a href="javascript:goPage('news')">NEWS</a> </div>
-                <br/>
-                <div> <a href="javascript:goPage('So-Hateful')">So Hateful</a> </div>
-                <br/>
-                <div> <a href="javascript:goPage('game')">GAMES</a> </div>
-                <br/>
-                <div> <a href="javascript:goPage('tools/calculator')">TOOL</a> </div>
-            </div>
+
+<body class="">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
         </div>
-        <a style="position: absolute;bottom: 0.5rem;left: 0.5rem;" href="javascript:goPage('setting')">Settings</a>
-        <a style="position: absolute;bottom: 0.5rem;right: 0.5rem;" href="status">Status</a>
-    </div>
-    <div class="curtain secondScreen">
-        <div style="padding: 0 10%; width: 80%; text-align: left;">
-            <h1 onclick="goPage('curriculum')">課表</h1>
-            <div id="curriculum">
-                <iframe src="/embed/curriculum" style="width: 100%; border: 0; overflow: hidden;" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
+        <!-- Insite Notification -->
+        <div style="height: 2rem;">
+            <span id="notice"></span>
+        </div>
+        <!-- Todays -->
+        <div class="w3-container">
+            <h1 class="TodayTime" style="font-size: 2.4rem;">
+            </h1>
+            <h2 class="TodayTime" style="font-size: 1.8rem; margin: -1rem 0 0 0;">
+            </h2>
+            <script>DynamicLoad(1)</script>
+            <div class="TodayNews w3-margin-top w3-margin-bottom">
             </div>
-            <p style="text-align: right;" onclick="goPage('curriculum')">查看其他日期</p>
+            <script>DynamicLoad(2)</script>
+        </div>
+        <div class="Curriculum w3-container">
+            <h2 style="font-size: 2rem; font-weight: 700;">課表</h2>
+            <div class="curriculum-container">
+            </div>
+            <script>DynamicLoad(3)</script>
         </div>
     </div>
-    <div class="footer" style="width: 100%; text-align: center;">
-        <p style="">Copyright © 2019 <a href="https://1481.tk" style="color: RoyalBlue">HSNU 1481</a>. All rights reserved.</p>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
     </div>
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; border-top: 1px solid gray; display: none; z-index: 10; background-color: white;" id="installInfo">
-        <img style="width: 30%; max-width: 100px; border-radius: 50%; float: left; margin: 0.5rem" src="splashscreens/install.jpg"></img>
-        <p style="font-size: 1rem;">Install HSNU 1481 on your iPhone. <br>Use the buttom below.</p>
-        <a style="color: #4179fc" href="javascript:document.getElementById('installInfo').style.display='none'">Close </a>
-        <span> | </span>
-        <a style="color: #4179fc" href="javascript:alert('1. 點擊下方分享按鈕\n2. 選擇「加入主畫面」(最下面一列)\n3. 等待約5秒讓快取檔案完成下載後按「新增」（非必要，不過可有較好的用戶體驗）')"> More Info?</a>
-    </div>
-    <script src="js/some.js"></script>
-    <script>//window.scrollTo(0,24);</script>
-    <script>
-        var cs = document.getElementById("custom-style-tag");
-        if((!window.navigator.standalone) && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
-            document.getElementById('installInfo').style.display = "block";
-        } else if(window.navigator.standalone && (/iPad|iPhone|iPod/.test(navigator.userAgent))) {
-            document.getElementById('iOS-standalone-head-padding').style.display = "block";
-            document.getElementById('iOS-standalone-fixed-padding').style.display = "block";
-            document.getElementById('marquee').style.top = "2rem";
-        }
-        if(localStorage["SysFont"]) {
-            cs.innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
-        }
-        if(localStorage["SysUseHomeImage"]) {
-            document.body.style.background = "url('"+localStorage["SysHomeImage"]+"') no-repeat center center fixed";
-            document.body.style.backgroundSize = "cover";
-        }
-        if(localStorage["SysHyperColor"]) {
-            cs.innerHTML += "a {color: "+localStorage["SysHyperColor"]+" !important}a:visited {color: "+localStorage["SysHyperColor"]+" !important}";
-        }
-        if(localStorage["SysHoveredHyperColor"]) {
-            cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
-        }
+    <script src="https://instant.page/1.2.2" type="module">
     </script>
-    <audio autoplay loop style="display: none">
-        <source src="bgm/Nonchalant Expansion.mp3" type="audio/mpeg">
-        Not Supported.
-    </audio>
-    <script src="/js/regSW.js"></script>
-    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
 </body>
 </html>
