@@ -30,11 +30,15 @@ function placeNews() {
         var newsInfo = document.createElement("div");
         var newsTitle = document.createElement("h3");
         var newsDescription = document.createElement("p");
+        var wrapper = document.createElement("div");
         
-        newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin");
+        newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
         newsContainer.style.overflow = "hidden";
-        newsImage.src = news.articles[i].urlToImage || "";
+        newsImage.src = news.articles[i].urlToImage ? news.articles[i].urlToImage : "https://fakeimg.pl/600x400/bfff00/00a2ff/?text=%E6%96%B0%E8%81%9E&font=noto";
         newsImage.style.width = "100%";
+        newsImage.style.objectFit = "cover";
+        newsImage.style.objectPosition = "top";
+        newsImage.style.maxHeight = "400px";
         newsInfo.classList.add("w3-container");
         newsTitle.style.fontSize = "1.4rem";
         newsTitle.innerHTML = news.articles[i].title;
@@ -44,7 +48,8 @@ function placeNews() {
         newsInfo.appendChild(newsDescription);
         newsContainer.appendChild(newsImage);
         newsContainer.appendChild(newsInfo);
-        document.getElementsByClassName("TodayNews")[0].appendChild(newsContainer);
+        wrapper.appendChild(newsContainer);
+        document.getElementsByClassName("TodayNews")[0].appendChild(wrapper);
     }
 }
 function placeCurriculum() {
