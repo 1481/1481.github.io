@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+html, body {
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    text-align: center;
+}
+table {
+    font-size: 1.6rem;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 20rem;
+    opacity: 0;
+    animation: FadeInBottom 1s forwards 1;
+}
+td {
+    width: 50%;
+}
+.w3-bar-item {
+    padding: 8px 10px !important;
+}
+.now {
+    color: orange;
+}
+.passed {
+    color: LightGray;
+}
+.BlueGradient {
+    background: linear-gradient(90deg, RoyalBlue, SkyBlue);
+    background-size: 400% 400%;
+    animation: GradientAnimation 10s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+body, h1, h2, h3, p, span, a {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.hide {
+    display: none !important;
+}
+a {
+    color: orange;
+    text-decoration: none;
+}
+a:hover {
+    color: #ffcc77;
+    text-decoration: none;
+}
+a:visited {
+    color: orange;
+    text-decoration: none;
+}
+.time {
+    text-align: justify;
+}
+.footer {
+    position: relative;
+    height: 4rem;
+    opacity: 0;
+    animation-delay: 2s !important;
+    animation: FadeInBottom 1s forwards 1;
+}
+@media screen and (min-width: 350px){
+      table{
+          font-size: 2rem;
+      }
+  }
+@keyframes GradientAnimation {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+@keyframes FadeInBottom {
+    0% {
+        opacity: 0;
+        bottom: -2rem;
+    }
+    100% {
+        opacity: 1;
+        bottom: 0rem;
+    }
+}
+@keyframes FadeInLeft {
+    0% {
+        opacity: 0;
+        left: -2rem;
+    }
+    100% {
+        opacity: 1;
+        left: 0rem;
+    }
+}

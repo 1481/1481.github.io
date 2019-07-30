@@ -1,8 +1,8 @@
 <html>
 <head>
-    <title>NEWS - HSNU 1481</title>
-    <link href="../css/index.css" type="text/css" rel="stylesheet">
+    <title>新聞 | HSNU 1481</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="../css/main.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="師大附中1481班 新聞">
     <link rel="icon" href="../icon.jpg" type="image/ico"/>
@@ -10,60 +10,111 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="../icon.jpg">
     <link rel="apple-touch-startup-image" href="../icon.jpg">
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.firestore();
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #3a85ff;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        h1#title {
-            color: white;
-        }
-        a {
-            color: #00fff5;
-            text-decoration: none;
-        }
-        a:hover {
-            color: skyblue;
-            text-decoration: none;
-        }
-        a:visited {
-            color: #00fff5;
-            text-decoration: none;
-        }
         .News {
-            width: 90%;
+            max-width: 600px;
             display: inline-block;
         }
-        @media only screen and (min-width: 800px) {
-            .News {
-                width: 60%;
-            }
-        }
-        @media only screen and (min-width: 1200px) {
-            .News {
-                width: 40%;
-                margin: 16px 20%!important;
-            }
-        }
     </style>
-    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js"></script>
 </head>
 <body>
-    <a style="position: fixed;top: 0.8rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
-    <a style="position: fixed;top: 0.8rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
-    <h1 id="title">NEWS</h1>
-    <div id="newsBlock"></div>
-    <script src="news.js"></script>
-    <style id="custom-style-tag"></style>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container w3-center">
+            <h1 id="title">NEWS</h1>
+            <div class="TodayNews w3-margin-top w3-margin-bottom">
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
     <script>
-        if(localStorage["SysFont"]) {
-            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
+        var news = {totalResults: 0, articles: []};
+        if(parseInt(localStorage["NewsCachedTime"]) + 5*60*1000 > Date.now()) {
+            news = JSON.parse(localStorage["NewsCache"]);
+            placeNews();
+        }
+        else fetchNews();
+        
+        function fetchNews() {
+            db.collection("NEWS").orderBy("Time", "desc").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    var article = doc.data();
+                    news.totalResults++;
+                    news.articles.push({
+                        urlToImage: article.Image,
+                        title: article.Title,
+                        description: article.Content,
+                        author: article.Author,
+                        time: article.Time.toDate().toLocaleString()
+                    });
+                    console.log(doc.id, " => ", doc.data());
+                })
+            }).then(()=>{
+                localStorage["NewsCache"] = JSON.stringify(news);
+                localStorage["NewsCachedTime"] = Date.now();
+                placeNews();
+            });
+        }
+        function placeNews() {
+            if(!news.totalResults) {
+                document.getElementsByClassName("TodayNews")[0].innerHTML = "最近沒有發布任何新聞";
+                return;
+            }
+            for(var i = 0; i < news.totalResults; i++) {
+                var newsContainer = document.createElement("div");
+                var newsImage = document.createElement("img");
+                var newsInfo = document.createElement("div");
+                var newsTitle = document.createElement("h3");
+                var newsDescription = document.createElement("p");
+                var newsAuthor = document.createElement("span");
+                var newsTimestamp = document.createElement("span");
+                var wrapper = document.createElement("div");
+                
+                newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
+                newsContainer.style.overflow = "hidden";
+                newsImage.src = news.articles[i].urlToImage ? news.articles[i].urlToImage : "https://fakeimg.pl/600x400/bfff00/00a2ff/?text=%E6%96%B0%E8%81%9E&font=noto";
+                newsImage.style.width = "100%";
+                newsImage.style.objectFit = "cover";
+                newsImage.style.objectPosition = "top";
+                newsImage.style.maxHeight = "400px";
+                newsInfo.classList.add("w3-container");
+                newsTitle.style.fontSize = "1.4rem";
+                newsTitle.innerHTML = news.articles[i].title;
+                newsDescription.innerHTML = news.articles[i].description;
+                newsAuthor.style.float = "left";
+                newsTimestamp.style.float = "right";
+                newsAuthor.innerHTML = news.articles[i].author;
+                newsTimestamp.innerHTML = news.articles[i].time;
+                
+                newsInfo.appendChild(newsTitle);
+                newsInfo.appendChild(newsDescription);
+                newsInfo.appendChild(newsAuthor);
+                newsInfo.appendChild(newsTimestamp);
+                newsContainer.appendChild(newsImage);
+                newsContainer.appendChild(newsInfo);
+                wrapper.appendChild(newsContainer);
+                document.getElementsByClassName("TodayNews")[0].appendChild(wrapper);
+            }
         }
     </script>
 </body>

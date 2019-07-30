@@ -1,136 +1,106 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="師大附中1481班 課表">
-    <link rel="icon" href="icon.jpg" type="image/ico"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icon.jpg">
-    <link rel="apple-touch-startup-image" href="icon.jpg">
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="師大附中1481班 課表" name="description">
+    <link href="icon.jpg" rel="icon" type="image/ico">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link href="icon.jpg" rel="apple-touch-icon">
+    <link href="icon.jpg" rel="apple-touch-startup-image">
     <title>1481 課表</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-        html, body {
-            font-family: 'Noto Sans TC', Arial, sans-serif;
-            font-size: 18px;
-            text-align: center;
-            width: 98%;
-            margin-top: 1rem;
-            background-color: #3a85ff;
-        }
-        table {
-            font-size: 1.6rem;
-            text-align: center;
-            margin: 0 auto;
-            width: 90%;
-            max-width: 20rem;
-        }
-        td {
-            width: 50%;
-        }
-        .now {
-            color: white;
-        }
-        a {
-            color: #00fff5;
-            text-decoration: none;
-        }
-        a:hover {
-            color: skyblue;
-            text-decoration: none;
-        }
-        a:visited {
-            color: #00fff5;
-            text-decoration: none;
-        }
-    </style>
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/curriculum.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
 </head>
-
 <body>
-    <a style="position: fixed;top: 0.8rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
-    <a style="position: fixed;top: 0.8rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
-    日期: <input type="date" id="date" onchange="f()">
-    <table>
-        <tr><th>課表</th><th id="wk"></th></tr>
-        <tr id="r1"><th>8:10~9:00</th><td id="l1"></td></tr>
-        <tr id="r2"><th>9:10~10:00</th><td id="l2"></td></tr>
-        <tr id="r3"><th>10:10~11:00</th><td id="l3"></td></tr>
-        <tr id="r4"><th>11:10~12:00</th><td id="l4"></td></tr>
-        <tr id="r5"><th>13:00~13:50</th><td id="l5"></td></tr>
-        <tr id="r6"><th>14:00~14:50</th><td id="l6"></td></tr>
-        <tr id="r7"><th>15:10~16:00</th><td id="l7"></td></tr>
-        <tr id="r8"><th>16:10~17:00</th><td id="l8"></td></tr>
-        <tr class="now"><td id="afterSchool" colspan="2"></td></tr>
-    </table>
-    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js"></script>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <table>
+            <tr>
+                <th>課表</th>
+                <th id="wk"></th>
+            </tr>
+            <tr class="row">
+                <th class="time">08:10~09:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">09:10~10:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">10:10~11:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">11:10~12:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">13:00~13:50</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">14:00~14:50</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">15:10~16:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="row">
+                <th class="time">16:10~17:00</th>
+                <td class="lesson"></td>
+            </tr>
+            <tr class="now">
+                <td colspan="2" id="afterSchool"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
     <script>
-        var d = new Date();
-        var today = d.getDay();
         var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-        var cfile = xhr.json("curriculums/107.2.json");
-        var no = ["假日", "假日", "假日", "假日", "假日", "假日", "假日", "假日"];
-        var mon = cfile[0];
-        var tue = cfile[1];
-        var wen = cfile[2];
-        var thu = cfile[3];
-        var fri = cfile[4];
-        var ics = [no, mon, tue, wen, thu, fri, no];
-        w();
-        var nowDate = (new Date().getFullYear() + "-" + (new Date().getMonth()+1).toString().padStart(2,"0") + "-" + new Date().getDate().toString().padStart(2,"0"));
-        document.getElementById("date").value = nowDate;
-        setInterval(function(){when();}, 60*1000);
-        function w() {
-            document.getElementById("wk").innerHTML = days[today];
-            document.getElementById("l1").innerHTML = ics[today][0];
-            document.getElementById("l2").innerHTML = ics[today][1];
-            document.getElementById("l3").innerHTML = ics[today][2];
-            document.getElementById("l4").innerHTML = ics[today][3];
-            document.getElementById("l5").innerHTML = ics[today][4];
-            document.getElementById("l6").innerHTML = ics[today][5];
-            document.getElementById("l7").innerHTML = ics[today][6];
-            document.getElementById("l8").innerHTML = ics[today][7];
-            when();
-        }
-        function f() {
-            var date = document.getElementById("date").value;
-            var nd = new Date(date);
-            today = nd.getDay();
-            w();
-        }
-        function when() {
-            for(var i = 1; i< 9; i++) {
-                document.getElementById("r"+i).className = "";
-            }
-            document.getElementById("afterSchool").innerHTML = "";
-            var le;
-            switch(new Date().getHours()) {
-                case 8:le = 1;break;
-                case 9:le = 2;break;
-                case 10:le = 3;break;
-                case 11:le = 4;break;
-                case 12:le = -2;break;
-                case 13:le = 5;break;
-                case 14:le = 6;break;
-                case 15:le = 7;break;
-                case 16:le = 8;break;
-                default:le = -1;
-            }
-            if(le>-1) {
-                document.getElementById("r"+le).className = "now";
-            } else if(le==-2) {
-                document.getElementById("afterSchool").innerHTML = "目前午休中！";
-            } else {
-                document.getElementById("afterSchool").innerHTML = "已經放學囉！";
-            }
+        placeCurriculum();
+        var row = document.getElementsByClassName("row");
+        var time = document.getElementsByClassName("time");
+        var lesson = document.getElementsByClassName("lesson");
+        
+        function placeCurriculum() {
+            fetch("curriculums/vocation.json").then(r => r.json()).then(a => {
+                let standard = [
+                    [810, 900],
+                    [910, 1000],
+                    [1010, 1100],
+                    [1110, 1200],
+                    [1300, 1350],
+                    [1400, 1450],
+                    [1510, 1600],
+                    [1610, 1700]
+                ];
+                let d = moment().day();
+                document.getElementById("wk").innerHTML = days[d];
+                let n = moment().hour() * 100 + moment().minute();
+                let nl;
+                for (var i = 0; i < standard.length; i++)
+                    if (standard[i][0] <= n && standard[i][1] > n) nl = i;
+                for (var i = 0; i < a[d].length; i++) {
+                    if(i < nl) row[i].classList.add("passed");
+                    if(i == nl) row[i].classList.add("now");
+                    else row[i].classList.remove("now");
+                    time[i].innerHTML = ("" + parseInt(standard[i][0] / 100)).padStart(2, "0") + ":" + String(standard[i][0] % 100).padStart(2, "0") + "~" + ("" + parseInt(standard[i][1] / 100)).padStart(2, "0") + ":" + String(standard[i][1] % 100).padStart(2, "0");
+                    lesson[i].innerHTML = a[d][i];
+                }
+            });
         }
     </script>
-    <style id="custom-style-tag"></style>
-    <script>
-        if(localStorage["SysFont"]) {
-            document.getElementById("custom-style-tag").innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-            document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
-        }
-    </script>
+    <script src="https://instant.page/1.2.2" type="module">
 </body>
 </html>
