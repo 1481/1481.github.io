@@ -49,9 +49,9 @@
     </div>
     <script>
         var news = {totalResults: 0, articles: []};
-        if(localStorage["NewsCachedTime"] + 60*60*1000 > Date.now()) {
-        news = JSON.parse(localStorage["NewsCache"]);
-        placeNews();
+        if(parseInt(localStorage["NewsCachedTime"]) + 5*60*1000 > Date.now()) {
+            news = JSON.parse(localStorage["NewsCache"]);
+            placeNews();
         }
         else fetchNews();
         
@@ -69,7 +69,11 @@
                     });
                     console.log(doc.id, " => ", doc.data());
                 })
-            }).then(()=>placeNews());
+            }).then(()=>{
+                localStorage["NewsCache"] = JSON.stringify(news);
+                localStorage["NewsCachedTime"] = Date.now();
+                placeNews();
+            });
         }
         function placeNews() {
             if(!news.totalResults) {
@@ -82,11 +86,13 @@
                 var newsInfo = document.createElement("div");
                 var newsTitle = document.createElement("h3");
                 var newsDescription = document.createElement("p");
+                var newsAuthor = document.createElement("span");
+                var newsTimestamp = document.createElement("span");
                 var wrapper = document.createElement("div");
                 
                 newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
                 newsContainer.style.overflow = "hidden";
-                newsImage.src = news.articles[i].urlToImage || "";
+                newsImage.src = news.articles[i].urlToImage ? news.articles[i].urlToImage : "https://fakeimg.pl/600x400/bfff00/00a2ff/?text=%E6%96%B0%E8%81%9E&font=noto";
                 newsImage.style.width = "100%";
                 newsImage.style.objectFit = "cover";
                 newsImage.style.objectPosition = "top";
@@ -95,9 +101,15 @@
                 newsTitle.style.fontSize = "1.4rem";
                 newsTitle.innerHTML = news.articles[i].title;
                 newsDescription.innerHTML = news.articles[i].description;
+                newsAuthor.style.float = "left";
+                newsTimestamp.style.float = "right";
+                newsAuthor.innerHTML = news.articles[i].author;
+                newsTimestamp.innerHTML = news.articles[i].time;
                 
                 newsInfo.appendChild(newsTitle);
                 newsInfo.appendChild(newsDescription);
+                newsInfo.appendChild(newsAuthor);
+                newsInfo.appendChild(newsTimestamp);
                 newsContainer.appendChild(newsImage);
                 newsContainer.appendChild(newsInfo);
                 wrapper.appendChild(newsContainer);

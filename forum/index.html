@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant-TW">
+<head>
+    <title>論壇 | HSNU 1481</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="論壇 | HSNU 1481" name="description">
+    <meta content="preview.jpg" property="og:image">
+    <link href="../icon.jpg" rel="icon" type="image/ico">
+    
+    <!-- Styles -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
+    <style>
+        .footer {
+            animation-delay: 0.5s !important;
+        }
+        .Forum {
+            max-width: 600px;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
+    <script src="../js/moment-plugin.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+</head>
+
+<body class="">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container">
+            <div class="ForumList w3-center">
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script>
+        var forumList = {total: 0, f: []};
+        if(parseInt(localStorage["ForumListCachedTime"]) + 5*60*1000 > Date.now()) {
+            forumList = JSON.parse(localStorage["ForumListCache"]);
+            listForum();
+        }
+        else fetchForumList();
+        
+        function fetchForumList() {
+            db.collection("Forums").orderBy("weight", "desc").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    var forum = doc.data();
+                    forumList.total++;
+                    forumList.f.push({
+                        id: doc.id,
+                        about: forum.about,
+                        display: forum.display,
+                        image: forum.image,
+                        weight: forum.weight
+                    });
+                    console.log(doc.id, " => ", doc.data());
+                })
+            }).then(()=>{
+                localStorage["ForumListCache"] = JSON.stringify(forumList);
+                localStorage["ForumListCachedTime"] = Date.now();
+                listForum();
+            });
+        }
+        function listForum() {
+            if(!forumList.total) {
+                document.getElementsByClassName("ForumList")[0].innerHTML = "系統錯誤，可能正在進行更新或是在載入過程中發生錯誤";
+                return;
+            }
+            for(var i = 0; i < forumList.total; i++) {
+                var forumContainer = document.createElement("div");
+                var forumImage = document.createElement("img");
+                var forumInfo = document.createElement("div");
+                var forumTitle = document.createElement("h3");
+                var forumAbout = document.createElement("p");
+                var wrapper = document.createElement("div");
+                
+                forumContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "Forum");
+                forumContainer.style.overflow = "hidden";
+                var loc = "forum?f="+forumList.f[i].id;
+                forumContainer.onclick = function() {
+                    location.href = loc;
+                };
+                forumImage.src = forumList.f[i].image ? forumList.f[i].image : "https://fakeimg.pl/800x400/bfff00/00a2ff/?font=noto&text=" + forumList.f[i].display;
+                forumImage.style.width = "100%";
+                forumImage.style.objectFit = "cover";
+                forumImage.style.objectPosition = "top";
+                forumImage.style.maxHeight = "400px";
+                forumInfo.classList.add("w3-container");
+                forumTitle.style.fontSize = "1.4rem";
+                forumTitle.innerHTML = forumList.f[i].display;
+                forumAbout.innerHTML = forumList.f[i].about;
+                
+                forumInfo.appendChild(forumTitle);
+                forumInfo.appendChild(forumAbout);
+                forumContainer.appendChild(forumImage);
+                forumContainer.appendChild(forumInfo);
+                wrapper.appendChild(forumContainer);
+                document.getElementsByClassName("ForumList")[0].appendChild(wrapper);
+            }
+        }
+    </script>
+    <script src="https://instant.page/1.2.2" type="module">
+    </script>
+</body>
+</html>

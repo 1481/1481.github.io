@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>發布新聞 | HSNU 1481</title>
+    <title>新增貼文 | HSNU 1481</title>
     <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/jrainlau/elf@0.0.1/css/elf.min.css" rel="stylesheet" type="text/css">
@@ -33,10 +33,10 @@
             position: relative;
             animation: FadeInLeft 0.8s forwards 1;
         }
-        .r1, .r2, .r3, .r4 {
+        .r1, .r2, .r3, .r4, .r5 {
             opacity: 0;
             position: relative;
-            animation: FadeInLeft 0.4s forwards 1;
+            animation: FadeInLeft 0.3s forwards 1;
         }
         .r1 {
             animation-delay: 0.8s !important;
@@ -49,6 +49,9 @@
         }
         .r4 {
             animation-delay: 1.7s !important;
+        }
+        .r5 {
+            animation-delay: 2s !important;
         }
         legend {
             font-size: 1.6rem !important;
@@ -117,79 +120,7 @@
             }
         }
     </style>
-</head>
-<body class="elf">
-    <div class="content">
-        <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
-        </div>
-        <div class="w3-container"> 
-        <h2 style="text-align: center">發布新聞</h2>
-        <form class="forms" onsubmit="return false">
-            <fieldset>
-                <legend>新聞</legend>
-                <section class="r1">標題</section>
-                <input id="title" class="r1" type="text">
-                <section class="r2">內容</section>
-                <textarea id="content" class="r2" rows="5"></textarea>
-                <section class="r3">作者</section>
-                <input id="author" class="r3" type="text" value="ADMIN">
-                <script>setTimeout(function(){document.getElementById("author").disabled = true; document.getElementById("author").value = "ADMIN"}, 2000)</script>
-                <button class="r4" onclick="checker()">Submit</button>
-            </fieldset>
-        </form>
-        </div>
-    </div>
-    <div class="footer w3-container w3-white">
-        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-        All rights reserved.</span>
-    </div>
-    <script src="https://instant.page/1.2.2" type="module">
-    </script> 
-    <script>
-        var elm = (function() {
-            var id = function(x) {
-                return document.getElementById(x);
-            }
-            return {
-                id: id
-            }
-        })();
-        
-        function checker() {
-            if (!elm.id("title").value || !elm.id("content").value || !elm.id("author").value) {
-                Swal.fire('上傳失敗', '原因: 缺少資料', 'error');
-                return;
-            }
-            uploadArticle();
-        }
-        
-        function uploadArticle() {
-            var article = {
-                "Title": elm.id("title").value,
-                "Content": elm.id("content").value,
-                "Author": elm.id("author").value,
-                "Time": new Date(),
-                "id": 0
-            };
-            // FireStore
-            db.collection("NEWS").orderBy("Time", "desc").limit(1).get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    article.id = 1 + doc.data().id;
-                    db.collection("NEWS").doc(article.id.toString() + "-" + article.Title).set(article).then(() => {
-                        Swal.fire('上傳成功!','新聞已發布','success');
-                        location.href = "./";
-                    }).catch((err) => {
-                        if (err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
-                            err = "Missing or insufficient permissions."
-                        }
-                        Swal.fire('上傳失敗', '原因: '  + err, 'error');
-                    });
-                })
-            });
-        }
-    </script> 
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js">
     </script> 
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js">
@@ -209,6 +140,97 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
     </script> 
+</head>
+<body class="elf">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container"> 
+        <h2 style="text-align: center">新增貼文</h2>
+        <form class="forms" onsubmit="return false">
+            <fieldset>
+                <legend>貼文</legend>
+                <section class="r1">標題</section>
+                <input id="title" class="r1" type="text">
+                <section class="r2">內容</section>
+                <textarea id="content" class="r2" rows="5"></textarea>
+                <section class="r3">圖片</section>
+                <input id="image" class="r3" type="text" placeholder="URL starting with http:// or https://"></input>
+                <button class="r4" onclick="checker()">Submit</button><section id="lg" class="r5"></section>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script src="https://instant.page/1.2.2" type="module">
+    </script> 
+    <script>
+        const forum = urlKey("f");
+        var elm = (function() {
+            var id = function(x) {
+                return document.getElementById(x);
+            }
+            return {
+                id: id
+            }
+        })();
+        
+        function checker() {
+            document.getElementsByTagName("button")[0].disabled = true;
+            if (!elm.id("title").value || !elm.id("content").value) {
+                Swal.fire('上傳失敗', '原因: 缺少資料', 'error');
+                document.getElementsByTagName("button")[0].disabled = false;
+                return;
+            }
+            uploadArticle();
+        }
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user) {
+                window.UID = user.uid;
+                document.getElementById("lg").innerHTML = "已登入 - 將以個人身分發布";
+            } else {
+                document.getElementById("lg").innerHTML = "未登入 - 將以匿名身分發布";
+            }
+        });
+        function uploadArticle() {
+            db.collection("Forums").doc(forum).collection("Articles").orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    var article = {
+                        "ONLYKEY": ONLYKEY(),
+                        "title": elm.id("title").value,
+                        "content": elm.id("content").value,
+                        "author": UID || "",
+                        "image": elm.id("image").value,
+                        "time": new Date(),
+                        "id": doc.data().id + 1
+                    };
+                    var ran = random();
+                    db.collection("Forums").doc(forum).collection("Articles").doc(ran).set(article).then(() => {
+                        db.collection("Forums").doc(forum).collection("Comments").doc(ran).set({"comments":[]});
+                        Swal.fire('上傳成功!','新聞已發布','success').then(function(){location.href = "forum?f="+forum});
+                    }).catch((err) => {
+                        if (err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
+                            err = "Missing or insufficient permissions."
+                        }
+                        Swal.fire('上傳失敗', '原因: '  + err, 'error');
+                        document.getElementsByTagName("button")[0].disabled = false;
+                    });
+                })
+            });
+        }
+        function random() {
+            var result = "";
+            var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for (var i = 0; i < 20; i++) result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
+        }
+    </script>
+    <script src="../js/only.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
     </script>
 </body>

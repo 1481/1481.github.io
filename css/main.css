@@ -29,6 +29,11 @@ a:visited {
     color: orange !important;
     text-decoration: none;
 }
+div.w3-bar.w3-border-bottom {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
 .w3-bar-item {
     padding: 8px 10px !important;
 }
