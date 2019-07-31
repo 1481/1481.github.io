@@ -71,7 +71,9 @@ a.w3-bar-item.w3-button:visited {
 }
 .curriculum-container {
     text-align: center;
+    display: inline-block;
     max-width: 800px;
+    min-width: 300px;
 }
 .curriculum-item {
     display: inline-block;
