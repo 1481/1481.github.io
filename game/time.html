@@ -134,7 +134,7 @@
             g.s_time = d + l;
             g.started = true;
             g.timer = setInterval(function() {
-                let dd = game.s_time - Date.now();
+                let dd = gamet.s_time - Date.now();
                 tg.innerHTML = (dd > 0) ? dd : -dd;
                 tg.style.color = (dd > 0) ? "blue" : "orange";
             }, 2);
