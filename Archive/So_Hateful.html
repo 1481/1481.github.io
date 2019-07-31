@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant-TW">
+<head>
+    <title>舊版 So Hateful 存檔 | HSNU 1481</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="舊版 So Hateful 存檔 | HSNU 1481" name="description">
+    <link href="icon.jpg" rel="icon" type="image/ico">
+    
+    <!-- Styles -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
+    <style>
+        .footer {
+            animation-delay: 0s !important;
+        }
+        .button {
+            text-align: left !important;
+            padding: 4px;
+            margin: -4px 0 !important;
+            line-height: 1rem;
+            color: orange !important;
+        }
+        .button > p {
+            font-size: 1.6rem;
+            display: block;
+        }
+    </style>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.1/release/Fetch.js"></script>
+</head>
+
+<body class="">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-margin">
+            <h2>舊版 So Hateful 存檔</h2>
+            <button class="w3-container w3-white w3-button button" onclick="download()">
+                <p>下載檔案</p>
+            </button>
+            <p>狀態: <span id="status">可下載</span></p>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script>
+        var j = ["gqy2e","7gde2","1b5fge","p474m","eiok6","csiwm","117api","11sqba","8v2ba","6x2bu","11vlsa","1grfwq","172agq","s6gca","17s83u","xms8q","6wvdu","trsdu","19t18y","h887m","ctfe2","1fq65y","8kps6","965dy","19a3zy","18l9pi","qmuvi","u71ue","phq5y","136p2u","sgw6u","ieo2e","102dva","r1hvq","yjrti","rqsdi","ua49e","8hv8i","vt0ca","19hz96","zdlyy","680h6","nabg2","nxw7m","kc122","ehzbu","z6tde","1cz9aa","o171e","jczhe","1fwfmm","vk2nq","1b7yw2","giga2","185486","c8xcm","qgkby","17jjaq","lwn6a","9qw00","15oauw","t4rj8","19m1mw","asc84","cra8k","13pq9s","l3tu4","165acs","14r8no","hefd8","ggix4","evrve","1gdwnm","s5plj","13fcdj","d4qj1","11be4h","16c65n"];
+        var r = [];
+        var collected = 0;
+        function download() {
+            document.getElementById("status").innerHTML = "收集檔案中...";
+            for(var i = 0; i < j.length; i++) {
+                m(i);
+            }
+        }
+        function m(x) {
+            Fetch("https://api.myjson.com/bins/"+j[x])
+            .then(r=>r.json()).then(a=>{
+                r[x] = a;
+                collected++;
+                document.getElementById("status").innerHTML = "正在收集第 "+collected+" 個檔案，共 "+j.length+" 個檔案";
+                if(collected == j.length) {
+                    document.getElementById("status").innerHTML = "檔案已收集完畢，正在開始下載...";
+                    toFile(new TextEncoder().encode(JSON.stringify(r)));
+                }
+            });
+        }
+        function toFile(content) {
+            var a = document.createElement("a");
+            var file = new Blob([content], {type: "application/json;charset=utf-8"});
+            a.href = URL.createObjectURL(file);
+            a.download = "So_Hateful.Archive.json";
+            a.click();
+            document.getElementById("status").innerHTML = "檔案已下載";
+        }
+    </script>
+    <script src="https://instant.page/1.2.2" type="module">
+    </script>
+</body>
+</html>
