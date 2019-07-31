@@ -29,6 +29,18 @@ a:visited {
     color: orange !important;
     text-decoration: none;
 }
+a.w3-bar-item.w3-button {
+    color: black !important;
+    text-decoration: none;
+}
+a.w3-bar-item.w3-button:hover {
+    color: black !important;
+    text-decoration: none;
+}
+a.w3-bar-item.w3-button:visited {
+    color: black !important;
+    text-decoration: none;
+}
 div.w3-bar.w3-border-bottom {
     position: sticky;
     top: 0;
