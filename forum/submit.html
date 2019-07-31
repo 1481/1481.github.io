@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增貼文 | HSNU 1481</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/jrainlau/elf@0.0.1/css/elf.min.css" rel="stylesheet" type="text/css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        body, h1, h2, h3, p, span, a, input, label {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            font-size: 15px;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        .hide {
+            display: none !important;
+        }
+        input, textarea {
+            margin: -1.6rem 0 1rem 0 !important;
+        }
+        fieldset, legend {
+            opacity: 0;
+            position: relative;
+            animation: FadeInLeft 0.8s forwards 1;
+        }
+        .r1, .r2, .r3, .r4, .r5 {
+            opacity: 0;
+            position: relative;
+            animation: FadeInLeft 0.3s forwards 1;
+        }
+        .r1 {
+            animation-delay: 0.8s !important;
+        }
+        .r2 {
+            animation-delay: 1.1s !important;
+        }
+        .r3 {
+            animation-delay: 1.4s !important;
+        }
+        .r4 {
+            animation-delay: 1.7s !important;
+        }
+        .r5 {
+            animation-delay: 2s !important;
+        }
+        legend {
+            font-size: 1.6rem !important;
+        }
+        section {
+            font-size: 1.2rem;
+        }
+        a {
+            color: orange !important;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #ffcc77 !important;
+            text-decoration: none;
+        }
+        a:visited {
+            color: orange !important;
+            text-decoration: none;
+        }
+        .w3-bar-item {
+            padding: 8px 10px !important;
+        }
+        .BlueGradient {
+            background: linear-gradient(90deg, RoyalBlue, SkyBlue);
+            background-size: 400% 400%;
+            animation: GradientAnimation 10s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .footer {
+            position: relative;
+            height: 4rem;
+            opacity: 0;
+            animation-delay: 2s !important;
+            animation: FadeInBottom 1s forwards 1;
+        }
+        @keyframes GradientAnimation {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        @keyframes FadeInBottom {
+            0% {
+                opacity: 0;
+                bottom: -2rem;
+            }
+            100% {
+                opacity: 1;
+                bottom: 0rem;
+            }
+        }
+        @keyframes FadeInLeft {
+            0% {
+                opacity: 0;
+                left: -2rem;
+            }
+            100% {
+                opacity: 1;
+                left: 0rem;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js">
+    </script> 
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js">
+    </script> 
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js">
+    </script> 
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script> 
+</head>
+<body class="elf">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container"> 
+        <h2 style="text-align: center">新增貼文</h2>
+        <form class="forms" onsubmit="return false">
+            <fieldset>
+                <legend>貼文</legend>
+                <section class="r1">標題</section>
+                <input id="title" class="r1" type="text">
+                <section class="r2">內容</section>
+                <textarea id="content" class="r2" rows="5"></textarea>
+                <section class="r3">圖片</section>
+                <input id="image" class="r3" type="text" placeholder="URL starting with http:// or https://"></input>
+                <button class="r4" onclick="checker()">Submit</button><section id="lg" class="r5"></section>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script src="https://instant.page/1.2.2" type="module">
+    </script> 
+    <script>
+        const forum = urlKey("f");
+        var elm = (function() {
+            var id = function(x) {
+                return document.getElementById(x);
+            }
+            return {
+                id: id
+            }
+        })();
+        
+        function checker() {
+            document.getElementsByTagName("button")[0].disabled = true;
+            if (!elm.id("title").value || !elm.id("content").value) {
+                Swal.fire('上傳失敗', '原因: 缺少資料', 'error');
+                document.getElementsByTagName("button")[0].disabled = false;
+                return;
+            }
+            uploadArticle();
+        }
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user) {
+                window.UID = user.uid;
+                document.getElementById("lg").innerHTML = "已登入 - 將以個人身分發布";
+            } else {
+                document.getElementById("lg").innerHTML = "未登入 - 將以匿名身分發布";
+            }
+        });
+        function uploadArticle() {
+            db.collection("Forums").doc(forum).collection("Articles").orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    var article = {
+                        "ONLYKEY": ONLYKEY(),
+                        "title": elm.id("title").value,
+                        "content": elm.id("content").value,
+                        "author": UID || "",
+                        "image": elm.id("image").value,
+                        "time": new Date(),
+                        "id": doc.data().id + 1
+                    };
+                    var ran = random();
+                    db.collection("Forums").doc(forum).collection("Articles").doc(ran).set(article).then(() => {
+                        db.collection("Forums").doc(forum).collection("Comments").doc(ran).set({"comments":[]});
+                        Swal.fire('上傳成功!','新聞已發布','success').then(function(){location.href = "forum?f="+forum});
+                    }).catch((err) => {
+                        if (err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
+                            err = "Missing or insufficient permissions."
+                        }
+                        Swal.fire('上傳失敗', '原因: '  + err, 'error');
+                        document.getElementsByTagName("button")[0].disabled = false;
+                    });
+                })
+            });
+        }
+        function random() {
+            var result = "";
+            var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for (var i = 0; i < 20; i++) result += chars[Math.floor(Math.random() * chars.length)];
+            return result;
+        }
+    </script>
+    <script src="../js/only.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+    </script>
+</body>
+</html>
