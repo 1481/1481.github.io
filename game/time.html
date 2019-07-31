@@ -23,6 +23,7 @@
         var db = firebase.firestore();
     </script>
     <script>
+        var FF = new Event("FF");
         var newRecord = false;
         // Functions
         var gameCloudExist = false;
@@ -41,9 +42,10 @@
         
         function getStatus() {
             gameCloud("Time Game").get().then(doc=>{
-                if(doc.exist) {
+                if(doc.exists) {
                     gameCloudExist = true;
                     game = doc.data();
+                    document.dispatchEvent(FF);
                 }
             });
         }
@@ -121,6 +123,10 @@
         var tg = document.getElementById("timeGame");
         var p = document.getElementById("p");
         var r = document.getElementById("r");
+        document.addEventListener("FF", function(){
+            p.innerHTML = game.total;
+            r.innerHTML = game.best + " ms";
+        });
         var button = document.getElementById("button");
         tg.onclick = function(){check()};
         button.onclick = function(){clearInterval(gamet.timer);start()};
