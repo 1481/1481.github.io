@@ -30,6 +30,8 @@ function placeNews() {
         var newsInfo = document.createElement("div");
         var newsTitle = document.createElement("h3");
         var newsDescription = document.createElement("p");
+        var newsAuthor = document.createElement("span");
+        var newsTimestamp = document.createElement("span");
         var wrapper = document.createElement("div");
         
         newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
@@ -43,9 +45,15 @@ function placeNews() {
         newsTitle.style.fontSize = "1.4rem";
         newsTitle.innerHTML = news.articles[i].title;
         newsDescription.innerHTML = news.articles[i].description;
+        newsAuthor.style.float = "left";
+        newsTimestamp.style.float = "right";
+        newsAuthor.innerHTML = news.articles[i].author;
+        newsTimestamp.innerHTML = news.articles[i].time;
         
         newsInfo.appendChild(newsTitle);
         newsInfo.appendChild(newsDescription);
+        newsInfo.appendChild(newsAuthor);
+        newsInfo.appendChild(newsTimestamp);
         newsContainer.appendChild(newsImage);
         newsContainer.appendChild(newsInfo);
         wrapper.appendChild(newsContainer);
@@ -53,7 +61,7 @@ function placeNews() {
     }
 }
 function placeCurriculum() {
-    fetch("curriculums/vocation.json")
+    Fetch("curriculums/vocation.json")
     .then(r=>r.json())
     .then(a=>{
         let standard = [[810, 900],[910, 1000],[1010, 1100],[1110, 1200],[1300, 1350],[1400, 1450],[1510, 1600],[1610, 1700]];
