@@ -62,7 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
     </script> 
     <script>
-        var game = {
+        var gamet = {
             "s_time": 0
         };
         var tg = document.getElementById("timeGame");
@@ -70,12 +70,12 @@
         var r = document.getElementById("r");
         var button = document.getElementById("button");
         tg.onclick = function(){check()};
-        button.onclick = function(){clearInterval(game.timer);start()};
+        button.onclick = function(){clearInterval(gamet.timer);start()};
         p.innerHTML = points;
         r.innerHTML = localStorage.timeGameRecord + " ms";
         Swal.fire("Warning", "This game is very difficult.<br>Please don't be mad if you lose.", "warning").then(function(){start()});
         function start() {
-            var g = game;
+            var g = gamet;
             var d = Date.now();
             var l = parseInt(1000 + Math.random()*4000);
             g.s_time = d + l;
@@ -87,10 +87,10 @@
             }, 2);
         }
         function check() {
-            if(game.started == false)
+            if(gamet.started == false)
                 return;
-            clearInterval(game.timer);
-            game.started = false;
+            clearInterval(gamet.timer);
+            gamet.started = false;
             var dd = 500 - parseInt(tg.innerHTML);
             Record(parseInt(tg.innerHTML));
             var gp = (dd > 0) ? parseInt(dd/5) : 0;
