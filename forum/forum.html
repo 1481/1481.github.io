@@ -308,6 +308,7 @@
         firebase.auth().onAuthStateChanged(function(user) {window.UID = user.uid});
         function username(uid=UID) {
             console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
             if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
                 return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
             else
