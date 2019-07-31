@@ -171,7 +171,7 @@
             wrapper.appendChild(pContainer);
             document.getElementsByClassName("Container")[0].appendChild(wrapper);
             if(!C.total) {
-                document.getElementsByClassName("Container")[0].innerHTML = "無文章";
+                document.getElementsByClassName("Container")[0].innerHTML += "無文章";
                 return;
             }
             for(var i = 0; i < C.total; i++) {
