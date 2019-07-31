@@ -151,6 +151,25 @@
             });
         }
         function parseC() {
+            var pContainer = document.createElement("div");
+            var cInfo = document.createElement("div");
+            var cTitle = document.createElement("h3");
+            var wrapper = document.createElement("div");
+            
+            pContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "w3-hover-shadow", "C");
+            pContainer.style.overflow = "hidden";
+            pContainer.style.cursor = "pointer";
+            pContainer.onclick = function() {
+                location.href = "submit?f="+forum;
+            };
+            cInfo.classList.add("w3-container");
+            cTitle.style.fontSize = "1.4rem";
+            cTitle.innerHTML = '<i class="fas fa-plus-circle"></i>';
+            
+            cInfo.appendChild(cTitle);
+            pContainer.appendChild(cInfo);
+            wrapper.appendChild(pContainer);
+            document.getElementsByClassName("Container")[0].appendChild(wrapper);
             if(!C.total) {
                 document.getElementsByClassName("Container")[0].innerHTML = "無文章";
                 return;
@@ -204,25 +223,6 @@
                 wrapper.appendChild(cContainer);
                 document.getElementsByClassName("Container")[0].appendChild(wrapper);
             }
-            var pContainer = document.createElement("div");
-            var cInfo = document.createElement("div");
-            var cTitle = document.createElement("h3");
-            var wrapper = document.createElement("div");
-            
-            pContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "w3-hover-shadow", "C");
-            pContainer.style.overflow = "hidden";
-            pContainer.style.cursor = "pointer";
-            pContainer.onclick = function() {
-                location.href = "submit?f="+forum;
-            };
-            cInfo.classList.add("w3-container");
-            cTitle.style.fontSize = "1.4rem";
-            cTitle.innerHTML = '<i class="fas fa-plus-circle"></i>';
-            
-            cInfo.appendChild(cTitle);
-            pContainer.appendChild(cInfo);
-            wrapper.appendChild(pContainer);
-            document.getElementsByClassName("Container")[0].appendChild(wrapper);
         }
         function comments(target, id) {
             db.collection("Forums").doc(forum).collection("Comments").doc(id).get().then(doc=>{
