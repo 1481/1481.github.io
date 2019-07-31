@@ -6,17 +6,71 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        // Point Functions
-        if(!localStorage.speedGamePoints)
-            localStorage.speedGamePoints = "0";
-        var points = getPoint();
-        function getPoint() {
-            return parseInt(localStorage.speedGamePoints);
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <script>
+        var FF = new Event("FF");
+        // Functions
+        var gameCloudExist = false;
+        var useCloud = false;
+        var game = {
+            points: parseInt(localStorage["speedGamePoints"]) || "0"
+        };
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                useCloud = true;
+                getStatus();
+                saveToLocal();
+            }
+        });
+        
+        function getStatus() {
+            gameCloud("Speed Game").get().then(doc=>{
+                if(doc.exists) {
+                    gameCloudExist = true;
+                    game = doc.data();
+                    document.dispatchEvent(FF);
+                }
+            });
+        }
+        
+        function upload() {
+            if(gameCloudExist) {
+                gameCloud("Speed Game").update(game).then(()=>{
+                    console.log("Game Data Uploaded.")
+                }).catch(e=>console.error(e));
+            } else {
+                gameCloud("Speed Game").set(game).then(()=>{
+                    gameCloudExist = true;
+                    console.log("Game Data Created.")
+                }).catch(e=>console.error(e));
+            }
+        }
+        
+        function gameCloud(game) {
+            return db.collection("Game").doc(game).collection("Data").doc(firebase.auth().currentUser.uid);
         }
         function addPoint(p=100) {
-            localStorage.speedGamePoints = String(parseInt(localStorage.speedGamePoints) + p);
-            points = getPoint();
+            game.points += p;
+            saveToLocal();
+        }
+        
+        function saveToLocal() {
+            localStorage.timeGamePoints = game.points;
         }
     </script>
     <style>
@@ -48,17 +102,20 @@
     </div>
     <div class="footer w3-container w3-white">
         <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-        All rights reserved.</span>
+            All rights reserved.</span>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
-    </script> 
+    </script>
     <script>
         var ig = true;
         var delay = parseInt(2000+Math.random()*3000);
         var s_t = Date.now() + delay;
         var during;
         Swal.fire("Warning", "This game is very difficult.<br>Please don't be mad if you lose.", "warning").then(function(){clearTimeout(to);restart()});
-        document.getElementById("p").innerHTML = points;
+        document.getElementById("p").innerHTML = game.points;
+        document.addEventListener("FF", function(){
+            document.getElementById("p").innerHTML = game.points;
+        });
         var dot = document.getElementById("speedGame");
         var button = document.getElementById("button");
         dot.onclick = function(){check()};
@@ -82,8 +139,9 @@
             var c = dot.style.backgroundColor;
             if(c == "green") {
                 addPoint();
-                document.getElementById("p").innerHTML = points;
-                Swal.fire("+100", "Total Points: "+points, "success").then(r=>{restart();ig=true;});
+                document.getElementById("p").innerHTML = game.points;
+                if(useCloud) upload();
+                Swal.fire("+100", "Total Points: "+game.points, "success").then(r=>{restart();ig=true;});
             } else {
                 if(c == "blue")
                     Swal.fire("Failed", "To early! " + parseInt(s_t - Date.now())/1000 + " seconds faster.", "error").then(r=>{restart();ig=true;});
