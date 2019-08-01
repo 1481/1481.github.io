@@ -23,8 +23,9 @@
         var db = firebase.firestore();
     </script>
     <script>
+    var fc = 1;
     firebase.auth().onAuthStateChanged(function(user) {
-        if(user) {
+        if(user && fc) {
             Swal.fire("已登入", "你已經登入了，想要登出並重新登入嗎？", "question").then(a => {
                 if(a.value) firebase.auth().signOut().then(Swal.fire("已登出", "登出成功，請重新登入", "success"));
             });
@@ -81,6 +82,7 @@
         }
     });
     function login() {
+        fc = 0;
         var email = document.getElementById("email").value;
         var password = document.getElementById("pass").value;
         firebase.auth().signInWithEmailAndPassword(email, password)
