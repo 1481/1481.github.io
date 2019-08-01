@@ -27,7 +27,7 @@
     firebase.auth().onAuthStateChanged(function(user) {
         if(user) {
             Swal.fire("已登入", "你已經登入了，想要登出並重新登入嗎？", "question").then(a => {
-                if(a) firebase.auth().signOut().then(Swal.fire("已登出", "登出成功，請重新登入", "success"));
+                if(a.value) firebase.auth().signOut().then(Swal.fire("已登出", "登出成功，請重新登入", "success"));
             });
         }
     });
