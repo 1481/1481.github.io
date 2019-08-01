@@ -43,7 +43,10 @@
                 if(doc.exists) {
                     gameCloudExist = true;
                     game = doc.data();
-                    document.dispatchEvent(FF);
+                    gameCloud("Speed Game").onSnapshot(function(doc) {
+                        game = doc.data();
+                        document.dispatchEvent(FF);
+                    });
                 }
             });
         }
@@ -114,6 +117,8 @@
         Swal.fire("Warning", "This game is very difficult.<br>Please don't be mad if you lose.", "warning").then(function(){clearTimeout(to);restart()});
         document.getElementById("p").innerHTML = game.points;
         document.addEventListener("FF", function(){
+            console.log("Pushed To Board.");
+            saveToLocal();
             document.getElementById("p").innerHTML = game.points;
         });
         var dot = document.getElementById("speedGame");
