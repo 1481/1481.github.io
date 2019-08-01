@@ -45,7 +45,10 @@
                 if(doc.exists) {
                     gameCloudExist = true;
                     game = doc.data();
-                    document.dispatchEvent(FF);
+                    gameCloud("Time Game").onSnapshot(function(doc) {
+                        game = doc.data();
+                        document.dispatchEvent(FF);
+                    });
                 }
             });
         }
@@ -124,6 +127,7 @@
         var p = document.getElementById("p");
         var r = document.getElementById("r");
         document.addEventListener("FF", function(){
+            console.log("Pushed To Board.");
             p.innerHTML = game.total;
             r.innerHTML = game.best + " ms";
         });
