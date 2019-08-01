@@ -6,27 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/icon.jpg"/>
     <link rel="stylesheet" type="text/css" href="com/all.css">
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8">
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
-        authDomain: "hsnu-1481-website.firebaseapp.com",
-        databaseURL: "https://hsnu-1481-website.firebaseio.com",
-        projectId: "hsnu-1481-website",
-        storageBucket: "hsnu-1481-website.appspot.com",
-        messagingSenderId: "405025421965"
-    };
-    firebase.initializeApp(config);
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
     </script>
     <script>
-    var cubl = 1;
     firebase.auth().onAuthStateChanged(function(user) {
-        if(user && cubl) {
-            alert("Please Log Out First.");
-            location.href = "/";
-        } else {
-            cubl = 0;
+        if(user) {
+            Swal.fire("已登入", "你已經登入了，想要登出並重新登入嗎？", "question").then(a => {
+                if(a) firebase.auth().signOut().then(Swal.fire("已登出", "登出成功，請重新登入", "success"));
+            });
         }
     });
     </script>
@@ -84,36 +86,28 @@
         var password = document.getElementById("pass").value;
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((user) => {
-            window.user = {
-                "email": user.user.email,
-                "uid": user.user.uid,
-                "verified": user.user.emailVerified
-            };
-            console.log(firebase.auth());
-            localStorage.auth = JSON.stringify(window.user);
-            alert("Login Successful.");
-            if(!window.user.verified) {
-                alert("Please Verified Your Email Soon.");
-            }
-            location.href = "/";
+            Swal.fire("已登入", "確認後將前往個人資料頁面", "success").then(() => {location.href = "/me"});
+            
         })
         .catch((error) => {
             var authCode = error.code;
             var authMsg = error.message;
             if(authCode == "auth/wrong-password") {
-                alert("Wrong Password. Please Try Again.");
+                Swal.fire("密碼錯誤", "", "error");
             } else if(authCode == "auth/user-not-found") {
-                alert("Sorry, We Can't Found That User. Please Try Again.");
+                Swal.fire("此帳號不存在", "如要註冊請 <a href='signup'>按此</a>", "error");
             } else if(authCode == "auth/invalid-email email") {
-                alert("Make Sure You Have Entered The Correct Email.");
+                Swal.fire("電子郵件格式錯誤", "", "error");
             } else if(authCode == "auth/user-disabled") {
-                alert("Sorry, Your Account Has Been Disabled.")
+                Swal.fire("此帳號已被停用", "", "error");
             }
         });
     }
     function forgot() {
-        firebase.auth().sendPasswordResetEmail(prompt("Enter Your Email: "));
-        alert("Password Reset Mail Sended!");
+        firebase.auth().sendPasswordResetEmail(prompt("Enter Your Email: ")).then(() => {
+            Swal.fire("密碼重設郵件已發送", "密碼重設後將自動登出所有已登入的裝置", "success");
+        });
+        
     }
     </script>
 </body>
