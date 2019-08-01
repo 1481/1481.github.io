@@ -77,7 +77,8 @@ function placeCurriculum() {
             var time = document.createElement("span");
             var _name = document.createElement("p");
             item.classList.add("curriculum-item");
-            item.style.left = "" + (-(last_pos/2)+(Math.random()*(30) - Math.random()*(40))) + "%";
+            last_pos = (last_pos=0) ? (Math.random()*40 - Math.random()*40) : ((last_pos>0) ? (-Math.random()*40) : (Math.random()*40));
+            item.style.left = "" + last_pos + "%";
             time.classList.add("curriculum-time");
             _name.classList.add("curriculum-name");
             time.innerHTML = ("" + parseInt(standard[i][0] / 100)).padStart(2, "0") + ":" + String(standard[i][0] % 100).padStart(2, "0") + "~" + ("" + parseInt(standard[i][1] / 100)).padStart(2, "0") + ":" + String(standard[i][1] % 100).padStart(2, "0");
