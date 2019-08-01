@@ -81,6 +81,12 @@ a.w3-bar-item.w3-button:visited {
     text-align: left;
     margin: 0 8px;
 }
+.curriculum-now {
+    color: Orange;
+}
+.curriculum-passed {
+    color: LightGray;
+}
 .curriculum-time {
     font-size: 1rem;
 }
