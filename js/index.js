@@ -71,12 +71,13 @@ function placeCurriculum() {
         for(var i = 0; i < standard.length; i++)
             if(standard[i][0] <= n && standard[i][1] > n)
                 nl = i;
+        var last_pos = 0;
         for(var i = 0; i < a[d].length; i++) {
             var item = document.createElement("div");
             var time = document.createElement("span");
             var _name = document.createElement("p");
             item.classList.add("curriculum-item");
-            item.style.left = "" + (Math.random()*40 - Math.random()*50) + "%";
+            item.style.left = "" + (-(last_pos/2)+(Math.random()*(30) - Math.random()*(40))) + "%";
             time.classList.add("curriculum-time");
             _name.classList.add("curriculum-name");
             time.innerHTML = ("" + parseInt(standard[i][0] / 100)).padStart(2, "0") + ":" + String(standard[i][0] % 100).padStart(2, "0") + "~" + ("" + parseInt(standard[i][1] / 100)).padStart(2, "0") + ":" + String(standard[i][1] % 100).padStart(2, "0");
