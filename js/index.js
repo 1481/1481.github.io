@@ -76,6 +76,9 @@ function placeCurriculum() {
             var item = document.createElement("div");
             var time = document.createElement("span");
             var _name = document.createElement("p");
+            
+            if(i < nl) item.classList.add("curriculum-passed");
+            if(i == nl) item.classList.add("curriculum-now");
             item.classList.add("curriculum-item");
             last_pos = (last_pos==0) ? (Math.random()*40 - Math.random()*40) : ((last_pos>0) ? (-Math.random()*40) : (Math.random()*40));
             item.style.left = "" + last_pos + "%";
