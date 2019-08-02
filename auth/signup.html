@@ -114,7 +114,7 @@
                 return;
             }
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-                window.user.sendEmailVerification();
+                user.sendEmailVerification();
                 db.collection("User").doc(user.uid).collection("Open").doc("basic")set({
                     DisplayName: name
                 }).then(()=>{
