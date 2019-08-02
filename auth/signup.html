@@ -105,6 +105,7 @@
             }
         });
         function signup() {
+            fc = 0;
             var name  = document.getElementById("name").value;
             var email = document.getElementById("email").value;
             var password = document.getElementById("pass").value;
@@ -114,10 +115,12 @@
                 return;
             }
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-                user.sendEmailVerification();
+                console.log(user.uid);
                 db.collection("User").doc(user.uid).collection("Open").doc("basic").set({
-                    DisplayName: name
+                    DisplayName: name,
+                    Email: email
                 }).then(()=>{
+                    user.sendEmailVerification();
                     Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往個人資料頁面", "success").then(()=>{location.href="/me"});
                 });
                 
