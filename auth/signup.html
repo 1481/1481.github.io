@@ -120,7 +120,7 @@
                     DisplayName: name,
                     Email: email
                 }).then(()=>{
-                    user.sendEmailVerification();
+                    firebase.auth().currentUser.sendEmailVerification();
                     Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往個人資料頁面", "success").then(()=>{location.href="/me"});
                 });
                 
