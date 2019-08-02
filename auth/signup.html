@@ -115,7 +115,7 @@
             }
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
                 user.sendEmailVerification();
-                db.collection("User").doc(user.uid).collection("Open").doc("basic")set({
+                db.collection("User").doc(user.uid).collection("Open").doc("basic").set({
                     DisplayName: name
                 }).then(()=>{
                     Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往個人資料頁面", "success").then(()=>{location.href="/me"});
