@@ -22,11 +22,15 @@
         };
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
+        console.log("check point 1");
     </script>
     <script>
+        console.log("check point 2");
         firebase.auth().onAuthStateChanged(user => {
+            console.log("check point 3");
             if(user) {
                 window.user = user;
+                console.log("check point 4");
                 GET();
             } else {
                 Swal.fire("未登入", "", "info").then(()=>{location.href="auth"});
@@ -74,7 +78,14 @@
             if(data.birth)
                 document.getElementsByClassName("birth")[0].innerHTML = data.birth;
             if(data.gender)
-                document.getElementsByClassName("gender")[0].innerHTML = data.gender;
+                switch(data.gender) {
+                    case 1:
+                        document.getElementsByClassName("gender")[0].innerHTML = "男性";
+                        break;
+                    case 2:
+                        document.getElementsByClassName("gender")[0].innerHTML = "女性";
+                        break;
+                }
             if(data.about)
                 document.getElementsByClassName("about")[0].innerHTML = data.about;
             if(data.photo)
@@ -177,8 +188,5 @@
         <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
             All rights reserved.</span>
     </div>
-    <script>
-        
-    </script>
 </body>
 </html>
