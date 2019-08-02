@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>個人資料 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                window.user = user;
+                GET();
+            } else {
+                Swal.fire("未登入", "", "info").then(()=>{location.href="auth"});
+            }
+        });
+        function GET() {
+            db.collection("User").doc(user.uid).collection("Open").doc("basic").get().then(doc => {
+                var o = doc.data();
+                var data = {
+                    name: o.DisplayName,
+                    email: o.Email,
+                    gender: o.Gender,
+                    birth: o.Birth
+                    about: o.About,
+                    photo: o.Photo
+                };
+                DISPLAY(data);
+            });
+            db.collection("Game").doc("Speed Game").collection("Data").doc(user.uid).get().then(doc => {
+                var o = doc.data();
+                var data = {
+                    game: [{
+                        name: "Speed Game",
+                        data: [o.points]
+                    }]
+                };
+                DISPLAY(data);
+            });
+            db.collection("Game").doc("Time Game").collection("Data").doc(user.uid).get().then(doc => {
+                var o = doc.data();
+                var data = {
+                    game: [{
+                        name: "Time Game",
+                        data: [o.best, o.total]
+                    }]
+                };
+                DISPLAY(data);
+            });
+        }
+        function DISPLAY(data) {
+            if(data.name)
+                document.getElementsByClassName("name")[0].innerHTML = data.name;
+            if(data.email)
+                document.getElementsByClassName("email")[0].innerHTML = data.email;
+            if(data.birth)
+                document.getElementsByClassName("birth")[0].innerHTML = data.birth;
+            if(data.gender)
+                document.getElementsByClassName("gender")[0].innerHTML = data.gender;
+            if(data.about)
+                document.getElementsByClassName("about")[0].innerHTML = data.about;
+            if(data.photo)
+                document.getElementsByClassName("sticker")[0].src = data.photo;
+            if(data.game)
+                for(var i = 0; i < data.game.length; i++) {
+                    if(data.game[i].name == "Speed Game") {
+                        var r = document.getElementsByClassName("game")[0];
+                        r.getElementsByTagName("span")[1].innerHTML = "總分：" + data.game[i].data[0] + "分";
+                    }
+                    if(data.game[i].name == "Time Game") {
+                        r.getElementsByTagName("span")[1].innerHTML = "最佳紀錄：" + data.game[i].data[0] + " ms";
+                        r.getElementsByTagName("span")[2].innerHTML = "總分：" + data.game[i].data[1] + "分";
+                    }
+                }
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            document.getElementsByClassName("stage")[0].style.display = "";
+        }
+    </script>
+    <style>
+        .loading {
+            display: flex;
+            height: 80vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .stage {
+            max-width: 500px;
+        }
+        .info {
+            display: flex;
+        }
+        .sticker-box {
+            
+        }
+        .sticker {
+            width: 150px;
+            height: 150px;
+        }
+        .personal {
+            margin: -4px 4px;
+        }
+        .name {
+            font-size: 2rem;
+        }
+        .email, .birth, .gender {
+            font-size: 1.1rem;
+        }
+        .game {
+            padding:8px 12px;
+            border-left:4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="loading">
+            <svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-dual-ring" style="background: none;"><circle cx="50" cy="50" ng-attr-r="{{config.radius}}" ng-attr-stroke-width="{{config.width}}" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-dasharray="{{config.dasharray}}" fill="none" stroke-linecap="round" r="30" stroke-width="8" stroke="#93dbe9" stroke-dasharray="47.12388980384689 47.12388980384689" transform="rotate(19.6104 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>
+        </div>
+        <div class="w3-margin stage" style="display: none">
+            <div class="info">
+                <div class="sticker-box">
+                    <img class="sticker w3-round" src="https://fakeimg.pl/128x128/fcfac5/000/?font=noto&text=:p"></img>
+                </div>
+                <div class="personal">
+                    <span class="name"></span>
+                    <br>
+                    <span class="email"></span>
+                    <br>
+                    <span class="birth"></span>
+                    <br>
+                    <span class="gender"></span>
+                </div>
+            </div>
+            <div>
+                <p class="about"></p>
+            </div>
+            <div class="game-state">
+                <div class="game">
+                    <span>Speed Game</span>
+                    <br>
+                    <span>總分：-分</span>
+                </div>
+                <br>
+                <div class="game">
+                    <span>Time Game</span>
+                    <br>
+                    <span>最佳紀錄：- ms</span>
+                    <br>
+                    <span>總分：-分</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white w3-center">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>
