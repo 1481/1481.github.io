@@ -115,7 +115,7 @@
                 return;
             }
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-                console.log(user.uid);
+                console.log(firebase.auth().currentUser.uid);
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
                     DisplayName: name,
                     Email: email
