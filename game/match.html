@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>默契大考驗 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <script>
+        var step = "enter";
+        var host = 0;
+        var QuestionList, Q=0;
+        var name1="Name1", name2="Name2";
+        var cloud;
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                Swal.fire("已登入", "此遊戲需要兩人方可遊玩", "success").then(()=>{});
+                console.log("Question List Download Started");
+                db.collection("Truth").doc("Questions").collection("Lists").doc("std").get().then(doc => {
+                    if(doc.exists) {
+                        QuestionList = doc.data().questions;
+                        console.log("Question List Downloaded");
+                    }
+                });
+            } else {
+                Swal.fire("尚未登入", "此遊戲需要登入帳號後方可遊玩", "info").then(()=>{});
+            }
+        });
+        function ListenToCloud(x) {
+            db.collection("Truth").doc(x).onSnapshot(function(doc) {
+                // host
+                if(step == "wait" && doc.data().guest) {
+                    step = "chose";
+                    var qs = chosenQuestions(2);
+                    let questions = [];
+                    for(var i = 0; i < qs.length; i++)
+                        questions.push({q: qs[i], h: -1, g: -1});
+                    cloud.update({question: questions}).then(()=>{
+                        step = "start";
+                    });
+                }
+                // guest
+                if(step == "joined" && doc.data().question.length > 0) {
+                    step = "start";
+                }
+                // host & guest
+                if(step == "start") {
+                    Question(QuestionList[doc.data().question[Q]]);
+                    console.log("Q-"+Q);
+                    step = "game-no-chosen";
+                }
+                // host & guest
+                if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
+                    console.log((host ? "Guest" : "Host")+" chosed "+(host ? doc.data().question[Q].g : doc.data().question[Q].h));
+                    step == "game-one-chosen";
+                }
+                // host & guest
+                if(step == "game-one-chosen" && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
+                    console.log("All Chosed");
+                    step == "result";
+                    SeeResult();
+                }
+                // host & guest
+                if(step == "result" && doc.data().ready.g == true && doc.data().ready.h == true) {
+                    console.log("Next Question");
+                    Q++;
+                    if(Q >= doc.data().question.length) {
+                        step == "end";
+                        showFinal();
+                    } else {
+                        Question(QuestionList[doc.data().question[Q]]);
+                        console.log("Q-"+Q);
+                        step == "game-no-chosen";
+                    }
+                }
+            });
+        }
+        function JoinRoom() {
+            var docId;
+            Swal.fire({
+                title: '輸入房號',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                confirmButtonText: '加入'
+            }).then(result => {
+                db.collection("Truth").where("id", "==", parseInt(result.value)).where("allowJoin", "==", true).get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        docId = doc.id;
+                    });
+                }).then(()=>{
+                    db.collection("Truth").doc(docId).update({
+                        allowJoin: false,
+                        guest: firebase.auth().currentUser.uid
+                    }).then(()=>{
+                        step = "joined";
+                        Swal.fire("已加入", "", "success").then(()=>{});
+                        ListenToCloud(docId);
+                        cloud = db.collection("Truth").doc(docId);
+                    });
+                });
+            });
+        }
+        function CreateRoom() {
+            var room = {
+                allowJoin: true,
+                id: parseInt(1000+Math.random()*8999),
+                host: firebase.auth().currentUser.uid,
+                guest: "",
+                questionlist: "std",
+                question: []
+            };
+            db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
+                step = "wait";
+                Swal.fire("房間已創建", "分享房號: "+room.id, "success").then(()=>{
+                    WaitRoom();
+                    ListenToCloud(firebase.auth().currentUser.uid);
+                    cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
+                    host = 1;
+                });
+            });
+        }
+        function chosenQuestions(n) {
+            var result = new Array(n),
+            len = QuestionList.length,
+            taken = new Array(len);
+            while(n > len)
+                n--;
+            while(n--) {
+                var x = Math.floor(Math.random() * len);
+                result[n] = x in taken ? taken[x] : x;
+                taken[x] = --len in taken ? taken[len] : len;
+            }
+            return result;
+        }
+        function Ready() {
+            cloud.update({
+                "ready."+(host ? "h" : "g"): true
+            }).then(()=>{console.log("Ready")});
+        }
+    </script>
+    <style>
+        .stage {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: calc(100vh - 160px);
+        }
+        .nameWith {
+            font-size: 0.9rem;
+            color: Gray;
+            height: 8%;
+        }
+        .time {
+            font-size: 2.4rem;
+            height: 10%;
+        }
+        .question-box {
+            height: 25%;
+            max-width: 500px;
+        }
+        .question {
+            font-size: 1.2rem;
+        }
+        .option-group {
+            height: 50%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .option {
+            margin: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .option-label {
+            font-size: 1.2rem;
+        }
+        .footer {
+            animation-delay: 0.5s !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+        </div>
+        <div class="w3-container w3-center stage">
+            <div style="width: 100%">
+                <div class="w3-button w3-border option" onclick="CreateRoom()">
+                    <span>Create Room</span>
+                </div>
+                <div class="w3-button w3-border option" onclick="JoinRoom()">
+                    <span>Join Room</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white w3-center">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
+    <script>
+        var game = {};
+        const stage = document.getElementsByClassName("stage")[0];
+        var timer = {
+            value: 15,
+            timer: 0,
+            start: function() {
+                timer.value = 15;
+                clearInterval(timer.timer);
+                timer.timer = setInterval(function() {
+                    timer.value--;
+                    document.getElementsByClassName("time")[0].innerHTML = timer.value;
+                    if(timer.value <= 0) {
+                        timer.stop();
+                    }
+                }, 1000);
+            },
+            stop: function() {
+                clearInterval(timer.timer);
+                timer.timer = 0;
+            }
+        };
+        function WaitRoom() {
+            
+        }
+        function Question(question, options) {
+            stage.innerHTML = "";
+            var nameDiv = document.createElement("div");
+            var name = document.createElement("span");
+            var timeDiv = document.createElement("div");
+            var time = document.createElement("span");
+            var questionBox = document.createElement("div");
+            var questionSpan = document.createElement("span");
+            var optionGroup = document.createElement("div");
+            var optionBox = [], optionSpan = [];
+            for(var i = 0; i < 4; i++) {
+                optionBox[i] = document.createElement("div");
+                optionSpan[i] = document.createElement("span");
+            }
+            var placeholder = document.createElement("div");
+            name.innerHTML = name1 + " & " + name2;
+            time.innerHTML = 15;
+            timer.start();
+            questionSpan.innerHTML = question;
+            for(var i = 0; i < 4; i++) {
+                optionSpan[i].innerHTML = options[i];
+            }
+            name.classList.add("nameWith");
+            time.classList.add("time");
+            questionBox.classList.add("question-box");
+            questionSpan.classList.add("question");
+            optionGroup.classList.add("option-group");
+            for(var i = 0; i < 4; i++) {
+                let n = i;
+                optionBox[i].classList.add("option", "w3-button", "w3-border", "w3-round");
+                optionBox[i].onclick = function() {answer(n)};
+                optionSpan[i].classList.add("option-label");
+            }
+            placeholder.style.height = "5%";
+            nameDiv.appendChild(name);
+            timeDiv.appendChild(time);
+            questionBox.appendChild(questionSpan);
+            for(var i = 0; i < 4; i++) {
+                optionBox[i].appendChild(optionSpan[i]);
+                optionGroup.appendChild(optionBox[i]);
+            }
+            stage.appendChild(nameDiv);
+            stage.appendChild(timeDiv);
+            stage.appendChild(questionBox);
+            stage.appendChild(optionGroup);
+            stage.appendChild(placeholder);
+        }
+        function answer(x) {
+            console.log("answer is "+x);
+        }
+    </script>
+</body>
+</html>
