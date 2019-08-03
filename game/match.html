@@ -29,6 +29,7 @@
         var QuestionList, Q=0;
         var name1="Name1", name2="Name2";
         var cloud;
+        var cloudCopy;
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 Swal.fire("已登入", "此遊戲需要兩人方可遊玩", "success").then(()=>{});
@@ -45,6 +46,7 @@
         });
         function ListenToCloud(x) {
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
+                copyFromCloud(doc.data());
                 // host
                 if(step == "wait" && doc.data().guest) {
                     step = "chose";
@@ -62,7 +64,7 @@
                 }
                 // host & guest
                 if(step == "start") {
-                    Question(QuestionList[doc.data().question[Q]]);
+                    Question(QuestionList[doc.data().question[Q].q]);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
@@ -85,7 +87,7 @@
                         step == "end";
                         showFinal();
                     } else {
-                        Question(QuestionList[doc.data().question[Q]]);
+                        Question(QuestionList[doc.data().question[Q].q]);
                         console.log("Q-"+Q);
                         step == "game-no-chosen";
                     }
@@ -130,9 +132,9 @@
             };
             db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
                 step = "wait";
+                ListenToCloud(firebase.auth().currentUser.uid);
                 Swal.fire("房間已創建", "分享房號: "+room.id, "success").then(()=>{
                     WaitRoom();
-                    ListenToCloud(firebase.auth().currentUser.uid);
                     cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
                     host = 1;
                 });
@@ -155,6 +157,9 @@
             cloud.update({
                 "ready."+(host ? "h" : "g"): true
             }).then(()=>{console.log("Ready")});
+        }
+        function copyFromCloud(docData) {
+            cloudCopy = docData;
         }
     </script>
     <style>
@@ -246,7 +251,13 @@
             }
         };
         function WaitRoom() {
-            
+            stage.innerHTML = "";
+            var wait = document.createElement("h2");
+            var code = document.createElement("h1");
+            wait.innerHTML = "Waiting...";
+            code.innerHTML = cloudCopy.id;
+            stage.appendChild(wait);
+            stage.appendChild(code);
         }
         function Question(question, options) {
             stage.innerHTML = "";
@@ -296,7 +307,12 @@
             stage.appendChild(placeholder);
         }
         function answer(x) {
-            console.log("answer is "+x);
+            let question = cloudCopy.question;
+            question[Q][(host ? "h" : "g")] = x;
+            cloud.update({
+                question: question
+            });
+            console.log("answered "+x);
         }
     </script>
 </body>
