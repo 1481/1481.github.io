@@ -134,7 +134,7 @@
                 step = "wait";
                 ListenToCloud(firebase.auth().currentUser.uid);
                 Swal.fire("房間已創建", "分享房號: "+room.id, "success").then(()=>{
-                    WaitRoom();
+                    WaitRoom(room.id);
                     cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
                     host = 1;
                 });
@@ -250,12 +250,12 @@
                 timer.timer = 0;
             }
         };
-        function WaitRoom() {
+        function WaitRoom(x) {
             stage.innerHTML = "";
             var wait = document.createElement("h2");
             var code = document.createElement("h1");
             wait.innerHTML = "Waiting...";
-            code.innerHTML = cloudCopy.id;
+            code.innerHTML = x;
             stage.appendChild(wait);
             stage.appendChild(code);
         }
