@@ -62,10 +62,6 @@
                 }
                 // guest
                 else if(step == "joined" && doc.data().question.length > 0) {
-                    step = "start";
-                }
-                // host & guest
-                else if(step == "start") {
                     Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
@@ -111,13 +107,13 @@
                         docId = doc.id;
                     });
                 }).then(()=>{
+                    step = "joined";
+                    ListenToCloud(docId);
                     db.collection("Truth").doc(docId).update({
                         allowJoin: false,
                         guest: firebase.auth().currentUser.uid
                     }).then(()=>{
-                        step = "joined";
                         Swal.fire("已加入", "", "success").then(()=>{});
-                        ListenToCloud(docId);
                         cloud = db.collection("Truth").doc(docId);
                     });
                 });
@@ -135,11 +131,10 @@
             db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
                 step = "wait";
                 ListenToCloud(firebase.auth().currentUser.uid);
-                Swal.fire("房間已創建", "分享房號: "+room.id, "success").then(()=>{
-                    WaitRoom(room.id);
-                    cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
-                    host = 1;
-                });
+                WaitRoom(room.id);
+                cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
+                host = 1;
+                Swal.fire("房間已創建", "分享房號: "+room.id, "success").then(()=>{});
             });
         }
         function chosenQuestions(n) {
