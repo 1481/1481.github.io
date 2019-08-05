@@ -49,6 +49,7 @@
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
                 let data = doc.data();
+                console.log("LTC: Detected Cloud Change: " + data);
                 // host
                 if(step == "wait" && data.guest != "") {
                     Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
@@ -137,8 +138,8 @@
                 question: questions
             };
             db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
-                step = "wait";
                 ListenToCloud(firebase.auth().currentUser.uid);
+                step = "wait";
                 WaitRoom(room.id);
                 cloud = db.collection("Truth").doc(firebase.auth().currentUser.uid);
                 host = 1;
