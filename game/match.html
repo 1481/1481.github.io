@@ -84,6 +84,7 @@
                     if(Q >= data.question.length) {
                         step == "end";
                         showFinal();
+                        writeToHistory();
                     } else {
                         Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                         console.log("Q-"+Q);
@@ -414,6 +415,18 @@
             for(var i = 0; i < 4; i++) {
                 stage.getElementsByClassName("option")[i].onclick = function() {console.log("Already Answered.")};
             }
+        }
+        function writeToHistory() {
+            cloud.collection("history").doc(String(Date.now())+"-"+cloudCopy.guest).set(cloudCopy).then(() => {
+                Swal.fire({
+                    title: "Results Saved",
+                    type: "success",
+                    showConfirmButton: false,
+                    toast: true,
+                    position: "top-end",
+                    timer: 3000
+                });
+            });
         }
     </script>
 </body>
