@@ -69,6 +69,7 @@
                 else if((step == "game-no-chosen" || step == "game-one-chosen") && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
                     console.log("All Chosed");
                     step = "result";
+                    timer.stop();
                     SeeResult();
                 }
                 // host & guest
@@ -342,7 +343,17 @@
             stage.appendChild(questionBox);
             stage.appendChild(optionGroup);
             stage.appendChild(placeholder);
-            timer.start(function(){SeeResult()});
+            timer.start(function(){
+                SeeResult();
+                for(var i = 0; i < 4; i++) {
+                    stage.getElementsByClassName("option")[i].onclick = function() {console.log("Already Answered.")};
+                }
+            });
+        }
+        function showFinal() {
+            stage.innerHTML = "";
+            let final = cloudCopy.question;
+            console.log(final);
         }
         function answer(x) {
             let question = cloudCopy.question;
