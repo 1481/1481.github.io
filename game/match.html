@@ -47,8 +47,9 @@
         function ListenToCloud(x) {
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
+                console.log(doc.data().guest);
                 // host
-                if(step == "wait" && doc.data().guest) {
+                if(step == "wait" && doc.data().guest != "") {
                     Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
