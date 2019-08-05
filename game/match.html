@@ -160,7 +160,7 @@
         }
         function SeeResult() {
             let ans = cloudCopy.question[Q];
-            if(ans.g == ans.h) {
+            if(ans.g == ans.h && ans.g != -1) {
                 stage.getElementsByClassName("option")[ans.h].classList.add("w3-green", "w3-border-green", "w3-hover-green");
             } else if(ans[(host ? "h" : "g")] == -1 && ans[(host ? "g" : "h")] != -1) {
                 stage.getElementsByClassName("option")[ans[(host ? "g" : "h")]].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
