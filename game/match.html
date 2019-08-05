@@ -48,28 +48,27 @@
         function ListenToCloud(x) {
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
-                console.log(doc.data().question[Q].g);
-                console.log(doc.data().question[Q].h);
+                let data = doc.data();
                 // host
-                if(step == "wait" && doc.data().guest != "") {
-                    Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
+                if(step == "wait" && data.guest != "") {
+                    Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
                 // guest
-                else if(step == "joined" && doc.data().question.length > 0) {
-                    Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
+                else if(step == "joined" && data.question.length > 0) {
+                    Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
                 // host & guest
-                else if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
-                    console.log((host ? "Guest" : "Host")+" chosed "+(host ? doc.data().question[Q].g : doc.data().question[Q].h));
+                else if(step == "game-no-chosen" && (host ? data.question[Q].g != -1 : data.question[Q].h != -1)) {
+                    console.log((host ? "Guest" : "Host")+" chosed "+(host ? data.question[Q].g : data.question[Q].h));
                     answered++;
                     step = "game-one-chosen";
                 }
                 // host & guest
-                else if(answered == 2 && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
+                else if(answered == 2 && data.question[Q].g !== -1 && data.question[Q].h !== -1) {
                     answered = 0;
                     console.log("Both");
                     step = "result";
@@ -77,14 +76,14 @@
                     SeeResult();
                 }
                 // host & guest
-                else if(step == "result" && doc.data().ready.g == true && doc.data().ready.h == true) {
+                else if(step == "result" && data.ready.g === true && data.ready.h === true) {
                     console.log("Next Question");
                     Q++;
-                    if(Q >= doc.data().question.length) {
+                    if(Q >= data.question.length) {
                         step == "end";
                         showFinal();
                     } else {
-                        Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
+                        Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                         console.log("Q-"+Q);
                         step = "game-no-chosen";
                     }
