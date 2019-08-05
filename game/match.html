@@ -340,6 +340,9 @@
                 question: question
             });
             console.log("answered "+x);
+            for(var i = 0; i < 4; i++) {
+                stage.getElementsByClassName("option")[i].onclick = function() {console.log("Already Answered.")};
+            }
         }
     </script>
 </body>
