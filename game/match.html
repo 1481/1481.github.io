@@ -55,32 +55,34 @@
                     for(var i = 0; i < qs.length; i++)
                         questions.push({q: qs[i], h: -1, g: -1});
                     cloud.update({question: questions}).then(()=>{
-                        step = "start";
+                        Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
+                        console.log("Q-"+Q);
+                        step = "game-no-chosen";
                     });
                 }
                 // guest
-                if(step == "joined" && doc.data().question.length > 0) {
+                else if(step == "joined" && doc.data().question.length > 0) {
                     step = "start";
                 }
                 // host & guest
-                if(step == "start") {
+                else if(step == "start") {
                     Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
                 // host & guest
-                if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
+                else if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
                     console.log((host ? "Guest" : "Host")+" chosed "+(host ? doc.data().question[Q].g : doc.data().question[Q].h));
                     step == "game-one-chosen";
                 }
                 // host & guest
-                if(step == "game-one-chosen" && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
+                else if((step == "game-no-chosen" || step == "game-one-chosen") && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
                     console.log("All Chosed");
                     step == "result";
                     SeeResult();
                 }
                 // host & guest
-                if(step == "result" && doc.data().ready.g == true && doc.data().ready.h == true) {
+                else if(step == "result" && doc.data().ready.g == true && doc.data().ready.h == true) {
                     console.log("Next Question");
                     Q++;
                     if(Q >= doc.data().question.length) {
@@ -160,6 +162,31 @@
         }
         function copyFromCloud(docData) {
             cloudCopy = docData;
+        }
+        function SeeResult() {
+            let ans = cloudCopy.question[Q];
+            if(ans.g == ans.h) {
+                stage.getElementsByClassName("option")[ans.h].classList.add("w3-green", "w3-border-green", "w3-hover-green");
+            } else {
+                stage.getElementsByClassName("option")[ans[(host ? "g" : "h")]].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
+                stage.getElementsByClassName("option")[ans[(host ? "h" : "g")]].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
+            }
+            setTimeout(function(){
+                Swal.fire({
+                    title: "Ready?",
+                    toast: true,
+                    position: "top-end"
+                }).then(()=>{
+                    Ready();
+                    Swal.fire({
+                        title: "Wait...",
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1000
+                    });
+                });
+            }, 3000);
         }
     </script>
     <style>
