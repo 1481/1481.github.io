@@ -63,12 +63,12 @@
                 // host & guest
                 else if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
                     console.log((host ? "Guest" : "Host")+" chosed "+(host ? doc.data().question[Q].g : doc.data().question[Q].h));
-                    step == "game-one-chosen";
+                    step = "game-one-chosen";
                 }
                 // host & guest
                 else if((step == "game-no-chosen" || step == "game-one-chosen") && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
                     console.log("All Chosed");
-                    step == "result";
+                    step = "result";
                     SeeResult();
                 }
                 // host & guest
@@ -81,7 +81,7 @@
                     } else {
                         Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                         console.log("Q-"+Q);
-                        step == "game-no-chosen";
+                        step = "game-no-chosen";
                     }
                 }
             });
