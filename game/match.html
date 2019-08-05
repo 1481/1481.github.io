@@ -48,6 +48,8 @@
         function ListenToCloud(x) {
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
+                console.log(doc.data().question[Q].g);
+                console.log(doc.data().question[Q].h);
                 // host
                 if(step == "wait" && doc.data().guest != "") {
                     Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
