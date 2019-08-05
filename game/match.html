@@ -363,6 +363,42 @@
             stage.innerHTML = "";
             let final = cloudCopy.question;
             console.log(final);
+            
+            for(var i = 0; i < final.length; i++) {
+                let wrapper = document.createElement("div");
+                let question = document.createElement("h3");
+                let opt_group = document.createElement("div");
+                wrapper.classList.add("w3-margin-bottom");
+                wrapper.style.width = "100%";
+                question.innerHTML = QuestionList[final[i].q].question;
+                opt_group.classList.add("option-group");
+                
+                let opt = [], txt = [];
+                for(var j = 0; j < 4; j++) {
+                    opt[j] = document.createElement("div");
+                    opt[j].classList.add("option", "w3-button", "w3-border", "w3-round");
+                    txt[j] = document.createElement("span");
+                    txt[j].classList.add("option-label");
+                    txt[j].innerHTML = QuestionList[final[i].q].options[j];
+                    if(j == final[i][(host ? "h" : "g")] && j == final[i][(host ? "g" : "h")]) {
+                        opt[j].classList.add("w3-green", "w3-border-green", "w3-hover-green");
+                        wrapper.style.borderLeft = "4px solid #4CAF50";
+                    } else if(j == final[i][(host ? "h" : "g")]) {
+                        opt[j].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
+                        wrapper.style.borderLeft = "4px solid #ffc107";
+                    } else if(j == final[i][(host ? "g" : "h")]) {
+                        opt[j].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
+                        wrapper.style.borderLeft = "4px solid #ffc107";
+                    }
+                    opt[j].appendChild(txt[j]);
+                    opt_group.appendChild(opt[j]);
+                }
+                wrapper.appendChild(question);
+                wrapper.appendChild(opt_group);
+                stage.appendChild(wrapper);
+                stage.display = "";
+                stage.height = "";
+            }
         }
         function answer(x) {
             answered++;
