@@ -154,9 +154,9 @@
             return result;
         }
         function Ready() {
-            cloud.update({
-                "ready."+(host ? "h" : "g"): true
-            }).then(()=>{console.log("Ready")});
+            var x = {};
+            x["ready."+(host ? "h" : "g")] = true;
+            cloud.update(x).then(()=>{console.log("Ready")});
         }
         function copyFromCloud(docData) {
             cloudCopy = docData;
