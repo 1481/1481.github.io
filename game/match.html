@@ -56,19 +56,19 @@
                     step = "game-no-chosen";
                 }
                 // guest
-                else if(step == "joined" && data.question.length > 0) {
+                if(step == "joined" && data.question.length > 0) {
                     Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
                 // host & guest
-                else if(step == "game-no-chosen" && (host ? data.question[Q].g != -1 : data.question[Q].h != -1)) {
+                if(step == "game-no-chosen" && (host ? data.question[Q].g != -1 : data.question[Q].h != -1)) {
                     console.log((host ? "Guest" : "Host")+" chosed "+(host ? data.question[Q].g : data.question[Q].h));
                     answered++;
                     step = "game-one-chosen";
                 }
                 // host & guest
-                else if(answered == 2 && data.question[Q].g !== -1 && data.question[Q].h !== -1) {
+                if(answered == 2) {
                     answered = 0;
                     console.log("Both");
                     step = "result";
@@ -76,7 +76,7 @@
                     SeeResult();
                 }
                 // host & guest
-                else if(step == "result" && data.ready.g === true && data.ready.h === true) {
+                if(step == "result" && data.ready.g === true && data.ready.h === true) {
                     console.log("Next Question");
                     Q++;
                     if(Q >= data.question.length) {
@@ -362,8 +362,11 @@
             answered++;
             let question = cloudCopy.question;
             question[Q][(host ? "h" : "g")] = x;
+            let ready = cloudCopy.ready;
+            ready[(host ? "h" : "g")] = false;
             cloud.update({
-                question: question
+                question: question,
+                ready: ready
             });
             console.log("answered "+x);
             for(var i = 0; i < 4; i++) {
