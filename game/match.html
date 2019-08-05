@@ -50,7 +50,7 @@
                 console.log(doc.data().guest);
                 // host
                 if(step == "wait" && doc.data().guest != "") {
-                    Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
+                    Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
