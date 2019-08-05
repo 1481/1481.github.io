@@ -30,6 +30,7 @@
         var name1="Name1", name2="Name2";
         var cloud;
         var cloudCopy;
+        var answered = 0;
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 Swal.fire("已登入", "此遊戲需要兩人方可遊玩", "success").then(()=>{});
@@ -47,7 +48,6 @@
         function ListenToCloud(x) {
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
-                console.log(doc.data().guest);
                 // host
                 if(step == "wait" && doc.data().guest != "") {
                     Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
@@ -63,11 +63,13 @@
                 // host & guest
                 else if(step == "game-no-chosen" && (host ? doc.data().question[Q].g != -1 : doc.data().question[Q].h != -1)) {
                     console.log((host ? "Guest" : "Host")+" chosed "+(host ? doc.data().question[Q].g : doc.data().question[Q].h));
+                    answered++;
                     step = "game-one-chosen";
                 }
                 // host & guest
-                else if((step == "game-no-chosen" || step == "game-one-chosen") && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
-                    console.log("All Chosed");
+                else if(answered == 2 && doc.data().question[Q].g != -1 && doc.data().question[Q].h != -1) {
+                    answered = 0;
+                    console.log("Both");
                     step = "result";
                     timer.stop();
                     SeeResult();
@@ -356,6 +358,7 @@
             console.log(final);
         }
         function answer(x) {
+            answered++;
             let question = cloudCopy.question;
             question[Q][(host ? "h" : "g")] = x;
             cloud.update({
