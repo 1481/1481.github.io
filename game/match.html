@@ -64,7 +64,7 @@
                 }
                 // host & guest
                 if(step == "start") {
-                    Question(QuestionList[doc.data().question[Q].q]);
+                    Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
@@ -87,7 +87,7 @@
                         step == "end";
                         showFinal();
                     } else {
-                        Question(QuestionList[doc.data().question[Q].q]);
+                        Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
                         console.log("Q-"+Q);
                         step == "game-no-chosen";
                     }
@@ -276,7 +276,6 @@
             var placeholder = document.createElement("div");
             name.innerHTML = name1 + " & " + name2;
             time.innerHTML = 15;
-            timer.start();
             questionSpan.innerHTML = question;
             for(var i = 0; i < 4; i++) {
                 optionSpan[i].innerHTML = options[i];
@@ -305,6 +304,7 @@
             stage.appendChild(questionBox);
             stage.appendChild(optionGroup);
             stage.appendChild(placeholder);
+            timer.start();
         }
         function answer(x) {
             let question = cloudCopy.question;
