@@ -48,7 +48,7 @@
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
                 // host
-                if(step == "wait" && doc.data().guest) {
+                if(step == "wait") {
                     step = "chose";
                     var qs = chosenQuestions(2);
                     let questions = [];
@@ -274,7 +274,7 @@
         var timer = {
             value: 15,
             timer: 0,
-            start: function() {
+            start: function(cb = function(){}) {
                 timer.value = 15;
                 clearInterval(timer.timer);
                 timer.timer = setInterval(function() {
@@ -282,6 +282,7 @@
                     document.getElementsByClassName("time")[0].innerHTML = timer.value;
                     if(timer.value <= 0) {
                         timer.stop();
+                        cb();
                     }
                 }, 1000);
             },
@@ -344,7 +345,7 @@
             stage.appendChild(questionBox);
             stage.appendChild(optionGroup);
             stage.appendChild(placeholder);
-            timer.start();
+            timer.start(function(){SeeResult()});
         }
         function answer(x) {
             let question = cloudCopy.question;
