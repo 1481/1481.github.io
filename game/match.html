@@ -48,17 +48,7 @@
             db.collection("Truth").doc(x).onSnapshot(function(doc) {
                 copyFromCloud(doc.data());
                 // host
-                if(step == "wait") {
-                    step = "chose";
-                    var qs = chosenQuestions(2);
-                    let questions = [];
-                    for(var i = 0; i < qs.length; i++)
-                        questions.push({q: qs[i], h: -1, g: -1});
-                    cloud.update({question: questions}).then(()=>{
-                        step = "start";
-                    });
-                }
-                else if(step == "start" && doc.data().guest) {
+                if(step == "wait" && doc.data().guest) {
                     Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
@@ -127,13 +117,19 @@
             });
         }
         function CreateRoom() {
+            // Choose Questions
+            var qs = chosenQuestions(2);
+            let questions = [];
+            for(var i = 0; i < qs.length; i++)
+                questions.push({q: qs[i], h: -1, g: -1});
+            
             var room = {
                 allowJoin: true,
                 id: parseInt(1000+Math.random()*8999),
                 host: firebase.auth().currentUser.uid,
                 guest: "",
                 questionlist: "std",
-                question: []
+                question: questions
             };
             db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
                 step = "wait";
