@@ -135,7 +135,11 @@
                 host: firebase.auth().currentUser.uid,
                 guest: "",
                 questionlist: "std",
-                question: questions
+                question: questions,
+                ready: {
+                    h: false,
+                    g: false
+                }
             };
             db.collection("Truth").doc(firebase.auth().currentUser.uid).set(room).then(()=>{
                 ListenToCloud(firebase.auth().currentUser.uid);
