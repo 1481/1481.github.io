@@ -55,10 +55,13 @@
                     for(var i = 0; i < qs.length; i++)
                         questions.push({q: qs[i], h: -1, g: -1});
                     cloud.update({question: questions}).then(()=>{
-                        Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
-                        console.log("Q-"+Q);
-                        step = "game-no-chosen";
+                        step = "start";
                     });
+                }
+                else if(step == "start" && doc.data().guest) {
+                    Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
+                    console.log("Q-"+Q);
+                    step = "game-no-chosen";
                 }
                 // guest
                 else if(step == "joined" && doc.data().question.length > 0) {
@@ -113,7 +116,11 @@
                         allowJoin: false,
                         guest: firebase.auth().currentUser.uid
                     }).then(()=>{
-                        Swal.fire("已加入", "", "success").then(()=>{});
+                        Swal.fire({
+                            title: "已加入",
+                            type: "success",
+                            timer: 2000
+                        }).then(()=>{});
                         cloud = db.collection("Truth").doc(docId);
                     });
                 });
