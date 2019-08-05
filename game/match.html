@@ -55,7 +55,7 @@
                     for(var i = 0; i < qs.length; i++)
                         questions.push({q: qs[i], h: -1, g: -1});
                     cloud.update({question: questions}).then(()=>{
-                        Question(QuestionList[doc.data().question[Q].q].question, QuestionList[doc.data().question[Q].q].options);
+                        Question(QuestionList[questions[Q].q].question, QuestionList[questions[Q].q].options);
                         console.log("Q-"+Q);
                         step = "game-no-chosen";
                     });
@@ -162,6 +162,17 @@
             let ans = cloudCopy.question[Q];
             if(ans.g == ans.h) {
                 stage.getElementsByClassName("option")[ans.h].classList.add("w3-green", "w3-border-green", "w3-hover-green");
+            } else if(ans[(host ? "h" : "g")] == -1 && ans[(host ? "g" : "h")] != -1) {
+                stage.getElementsByClassName("option")[ans[(host ? "g" : "h")]].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
+            } else if(ans[(host ? "g" : "h")] == -1 && ans[(host ? "h" : "g")] != -1) {
+                stage.getElementsByClassName("option")[ans[(host ? "h" : "g")]].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
+            } else if(ans[(host ? "h" : "g")] == -1 && ans[(host ? "g" : "h")] == -1) {
+                Swal.fire({
+                    title: "None of you answered.",
+                    type: "error",
+                    toast: true,
+                    position: "top-end"
+                });
             } else {
                 stage.getElementsByClassName("option")[ans[(host ? "g" : "h")]].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
                 stage.getElementsByClassName("option")[ans[(host ? "h" : "g")]].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
