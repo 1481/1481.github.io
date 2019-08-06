@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        console.log("ver. 1.1.2");
+        console.log("ver. 1.1.3");
         var firebaseConfig = {
             apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
             authDomain: "hsnu-1481-website.firebaseapp.com",
@@ -45,7 +45,7 @@
                     }
                 });
             } else {
-                Swal.fire("尚未登入", "此遊戲需要登入帳號後方可遊玩", "info").then(()=>{});
+                Swal.fire("尚未登入", "此遊戲需要登入帳號後方可遊玩", "info").then(()=>{location.href="/auth"});
             }
         });
         function ListenToCloud(x) {
