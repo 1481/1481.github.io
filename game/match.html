@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        console.log("ver. 1.1.0");
+        console.log("ver. 1.1.2");
         var firebaseConfig = {
             apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
             authDomain: "hsnu-1481-website.firebaseapp.com",
@@ -195,6 +195,7 @@
             let ans = cloudCopy.question[Q];
             if(ans.g == ans.h && ans.g != -1) {
                 stage.getElementsByClassName("option")[ans.h].classList.add("w3-green", "w3-border-green", "w3-hover-green");
+                stage.getElementsByClassName("option")[ans.h].classList.remove("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
             } else if(ans[(host ? "h" : "g")] == -1 && ans[(host ? "g" : "h")] != -1) {
                 stage.getElementsByClassName("option")[ans[(host ? "g" : "h")]].classList.add("w3-amber", "w3-border-amber", "w3-hover-amber");
             } else if(ans[(host ? "g" : "h")] == -1 && ans[(host ? "h" : "g")] != -1) {
