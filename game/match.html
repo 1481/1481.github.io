@@ -414,6 +414,7 @@
             }
         }
         function answer(x) {
+            stage.getElementsByClassName("option")[x].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
             answered++;
             let question = cloudCopy.question;
             question[Q][(host ? "h" : "g")] = x;
