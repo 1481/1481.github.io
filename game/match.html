@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        console.log("ver. 1.0.1");
+        console.log("ver. 1.0.3");
         var firebaseConfig = {
             apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
             authDomain: "hsnu-1481-website.firebaseapp.com",
@@ -84,7 +84,7 @@
                     if(Q >= data.question.length) {
                         step == "end";
                         showFinal();
-                        writeToHistory();
+                        if(host) writeToHistory();
                     } else {
                         Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
                         console.log("Q-"+Q);
@@ -364,7 +364,15 @@
             stage.innerHTML = "";
             let final = cloudCopy.question;
             console.log(final);
-            
+            var c = 0;
+            for(var i = 0; i < final.length; i++)
+                if(final[i][(host ? "h" : "g")] == final[i][(host ? "g" : "h")]) c++;
+            let title = document.createElement("h2");
+            title.innerHTML = "結果";
+            let result = document.createElement("h1");
+            result.innerHTML = ""+c+" / "+final.length;
+            stage.appendChild(title);
+            stage.appendChild(result);
             for(var i = 0; i < final.length; i++) {
                 let wrapper = document.createElement("div");
                 let question = document.createElement("h3");
@@ -384,6 +392,7 @@
                     if(j == final[i][(host ? "h" : "g")] && j == final[i][(host ? "g" : "h")]) {
                         opt[j].classList.add("w3-green", "w3-border-green", "w3-hover-green");
                         wrapper.style.borderLeft = "4px solid #4CAF50";
+                        c++;
                     } else if(j == final[i][(host ? "h" : "g")]) {
                         opt[j].classList.add("w3-khaki", "w3-border-khaki", "w3-hover-khaki");
                         wrapper.style.borderLeft = "4px solid #ffc107";
@@ -397,8 +406,7 @@
                 wrapper.appendChild(question);
                 wrapper.appendChild(opt_group);
                 stage.appendChild(wrapper);
-                stage.display = "";
-                stage.height = "";
+                stage.classList.remove("stage");
             }
         }
         function answer(x) {
