@@ -6,12 +6,13 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        console.log("ver. 1.0.4");
+        console.log("ver. 1.1.0");
         var firebaseConfig = {
             apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
             authDomain: "hsnu-1481-website.firebaseapp.com",
@@ -28,10 +29,11 @@
         var step = "enter";
         var host = 0;
         var QuestionList, Q=0;
-        var name1="Name1", name2="Name2";
+        var name1="", name2="";
         var cloud;
         var cloudCopy;
         var answered = 0;
+        
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 Swal.fire("已登入", "此遊戲需要兩人方可遊玩", "success").then(()=>{});
@@ -54,12 +56,24 @@
                 // host
                 if(step == "wait" && data.guest != "") {
                     Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
+                    username(data.host).then(r => {name1 = r}).then(() => {
+                        stage.getElementsByClassName("nameWith")[0].innerHTML = name1 + " & " + name2;
+                    });
+                    username(data.guest).then(r => {name2 = r}).then(() => {
+                        stage.getElementsByClassName("nameWith")[0].innerHTML = name1 + " & " + name2;
+                    });
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
                 // guest
                 if(step == "joined" && data.question.length > 0) {
                     Question(QuestionList[data.question[Q].q].question, QuestionList[data.question[Q].q].options);
+                    username(data.host).then(r => {name1 = r}).then(() => {
+                        stage.getElementsByClassName("nameWith")[0].innerHTML = name1 + " & " + name2;
+                    });
+                    username(data.guest).then(r => {name2 = r}).then(() => {
+                        stage.getElementsByClassName("nameWith")[0].innerHTML = name1 + " & " + name2;
+                    });
                     console.log("Q-"+Q);
                     step = "game-no-chosen";
                 }
@@ -213,6 +227,19 @@
                 });
             }, 3000);
         }
+        function username(uid=UID) {
+            console.log(uid);
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+        }
     </script>
     <style>
         .stage {
@@ -263,7 +290,7 @@
     <div class="content">
         <!-- Navigation -->
         <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a>
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
         <div class="w3-container w3-center stage">
             <div style="width: 100%">

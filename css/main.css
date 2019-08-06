@@ -94,3 +94,8 @@ div.w3-bar.w3-border-bottom {
         left: 0rem;
     }
 }
+@media screen and (max-width: 350px) {
+    .w3-bar-item {
+        padding: 8px 6px !important;
+    }
+}
