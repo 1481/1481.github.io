@@ -146,6 +146,25 @@
             } else
                 location.href = "/";
         });
+        function del(code) {
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).delete().then(() => {
+                Swal.fire("已刪除", "", "success");
+            });
+        }
+        function check(code) {
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).update({
+                resolved: true
+            }).then(() => {
+                Swal.fire("已確認", "", "success");
+            });
+        }
+        function uncheck(code) {
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).update({
+                resolved: false
+            }).then(() => {
+                Swal.fire("已恢復成未確認", "", "success");
+            });
+        }
     </script>
 </body>
 </html>
