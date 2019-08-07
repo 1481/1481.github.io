@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>匿名信箱 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script>var ip; fetch("https://api.ipify.org/?format=json").then(r => r.json()).then(r => ip=r.ip)</script>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/gh/faisalman/ua-parser-js@0.7.20/src/ua-parser.min.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <style>
+        .stage {
+            width: 100%;
+        }
+        .wrapper {
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+        }
+        .message {
+            width: 100%;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
+        </div>
+        <div class="w3-margin w3-center stage hide">
+            <div class="wrapper">
+                <h1 class="head"></h1>
+                <textarea class="message w3-input w3-border w3-margin w3-round" rows="8"></textarea>
+                <button class="w3-button w3-border w3-margin w3-round" onclick="msg(document.getElementsByClassName('message')[0].value)">傳送</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
+    <script>
+        var name, uid;
+        if(!urlKey("u")) {
+            Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
+        } else {
+            db.collection("Inbox").doc(urlKey("u")).get().then(doc => {
+                if(!doc.exists) {
+                    Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
+                } else {
+                    uid = doc.data().owner;
+                    username(doc.data().owner).then(n => name = n).then(() => {
+                        Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
+                            setTimeout(function(){
+                                document.getElementsByClassName("head")[0].innerHTML = name+" 的匿名信箱";
+                                document.getElementsByClassName("stage")[0].classList.remove("hide");
+                            }, 500);
+                        });
+                    });
+                }
+            });
+        }
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+            return new Promise(x=>x("none"));
+        }
+        function msg(message, name="anonymous") {
+            db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(String(Date.now())).set({
+                message: message,
+                name: name,
+                time: Date.now(),
+                security: {
+                    ip: ip,
+                    device: (!UAParser().device.model ? "" : UAParser().device),
+                    os: UAParser().os,
+                    browser: UAParser().browser
+                }
+            }).then(() => {
+                Swal.fire({
+                    title: "訊息已傳送",
+                    type: "success",
+                    timer: 5000
+                }).then(() => {
+                    location.reload(true);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
