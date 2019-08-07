@@ -27,20 +27,43 @@
         var db = firebase.firestore();
     </script>
     <style>
+        h2 {
+            margin: 0 0 -16px 0;
+        }
         .stage {
-            width: 100%;
+            
         }
         .wrapper {
-            display: inline-block;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             width: 100%;
             max-width: 600px;
         }
         .message {
             width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
         .footer {
             width: 100%;
             text-align: center;
+        }
+        button {
+            width: 100px;
+        }
+        @media screen and (max-width: 350px) {
+            .message { width: 260px }
+        }
+        @media screen and (min-width: 350px) and (max-width: 400px) {
+            .message { width: 320px }
+        }
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            .message { width: 350px }
+        }
+        @media screen and (min-width: 700px) {
+            .message { width: 500px }
         }
     </style>
 </head>
@@ -50,11 +73,12 @@
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
-        <div class="w3-margin w3-center stage hide">
+        <div class="w3-margin-top w3-center stage hide">
             <div class="wrapper">
+                <h2>匿名信箱</h2>
                 <h1 class="head"></h1>
-                <textarea class="message w3-input w3-border w3-margin w3-round" rows="8"></textarea>
-                <button class="w3-button w3-border w3-margin w3-round" onclick="msg(document.getElementsByClassName('message')[0].value)">傳送</button>
+                <textarea class="message w3-input w3-border w3-round" rows="8"></textarea>
+                <button class="w3-margin-top w3-button w3-border w3-round" onclick="msg(document.getElementsByClassName('message')[0].value)">傳送</button>
             </div>
         </div>
     </div>
@@ -73,9 +97,10 @@
                 } else {
                     uid = doc.data().owner;
                     username(doc.data().owner).then(n => name = n).then(() => {
+                        document.title = name + " 的匿名信箱 | HSNU 1481";
                         Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
                             setTimeout(function(){
-                                document.getElementsByClassName("head")[0].innerHTML = name+" 的匿名信箱";
+                                document.getElementsByClassName("head")[0].innerHTML = name;
                                 document.getElementsByClassName("stage")[0].classList.remove("hide");
                             }, 500);
                         });
@@ -99,23 +124,27 @@
             return new Promise(x=>x("none"));
         }
         function msg(message, name="anonymous") {
+            if(!message) return Swal.fire("無法發送", "", "error");
             db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(String(Date.now())).set({
                 message: message,
                 name: name,
-                time: Date.now(),
+                time: new Date(),
                 security: {
                     ip: ip,
                     device: (!UAParser().device.model ? "" : UAParser().device),
                     os: UAParser().os,
                     browser: UAParser().browser
-                }
+                },
+                response: "",
+                resolved: false
             }).then(() => {
                 Swal.fire({
                     title: "訊息已傳送",
                     type: "success",
                     timer: 5000
                 }).then(() => {
-                    location.reload(true);
+                    document.getElementsByClassName('message')[0].value = "";
+                    location.href = "/";
                 });
             });
         }
