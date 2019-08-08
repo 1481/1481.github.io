@@ -192,6 +192,7 @@
             cloudCopy = docData;
         }
         function SeeResult() {
+            step = "result";
             let ans = cloudCopy.question[Q];
             if(ans.g == ans.h && ans.g != -1) {
                 stage.getElementsByClassName("option")[ans.h].classList.add("w3-green", "w3-border-green", "w3-hover-green");
