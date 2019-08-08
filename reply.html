@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>匿名回覆 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script>var ip; fetch("https://api.ipify.org/?format=json").then(r => r.json()).then(r => ip=r.ip)</script>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/gh/faisalman/ua-parser-js@0.7.20/src/ua-parser.min.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <style>
+        h2 {
+            margin: 0 0 -16px 0;
+        }
+        .stage {
+            
+        }
+        .wrapper {
+            display: inline-block;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+        .m {
+            width: 100%;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+        }
+        button {
+            width: 100px;
+        }
+        @media screen and (max-width: 350px) {
+            .message { width: 260px }
+        }
+        @media screen and (min-width: 350px) and (max-width: 400px) {
+            .message { width: 320px }
+        }
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            .message { width: 350px }
+        }
+        @media screen and (min-width: 700px) {
+            .message { width: 500px }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
+        </div>
+        <div class="w3-margin-top w3-center stage">
+            <div class="wrapper">
+                <h1>匿名回覆</h1>
+                <h3>詢問內容</h3>
+                <p class="w3-border w3-round m"></p>
+                <h3>回覆內容</h3>
+                <p class="w3-border w3-round m"></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
+    <script>
+        var name;
+        if(!urlKey("u") || !urlKey("c")) {
+            Swal.fire("回覆不存在", "可能是信件被刪除了", "error").then(() => {location.href="/"});
+        } else {
+            db.collection("Inbox").doc(urlKey("u")).get().then(doc => {
+                if(!doc.exists) {
+                    Swal.fire("回覆不存在", "找不到使用者", "error").then(() => {location.href = "/"});
+                } else {
+                    uid = doc.data().owner;
+                    username(doc.data().owner).then(n => name = n).then(() => {
+                        Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
+                            setTimeout(function(){
+                                document.getElementsByClassName("head")[0].innerHTML = name;
+                                document.getElementsByClassName("stage")[0].classList.remove("hide");
+                            }, 500);
+                        });
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
