@@ -93,16 +93,20 @@
                     Swal.fire("回覆不存在", "找不到使用者", "error").then(() => {location.href = "/"});
                 } else {
                     uid = doc.data().owner;
-                    username(doc.data().owner).then(n => name = n).then(() => {
-                        Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
-                            setTimeout(function(){
-                                document.getElementsByClassName("head")[0].innerHTML = name;
-                                document.getElementsByClassName("stage")[0].classList.remove("hide");
-                            }, 500);
-                        });
+                    db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(urlKey("c")).get().then(doc => {
+                        if(!doc.exists) {
+                            Swal.fire("回覆不存在", "可能是信件被刪除了", "error").then(() => {location.href = "/"});
+                        } else {
+                            p(doc.data());
+                        }
                     });
                 }
             });
+        }
+        function p(d) {
+            var e = document.getElementsByClassName("m");
+            e[0].innerHTML = d.message || "無";
+            e[0].innerHTML = d.response || "目前沒有回覆";
         }
     </script>
 </body>
