@@ -45,7 +45,14 @@
         }
         .msg {
             float: left;
+            clear: left;
             font-size: 1.2rem;
+            word-break: break-all;
+        }
+        .tools {
+            float: right;
+            clear: left;
+            cursor: pointer;
         }
         .footer {
             width: 100%;
@@ -74,6 +81,11 @@
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
+        
+        <div class="w3-margin-top w3-center detail">
+            
+        </div>
+        
         <div class="w3-margin-top w3-center stage">
             
         </div>
@@ -84,6 +96,7 @@
     </div>
     <script>
         const stage = document.getElementsByClassName("stage")[0];
+        const detail = document.getElementsByClassName("detail")[0];
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 db.collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).get().then(function(querySnapshot) {
@@ -110,59 +123,129 @@
                             }
                         });
                     } else {
-                        db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
-                            if(querySnapshot.size == 0) {
-                                let wrapper = document.createElement("div");
-                                let card = document.createElement("div");
-                                let msg = document.createElement("p");
-                                wrapper.classList.add("wrapper", "w3-margin-bottom");
-                                card.classList.add("card", "w3-card", "w3-round");
-                                msg.classList.add("msg", "w3-margin-left");
-                                msg.innerHTML = "沒人寄信給你";
-                                card.appendChild(msg);
-                                wrapper.appendChild(card);
-                                stage.appendChild(wrapper);
-                            }
-                            querySnapshot.forEach(function(doc) {
-                                var data = doc.data();
-                                let wrapper = document.createElement("div");
-                                let card = document.createElement("div");
-                                let time = document.createElement("p");
-                                let msg = document.createElement("p");
-                                wrapper.classList.add("wrapper", "w3-margin-bottom");
-                                card.classList.add("card", "w3-card", "w3-round");
-                                time.classList.add("time", "w3-margin-left");
-                                time.innerHTML = data.time.toDate().toLocaleString();
-                                msg.classList.add("msg", "w3-margin-left");
-                                msg.innerHTML = data.message;
-                                card.appendChild(time);
-                                card.appendChild(msg);
-                                wrapper.appendChild(card);
-                                stage.appendChild(wrapper);
-                            })
-                        });
+                        inboxDetail(querySnapshot);
+                        refresh();
                     }
                 });
             } else
                 location.href = "/";
         });
-        function del(code) {
+        function deleteIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).delete().then(() => {
                 Swal.fire("已刪除", "", "success");
+                refresh();
             });
         }
-        function check(code) {
+        function checkIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).update({
                 resolved: true
             }).then(() => {
                 Swal.fire("已確認", "", "success");
+                refresh();
             });
         }
-        function uncheck(code) {
+        function uncheckIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).update({
                 resolved: false
             }).then(() => {
                 Swal.fire("已恢復成未確認", "", "success");
+                refresh();
+            });
+        }
+        function refresh(mode="all") {
+            stage.innerHTML = "";
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
+                if(querySnapshot.size == 0) {
+                    let wrapper = document.createElement("div");
+                    let card = document.createElement("div");
+                    let msg = document.createElement("p");
+                    wrapper.classList.add("wrapper", "w3-margin-bottom");
+                    card.classList.add("card", "w3-card", "w3-round");
+                    msg.classList.add("msg", "w3-margin-left");
+                    msg.innerHTML = "沒有信件";
+                    card.appendChild(msg);
+                    wrapper.appendChild(card);
+                    stage.appendChild(wrapper);
+                }
+                querySnapshot.forEach(function(doc) {
+                    var data = doc.data();
+                    let code = doc.id;
+                    let wrapper = document.createElement("div");
+                    let card = document.createElement("div");
+                    let time = document.createElement("p");
+                    let msg = document.createElement("p");
+                    let tools = document.createElement("div");
+                    let check = document.createElement("span");
+                    let del = document.createElement("span");
+                    wrapper.classList.add("wrapper", "w3-margin-bottom");
+                    card.classList.add("card", "w3-card", "w3-round");
+                    time.classList.add("time", "w3-margin-left");
+                    time.innerHTML = data.time.toDate().toLocaleString();
+                    msg.classList.add("msg", "w3-margin-left");
+                    msg.innerHTML = data.message;
+                    tools.classList.add("tools", "w3-margin-right");
+                    if(data.resolved) {
+                        check.innerHTML = '<i class="far fa-check-circle w3-margin-left"></i>' + " 已確認";
+                        check.onclick = function() {uncheckIt(code)};
+                        check.classList.add("w3-text-green");
+                    } else {
+                        check.innerHTML = '<i class="far fa-circle w3-margin-left"></i>' + " 未確認";
+                        check.onclick = function() {checkIt(code)};
+                        check.classList.add("w3-text-orange");
+                    }
+                    del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
+                    del.onclick = function() {deleteIt(code)};
+                    del.classList.add("w3-text-red");
+                    tools.appendChild(check);
+                    tools.appendChild(del);
+                    card.appendChild(time);
+                    card.appendChild(msg);
+                    card.appendChild(tools);
+                    wrapper.appendChild(card);
+                    stage.appendChild(wrapper);
+                })
+            });
+        }
+        function inboxDetail(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                var data = doc.data();
+                let wrapper = document.createElement("div");
+                let card = document.createElement("div");
+                let msg = document.createElement("p");
+                let tools = document.createElement("div");
+                let del = document.createElement("span");
+                wrapper.classList.add("wrapper", "w3-margin-bottom");
+                card.classList.add("card", "w3-card", "w3-round");
+                msg.classList.add("msg", "w3-margin-left");
+                msg.innerHTML = "信箱位址: <br>https://1481.tk/send?u="+doc.id;
+                tools.classList.add("tools", "w3-margin-right");
+                del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
+                del.onclick = function() {deleteInbox(doc.id)};
+                del.classList.add("w3-text-red");
+                tools.appendChild(del);
+                card.appendChild(msg);
+                card.appendChild(tools);
+                wrapper.appendChild(card);
+                detail.appendChild(wrapper);
+            })
+        }
+        function deleteInbox(id) {
+            Swal.fire({
+                title: "確認刪除信箱位址",
+                type: "question",
+                text: "這不會刪除已收到的信件",
+                showCancelButton: true,
+                cancelButtonColor: "gray",
+                confirmButtonColor: "red",
+                reverseButtons: true
+            }).then(r => {
+                if(r.value) {
+                    db.collection("Inbox").doc(id).delete().then(() => {
+                        Swal.fire("已刪除", "", "success").then(() => {location.reload()});
+                    });
+                } else {
+                    Swal.fire("已取消刪除", "", "info");
+                }
             });
         }
     </script>

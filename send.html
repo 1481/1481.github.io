@@ -136,7 +136,8 @@
                     browser: UAParser().browser
                 },
                 response: "",
-                resolved: false
+                resolved: false,
+                from: urlKey("u")
             }).then(() => {
                 Swal.fire({
                     title: "訊息已傳送",
