@@ -115,7 +115,7 @@
                                     owner: firebase.auth().currentUser.uid,
                                     description: ""
                                 }).then(() => {
-                                    Swal.fire("已建立", "信箱位址: https://1481.tk/send?u="+result.value, "success").then(()=>{location.reload()});
+                                    Swal.fire("已建立", "信箱位址: https://1481.ga/send?u="+result.value, "success").then(()=>{location.reload()});
                                 }).catch(e => {
                                     console.error(e);
                                     Swal.fire("已有人使用此代碼", "", "error").then(()=>{location.reload()});
@@ -217,7 +217,7 @@
                 wrapper.classList.add("wrapper", "w3-margin-bottom");
                 card.classList.add("card", "w3-card", "w3-round");
                 msg.classList.add("msg", "w3-margin-left");
-                msg.innerHTML = "信箱位址: <br>https://1481.tk/send?u="+doc.id;
+                msg.innerHTML = "信箱位址: <br>https://1481.ga/send?u="+doc.id;
                 tools.classList.add("tools", "w3-margin-right");
                 del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
                 del.onclick = function() {deleteInbox(doc.id)};
