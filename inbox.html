@@ -82,7 +82,7 @@
             <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
         
-        <div class="w3-margin-top w3-center detail">
+        <div class="detail">
             
         </div>
         
@@ -209,24 +209,21 @@
         function inboxDetail(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 var data = doc.data();
-                let wrapper = document.createElement("div");
-                let card = document.createElement("div");
-                let msg = document.createElement("p");
-                let tools = document.createElement("div");
+                let bar = document.createElement("div");
+                let url = document.createElement("span");
                 let del = document.createElement("span");
-                wrapper.classList.add("wrapper", "w3-margin-bottom");
-                card.classList.add("card", "w3-card", "w3-round");
-                msg.classList.add("msg", "w3-margin-left");
-                msg.innerHTML = "信箱位址: <br>https://1481.ga/send?u="+doc.id;
-                tools.classList.add("tools", "w3-margin-right");
+                
+                bar.classList.add("w3-bar", "w3-border-bottom");
+                url.classList.add("w3-bar-item", "w3-text-green");
+                url.innerHTML = "1481.ga/send?u="+doc.id;
+                
                 del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
                 del.onclick = function() {deleteInbox(doc.id)};
-                del.classList.add("w3-text-red");
-                tools.appendChild(del);
-                card.appendChild(msg);
-                card.appendChild(tools);
-                wrapper.appendChild(card);
-                detail.appendChild(wrapper);
+                del.classList.add("w3-bar-item", "w3-right", "w3-text-red");
+                
+                bar.appendChild(url);
+                bar.appendChild(del);
+                detail.appendChild(bar);
             })
         }
         function deleteInbox(id) {
