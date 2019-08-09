@@ -256,7 +256,7 @@
                 del.classList.add("w3-bar-item", "w3-right", "w3-text-red");
                 
                 copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
-                copy.dataset["clipboard-text"] = url.innerHTML;
+                copy.dataset.clipboardText = url.innerHTML;
                 copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "copy");
                 
                 bar.appendChild(url);
