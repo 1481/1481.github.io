@@ -34,7 +34,10 @@
             width: 100%;
             text-align: center;
         }
-        
+        td {
+            text-align: left;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +74,7 @@
                     
                     var table = document.createElement("table");
                     querySnapshot.forEach(function(doc) {
-                        alert(doc.id);
+                        
                         let data = doc.data();
                         let row = document.createElement("tr");
                         let column = [];
@@ -80,6 +83,7 @@
                         }
                         column[0].innerHTML = String(r++) + ".";
                         column[1].innerHTML = doc.id;
+                        username(doc.id).then(name => {column[1].innerHTML = name});
                         column[2].innerHTML = data[fields[urlKey("rank") || 0].name];
                         row.appendChild(column[0]);
                         row.appendChild(column[1]);
@@ -89,6 +93,21 @@
                     stage.appendChild(table);
                 });
             });
+        }
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+            return new Promise(x=>x("none"));
         }
     </script>
 </body>
