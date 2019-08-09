@@ -56,16 +56,17 @@
     </div>
     <script>
         const stage = document.getElementsByClassName("wrapper")[0];
-        var debug = [];
+        alert(0);
         var fields;
         if(!urlKey("game")) {
             location.href="./";
         } else {
+            alert(1);
             db.collection("Game").doc(urlKey("game")).get().then(doc => {
                 if(!doc.exists) location.href="./";
                 fields = doc.data().rank;
                 let r = 1;
-                debug.push(r);
+                alert(2);
                 db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
                     let table = document.createElement("table");
                     querySnapshot.forEach(function(doc) {
