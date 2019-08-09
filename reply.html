@@ -73,6 +73,7 @@
         <div class="w3-margin-top w3-center w3-container stage">
             <div class="wrapper">
                 <h1>匿名回覆</h1>
+                <p id="id">ID: </p>
                 <h3>詢問內容</h3>
                 <p class="w3-border w3-round w3-padding m"></p>
                 <h3>回覆內容</h3>
@@ -90,6 +91,7 @@
             Swal.fire("回覆不存在", "可能是信件被刪除了", "error").then(() => {location.href="/"});
         } else {
             db.collection("Inbox").doc(urlKey("u")).get().then(doc => {
+                document.getElementById("id").innerHTML += urlKey("c");
                 if(!doc.exists) {
                     Swal.fire("回覆不存在", "找不到使用者", "error").then(() => {location.href = "/"});
                 } else {
