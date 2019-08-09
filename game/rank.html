@@ -68,10 +68,10 @@
                 let r = 1;
                 
                 db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
-                    alert(3);
-                    let table = document.createElement("table");
+                    
+                    var table = document.createElement("table");
                     querySnapshot.forEach(function(doc) {
-debug.push(doc.data());
+                        alert(doc.id);
                         let data = doc.data();
                         let row = document.createElement("tr");
                         let column = [];
