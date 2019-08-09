@@ -95,6 +95,7 @@
             All rights reserved.</span>
     </div>
     <script>
+        var inboxes = [];
         const stage = document.getElementsByClassName("stage")[0];
         const detail = document.getElementsByClassName("detail")[0];
         firebase.auth().onAuthStateChanged(user => {
@@ -152,6 +153,29 @@
                 refresh();
             });
         }
+        function respondIt(code, res="") {
+            Swal.fire({
+                title: "回覆",
+                text: "回覆將自動確認",
+                input: "text",
+                inputValue: res,
+                showCancelButton: true
+            }).then(result => {
+                if(true) {
+                    db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).update({
+                        response: result.value,
+                        resolved: true
+                    }).then(() => {
+                        if(result.value)
+                            Swal.fire("已回覆", "發問者可在<br><a href='https://1481.ga/reply?u="+inboxes[0]+"&c="+code+"' target='_blank'>1481.ga/reply?u="+inboxes[0]+"&c="+code+"</a><br>看到回覆", "success");
+                        else
+                            Swal.fire("已刪除回覆", "", "success");
+                        refresh();
+                    });
+                }
+            })
+            
+        }
         function refresh(mode="all") {
             stage.innerHTML = "";
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
@@ -175,6 +199,7 @@
                     let time = document.createElement("p");
                     let msg = document.createElement("p");
                     let tools = document.createElement("div");
+                    let respond = document.createElement("span");
                     let check = document.createElement("span");
                     let del = document.createElement("span");
                     wrapper.classList.add("wrapper", "w3-margin-bottom");
@@ -184,6 +209,9 @@
                     msg.classList.add("msg", "w3-margin-left");
                     msg.innerHTML = data.message;
                     tools.classList.add("tools", "w3-margin-right");
+                    respond.innerHTML = '<i class="far fa-edit w3-margin-left"></i>' + " 回覆";
+                    respond.onclick = function() {respondIt(code, data.response)};
+                    if(data.response) respond.classList.add("w3-text-blue");
                     if(data.resolved) {
                         check.innerHTML = '<i class="far fa-check-circle w3-margin-left"></i>' + " 已確認";
                         check.onclick = function() {uncheckIt(code)};
@@ -196,6 +224,7 @@
                     del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
                     del.onclick = function() {deleteIt(code)};
                     del.classList.add("w3-text-red");
+                    tools.appendChild(respond);
                     tools.appendChild(check);
                     tools.appendChild(del);
                     card.appendChild(time);
@@ -216,6 +245,7 @@
                 bar.classList.add("w3-bar", "w3-border-bottom");
                 url.classList.add("w3-bar-item", "w3-text-green");
                 url.innerHTML = "1481.ga/send?u="+doc.id;
+                inboxes.push(doc.id);
                 
                 del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
                 del.onclick = function() {deleteInbox(doc.id)};
