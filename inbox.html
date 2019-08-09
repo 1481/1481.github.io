@@ -62,6 +62,9 @@
         button {
             width: 100px;
         }
+        .ib {
+            padding: 8px 4px !important;
+        }
         @media screen and (max-width: 350px) {
             .card { width: 260px }
         }
@@ -253,12 +256,12 @@
                 
                 del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
                 del.onclick = function() {deleteInbox(doc.id)};
-                del.classList.add("w3-bar-item", "w3-right", "w3-text-red");
+                del.classList.add("w3-bar-item", "w3-right", "w3-text-red", "ib");
                 
                 copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
                 copy.onclick = function() {Swal.fire("已複製", "", "success")};
                 copy.dataset.clipboardText = url.innerHTML;
-                copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "copy");
+                copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "ib", "copy");
                 new ClipboardJS(copy);
                 
                 bar.appendChild(url);
