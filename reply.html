@@ -78,6 +78,7 @@
                 <p class="w3-border w3-round w3-padding m"></p>
                 <h3>回覆內容</h3>
                 <p class="w3-border w3-round w3-padding m"></p>
+                <p style="color: gray; font-size: 0.9rem;">支援即時回覆更新 <a href="javascript:Swal.fire('當他更新回覆時，會及時顯示新回覆')">更多資訊</a></p>
             </div>
         </div>
     </div>
@@ -96,7 +97,7 @@
                     Swal.fire("回覆不存在", "找不到使用者", "error").then(() => {location.href = "/"});
                 } else {
                     uid = doc.data().owner;
-                    db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(urlKey("c")).get().then(doc => {
+                    db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(urlKey("c")).onSnapshot(doc => {
                         if(!doc.exists) {
                             Swal.fire("回覆不存在", "可能是信件被刪除了", "error").then(() => {location.href = "/"});
                         } else {
