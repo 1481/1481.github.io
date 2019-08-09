@@ -184,7 +184,7 @@
         }
         function listen(mode="all") {
             if(mode == "all")
-                db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
         }
