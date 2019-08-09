@@ -13,6 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-tw.js"></script>
     <script>
         var firebaseConfig = {
             apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
@@ -209,7 +211,7 @@
                     wrapper.classList.add("wrapper", "w3-margin-bottom");
                     card.classList.add("card", "w3-card", "w3-round");
                     time.classList.add("time", "w3-margin-left");
-                    time.innerHTML = data.time.toDate().toLocaleString();
+                    time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
                     msg.classList.add("msg", "w3-margin-left");
                     msg.innerHTML = data.message;
                     tools.classList.add("tools", "w3-margin-right");
