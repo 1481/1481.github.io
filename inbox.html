@@ -131,7 +131,7 @@
                         });
                     } else {
                         inboxDetail(querySnapshot);
-                        refresh();
+                        listen();
                     }
                 });
             } else
@@ -140,7 +140,7 @@
         function deleteIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).delete().then(() => {
                 Swal.fire("已刪除", "", "success");
-                refresh();
+                
             });
         }
         function checkIt(code) {
@@ -148,7 +148,7 @@
                 resolved: true
             }).then(() => {
                 Swal.fire("已確認", "", "success");
-                refresh();
+                
             });
         }
         function uncheckIt(code) {
@@ -156,7 +156,7 @@
                 resolved: false
             }).then(() => {
                 Swal.fire("已恢復成未確認", "", "success");
-                refresh();
+                
             });
         }
         function respondIt(code, res="") {
@@ -176,70 +176,76 @@
                             Swal.fire("已回覆", "發問者可在<br><a href='https://1481.ga/reply?u="+inboxes[0]+"&c="+code+"' target='_blank'>1481.ga/reply?u="+inboxes[0]+"&c="+code+"</a><br>看到回覆", "success");
                         else
                             Swal.fire("已刪除回覆", "", "success");
-                        refresh();
+                        
                     });
                 }
             })
             
         }
-        function refresh(mode="all") {
+        function listen(mode="all") {
+            if(mode == "all")
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
+                    refresh(querySnapshot);
+                });
+        }
+        function refresh(querySnapshot) {
             stage.innerHTML = "";
-            db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).get().then(function(querySnapshot) {
-                if(querySnapshot.size == 0) {
-                    let wrapper = document.createElement("div");
-                    let card = document.createElement("div");
-                    let msg = document.createElement("p");
-                    wrapper.classList.add("wrapper", "w3-margin-bottom");
-                    card.classList.add("card", "w3-card", "w3-round");
-                    msg.classList.add("msg", "w3-margin-left");
-                    msg.innerHTML = "沒有信件";
-                    card.appendChild(msg);
-                    wrapper.appendChild(card);
-                    stage.appendChild(wrapper);
+            
+            if(querySnapshot.size == 0) {
+                let wrapper = document.createElement("div");
+                let card = document.createElement("div");
+                let msg = document.createElement("p");
+                wrapper.classList.add("wrapper", "w3-margin-bottom");
+                card.classList.add("card", "w3-card", "w3-round");
+                msg.classList.add("msg", "w3-margin-left");
+                msg.innerHTML = "沒有信件";
+                card.appendChild(msg);
+                wrapper.appendChild(card);
+                stage.appendChild(wrapper);
+            }
+            querySnapshot.forEach(function(doc) {
+                var data = doc.data();
+                let code = doc.id;
+                let wrapper = document.createElement("div");
+                let card = document.createElement("div");
+                let time = document.createElement("p");
+                let msg = document.createElement("p");
+                let tools = document.createElement("div");
+                let respond = document.createElement("span");
+                let check = document.createElement("span");
+                let del = document.createElement("span");
+                wrapper.classList.add("wrapper", "w3-margin-bottom");
+                card.classList.add("card", "w3-card", "w3-round");
+                time.classList.add("time", "w3-margin-left");
+                time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
+                msg.classList.add("msg", "w3-margin-left");
+                msg.innerHTML = data.message;
+                tools.classList.add("tools", "w3-margin-right");
+                respond.innerHTML = '<i class="far fa-edit w3-margin-left"></i>' + " 回覆";
+                respond.onclick = function() {respondIt(code, data.response)};
+                if(data.response) respond.classList.add("w3-text-blue");
+                if(data.resolved) {
+                    check.innerHTML = '<i class="far fa-check-circle w3-margin-left"></i>' + " 已確認";
+                    check.onclick = function() {uncheckIt(code)};
+                    check.classList.add("w3-text-green");
+                } else {
+                    check.innerHTML = '<i class="far fa-circle w3-margin-left"></i>' + " 未確認";
+                    check.onclick = function() {checkIt(code)};
+                    check.classList.add("w3-text-orange");
                 }
-                querySnapshot.forEach(function(doc) {
-                    var data = doc.data();
-                    let code = doc.id;
-                    let wrapper = document.createElement("div");
-                    let card = document.createElement("div");
-                    let time = document.createElement("p");
-                    let msg = document.createElement("p");
-                    let tools = document.createElement("div");
-                    let respond = document.createElement("span");
-                    let check = document.createElement("span");
-                    let del = document.createElement("span");
-                    wrapper.classList.add("wrapper", "w3-margin-bottom");
-                    card.classList.add("card", "w3-card", "w3-round");
-                    time.classList.add("time", "w3-margin-left");
-                    time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
-                    msg.classList.add("msg", "w3-margin-left");
-                    msg.innerHTML = data.message;
-                    tools.classList.add("tools", "w3-margin-right");
-                    respond.innerHTML = '<i class="far fa-edit w3-margin-left"></i>' + " 回覆";
-                    respond.onclick = function() {respondIt(code, data.response)};
-                    if(data.response) respond.classList.add("w3-text-blue");
-                    if(data.resolved) {
-                        check.innerHTML = '<i class="far fa-check-circle w3-margin-left"></i>' + " 已確認";
-                        check.onclick = function() {uncheckIt(code)};
-                        check.classList.add("w3-text-green");
-                    } else {
-                        check.innerHTML = '<i class="far fa-circle w3-margin-left"></i>' + " 未確認";
-                        check.onclick = function() {checkIt(code)};
-                        check.classList.add("w3-text-orange");
-                    }
-                    del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
-                    del.onclick = function() {deleteIt(code)};
-                    del.classList.add("w3-text-red");
-                    tools.appendChild(respond);
-                    tools.appendChild(check);
-                    tools.appendChild(del);
-                    card.appendChild(time);
-                    card.appendChild(msg);
-                    card.appendChild(tools);
-                    wrapper.appendChild(card);
-                    stage.appendChild(wrapper);
-                })
-            });
+                del.innerHTML = '<i class="far fa-trash-alt w3-margin-left"></i>' + " 刪除";
+                del.onclick = function() {deleteIt(code)};
+                del.classList.add("w3-text-red");
+                tools.appendChild(respond);
+                tools.appendChild(check);
+                tools.appendChild(del);
+                card.appendChild(time);
+                card.appendChild(msg);
+                card.appendChild(tools);
+                wrapper.appendChild(card);
+                stage.appendChild(wrapper);
+            })
+            
         }
         function inboxDetail(querySnapshot) {
             querySnapshot.forEach(function(doc) {
