@@ -101,6 +101,7 @@
             All rights reserved.</span>
     </div>
     <script>
+        var listener;
         var inboxes = [];
         const stage = document.getElementsByClassName("stage")[0];
         const detail = document.getElementsByClassName("detail")[0];
@@ -183,8 +184,17 @@
             
         }
         function listen(mode="all") {
+            listener();
             if(mode == "all")
-                db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                    refresh(querySnapshot);
+                });
+            if(mode == "checked")
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                    refresh(querySnapshot);
+                });
+            if(mode == "unchecked")
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
         }
