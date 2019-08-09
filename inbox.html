@@ -258,13 +258,14 @@
                 copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
                 copy.dataset.clipboardText = url.innerHTML;
                 copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "copy");
+                new ClipboardJS(copy);
                 
                 bar.appendChild(url);
                 bar.appendChild(del);
                 bar.appendChild(copy);
                 detail.appendChild(bar);
             });
-            new ClipboardJS('.copy');
+            
         }
         function deleteInbox(id) {
             Swal.fire({
