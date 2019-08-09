@@ -55,6 +55,7 @@
             All rights reserved.</span>
     </div>
     <script>
+        const stage = document.getElementsByClassName("wrapper")[0];
         var fields;
         if(!urlKey("game")) {
             location.href="./";
@@ -62,17 +63,27 @@
             db.collection("Game").doc(urlKey("game")).get().then(doc => {
                 if(!doc.exists) location.href="./";
                 fields = doc.data().rank;
-                db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(urlKey("rank") || fields[0], "desc").limit(20).get().then(function(querySnapshot) {
+                let r = 1;
+                db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
+                    let table = document.createElement("table");
                     querySnapshot.forEach(function(doc) {
-                        
+                        let data = doc.data();
+                        let row = document.createElement("tr");
+                        let column = [];
+                        for(var i = 0; i < 3; i++) {
+                            column.push(document.createElement("td"));
+                        }
+                        column[0].innerHTML = String(r++) + ".";
+                        column[1].innerHTML = doc.id;
+                        column[2].innerHTML = data[fields[urlKey("rank") || 0].name];
+                        row.appendChild(column[0]);
+                        row.appendChild(column[1]);
+                        row.appendChild(column[2]);
+                        table.appendChild(row);
                     }
+                    stage.appendChild(table);
                 });
             });
-        }
-        function p(d) {
-            var e = document.getElementsByClassName("m");
-            e[0].innerHTML = d.message || "無";
-            e[1].innerHTML = d.response || "目前沒有回覆";
         }
     </script>
 </body>
