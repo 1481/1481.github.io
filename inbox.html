@@ -91,7 +91,11 @@
         <div class="detail">
             
         </div>
-        
+        <div class="w3-center w3-margin listen-type hide">
+            <button class="w3-button w3-border w3-round" onclick="listen('checked')"> 未確認 </button>
+            <button class="w3-button w3-border w3-round" onclick="listen('all')"> 全部 </button>
+            <button class="w3-button w3-border w3-round" onclick="listen('unchecked')"> 已確認 </button>
+        </div>
         <div class="w3-margin-top w3-center stage">
             
         </div>
@@ -104,6 +108,7 @@
         var listener = function(){console.log("Listener Registered.")};
         var inboxes = [];
         const stage = document.getElementsByClassName("stage")[0];
+        const listen_type = document.getElementsByClassName("listen-type")[0];
         const detail = document.getElementsByClassName("detail")[0];
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
@@ -185,18 +190,29 @@
         }
         function listen(mode="all") {
             listener();
-            if(mode == "all")
+            for(var i = 0; i < 3; i++) {
+                listen_type.getElementsByTagName("button")[i].classList.remove("w3-black");
+                // listen_type.getElementsByTagName("button")[i].classList.add("w3-white");
+            }
+            if(mode == "all") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
-            if(mode == "checked")
+                listen_type.getElementsByTagName("button")[1].classList.add("w3-black");
+            }
+            if(mode == "checked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
-            if(mode == "unchecked")
+                listen_type.getElementsByTagName("button")[2].classList.add("w3-black");
+            }
+            if(mode == "unchecked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
+                listen_type.getElementsByTagName("button")[0].classList.add("w3-black");
+            }
+            listen_type.classList.remove("hide");
         }
         function refresh(querySnapshot) {
             stage.innerHTML = "";
