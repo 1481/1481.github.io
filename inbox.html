@@ -191,25 +191,25 @@
         function listen(mode="all") {
             listener();
             for(var i = 0; i < 3; i++) {
-                listen_type.getElementsByTagName("button")[i].classList.remove("w3-black");
+                listen_type.getElementsByTagName("button")[i].classList.remove("w3-black", "w3-hover-black");
             }
             if(mode == "all") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
-                listen_type.getElementsByTagName("button")[1].classList.add("w3-black");
+                listen_type.getElementsByTagName("button")[1].classList.add("w3-black", "w3-hover-black");
             }
             if(mode == "checked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
-                listen_type.getElementsByTagName("button")[2].classList.add("w3-black");
+                listen_type.getElementsByTagName("button")[2].classList.add("w3-black", "w3-hover-black");
             }
             if(mode == "unchecked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
-                listen_type.getElementsByTagName("button")[0].classList.add("w3-black");
+                listen_type.getElementsByTagName("button")[0].classList.add("w3-black", "w3-hover-black");
             }
             listen_type.classList.remove("hide");
         }
@@ -281,7 +281,7 @@
                 let del = document.createElement("span");
                 
                 bar.classList.add("w3-bar", "w3-border-bottom");
-                url.classList.add("w3-bar-item", "w3-text-green");
+                url.classList.add("w3-bar-item");
                 url.innerHTML = "1481.ga/send?u="+doc.id;
                 url.href = "https://www.1481.ga/send?u="+doc.id;
                 url.target = "_blank";
