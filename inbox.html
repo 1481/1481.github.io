@@ -243,6 +243,7 @@
                 let check = document.createElement("span");
                 let del = document.createElement("span");
                 wrapper.classList.add("wrapper", "w3-margin-bottom");
+                wrapper.id = code;
                 card.classList.add("card", "w3-card", "w3-round");
                 time.classList.add("time", "w3-margin-left");
                 time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
