@@ -198,21 +198,21 @@
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[1].classList.add("w3-black", "w3-hover-black");
-                window.history.pushState("Inbox: ALL", "信箱 | HSNU 1481", "?type=all");
+                window.history.replaceState("Inbox: ALL", "信箱 | HSNU 1481", "?type=all");
             }
             if(mode == "checked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[2].classList.add("w3-black", "w3-hover-black");
-                window.history.pushState("Inbox: CHECKED", "信箱 | HSNU 1481", "?type=checked");
+                window.history.replaceState("Inbox: CHECKED", "信箱 | HSNU 1481", "?type=checked");
             }
             if(mode == "unchecked") {
                 listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[0].classList.add("w3-black", "w3-hover-black");
-                window.history.pushState("Inbox: UNCHECKED", "信箱 | HSNU 1481", "?type=unchecked");
+                window.history.replaceState("Inbox: UNCHECKED", "信箱 | HSNU 1481", "?type=unchecked");
             }
             listen_type.classList.remove("hide");
         }
