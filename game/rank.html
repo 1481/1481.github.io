@@ -51,8 +51,9 @@
         </div>
         <div class="w3-margin-top w3-center w3-container stage">
             <div class="wrapper">
+                <div class="w3-center w3-margin type"></div>
                 <h1>排名</h1>
-                
+                <div class="rank"></div>
             </div>
         </div>
     </div>
@@ -61,7 +62,7 @@
             All rights reserved.</span>
     </div>
     <script>
-        const stage = document.getElementsByClassName("wrapper")[0];
+        const stage = document.getElementsByClassName("rank")[0];
         
         var fields;
         if(!urlKey("game")) {
@@ -72,10 +73,30 @@
                 if(!doc.exists) location.href="./";
                 fields = doc.data().rank;
                 let r = 1;
-                
+                for(var i = 0; i < fields.length; i++) {
+                    let b = document.createElement("button");
+                    b.innerHTML = fields[i].name;
+                    b.classList.add("w3-button", "w3-border", "w3-round");
+                    b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+urlKey("rank")};
+                    document.getElementsByClassName("type")[0].appendChild(b);
+                }
                 db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
+                    document.getElementsByTagName("h1").innerHTML = fields[urlKey("rank") || 0].name + " 排名";
                     
                     var table = document.createElement("table");
+                    let hrow = document.createElement("tr");
+                    let hcolumn = [];
+                    for(var i = 0; i < 3; i++) {
+                        hcolumn[i] = document.createElement("td");
+                    }
+                    hcolumn[0].innerHTML = "排名";
+                    hcolumn[1].innerHTML = "使用者名稱";
+                    hcolumn[2].innerHTML = "分數";
+                    hrow.appendChild(hcolumn[0]);
+                    hrow.appendChild(hcolumn[1]);
+                    hrow.appendChild(hcolumn[2]);
+                    table.appendChild(hrow);
+                    
                     querySnapshot.forEach(function(doc) {
                         
                         let data = doc.data();
