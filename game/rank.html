@@ -77,7 +77,8 @@
                     let b = document.createElement("button");
                     b.innerHTML = fields[i].name;
                     b.classList.add("w3-button", "w3-border", "w3-round");
-                    b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+urlKey("rank")};
+                    let k = i;
+                    b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+k};
                     document.getElementsByClassName("type")[0].appendChild(b);
                 }
                 db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
