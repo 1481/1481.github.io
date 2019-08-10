@@ -7,6 +7,7 @@
     <link rel="icon" href="/icon.jpg"/>
     <link rel="stylesheet" type="text/css" href="com/all.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.2/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script>
@@ -81,13 +82,17 @@
             login();
         }
     });
+    
+    if(urlKey("msg")) {
+        Swal.fire(msg);
+    }
     function login() {
         fc = 0;
         var email = document.getElementById("email").value;
         var password = document.getElementById("pass").value;
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((user) => {
-            Swal.fire("已登入", "確認後將前往個人資料頁面", "success").then(() => {location.href = "/me"});
+            Swal.fire("已登入", "確認後將前往個人資料頁面", "success").then(() => {location.href = urlKey("rdt") || "/me"});
             
         })
         .catch((error) => {
