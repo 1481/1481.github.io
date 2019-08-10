@@ -255,7 +255,10 @@
                 msg.innerHTML = data.message;
                 tools.classList.add("tools", "w3-margin-right");
                 translat.innerHTML = '<i class="fas fa-language w3-margin-left"></i>' + " 翻譯";
-                translat.onclick = function() {translate("zh-tw", con).then(r=>{msg.innerHTML = r.result})};
+                translat.onclick = function() {
+                    translate("zh-tw", con).then(r=>{msg.innerHTML = r.result});
+                    translat.innerHTML = " 已翻譯";
+                };
                 translat.classList.add("w3-text-indigo", "above350");
                 respond.innerHTML = '<i class="far fa-edit w3-margin-left"></i>' + " 回覆";
                 respond.onclick = function() {respondIt(code, data.response)};
