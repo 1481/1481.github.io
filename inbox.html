@@ -137,7 +137,7 @@
                         });
                     } else {
                         inboxDetail(querySnapshot);
-                        listen();
+                        listen(urlKey("type") || "all");
                     }
                 });
             } else
