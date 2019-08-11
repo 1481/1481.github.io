@@ -1,174 +1,119 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Settings - HSNU 1481</title>
-    <link href="css/home.css" type="text/css" rel="stylesheet">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <meta name="description" content="網站設定 - 師大附中數理資優班">
-    <meta property="og:image" content="preview.jpg">
-    <link rel="icon" href="icon.jpg" type="image/ico"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icon.jpg">
-    <link rel="apple-touch-startup-image" href="icon.jpg">
-    <script src="https://cdn.jsdelivr.net/gh/Merret/UsefulJS@0.5.5/js/xhr.js"></script>
+    <title>設定 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot.then(doc => {
+                    if(doc.exists) {
+                        data.forum = doc.data();
+                        refresh();
+                    } else {
+                        data.forum = {
+                            anonymous: false,
+                            listener: false
+                        };
+                    }
+                });
+            } else {
+                location.href = "auth?msg=需要登入才可以進行設定&rdt=/setting";
+            }
+        });
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-        .hide {
-            display: none !important;
-        }
-        /* NEW BG */
-        html {
-            /* height: 100%; */
-        }
-        body {
-            height: 100%;
-            background: linear-gradient(#4179fc,pink);
-            padding: 0.5rem 0 0 0;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* background-attachment: fixed; */
-        }
-        .setting-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-        .setting-label {
-            text-align: right;
-            margin-right: 1rem;
-        }
-        .setting-input {
-            text-align: left;
-            margin: 0 0 1rem 0;
-        }
-        #settings {
-            position: relative;
+        .footer {
+            width: 100%;
             text-align: center;
-            display: grid;
-            grid-template-columns: auto;
-            grid-row-gap: 0.5rem;
+            animation-delay: 0.5s;
         }
     </style>
 </head>
 <body>
-    <a style="position: fixed;top: 1.2rem;left: 0.5rem;cursor: pointer;" onclick="javascript:history.go(-1)">&lt; Back</a>
-    <a style="position: fixed;top: 1.2rem;right: 0.5rem;cursor: pointer;" onclick="javascript:location.href='/'">Home Page</a>
-    <h2 style="position: relative; margin: 2rem; text-align: center; font-size: 2.4rem;">SETTINGS</h2>
-    <div id="settings">
-        <div style="grid-column: span 2;">
-            <h2>Globel Settings</h2>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
-        <!-- For Web Font -->
-        <label class="setting-label">Web Font </label>
-        <select id="sysfont" class="setting-input" onchange="save()">
-            <option disabled="">Default</option>
-            <option value="0" selected="">Noto Sans TC</option>
-            <option disabled="">Recommendations</option>
-            <option value="4">Sniglet</option>
-            <option value="6">Neucha</option>
-            <option value="12">Baloo</option>
-            <option disabled="">Others</option>
-            <option value="1">Noto Serif TC</option>
-            <option value="2">Arial</option>
-            <option value="3">Quicksand</option>
-            <option value="5">Patrick Hand</option>
-            <option value="7">Indie Flower</option>
-            <option value="8">Nanum Pen Script</option>
-            <option value="9">Lobster Two</option>
-            <option value="10">Satisfy</option>
-            <option value="11">Fredericka the Great</option>
-        </select>
-        <!-- For Homepage Image -->
-        <label class="setting-label">Homepage Image </label>
-        <div>
-            <input id="homeImg" class="setting-input" placeholder="Image URL" style="max-width: 600px;width: 75%;float: left;margin: 0 2% 0 0;">
-            <button onclick="document.getElementById('homeImg').value=''" style="width: 20%;max-width: 100px;float: left;">Default</button><br>
-            <input type="file" onchange="processImg(this.files[0],document.getElementById('homeImg'),function(){save();})" style="float: left;">
-        </div>
-        <!-- For Hyperlink Color  -->
-        <label class="setting-label">Hyperlink Color</label>
-        <input id="SysHyperColor" class="setting-input jscolor" value="00FFFF" style="height: 1.3rem">
-        <!-- For Hyperlink Hovered Color  -->
-        <label class="setting-label">Hovered Hyperlink Color</label>
-        <input id="SysHoveredHyperColor" class="setting-input jscolor" value="87CEEB" style="height: 1.3rem">
-        <!-- For Future  -->
-        <div class="setting-item hide">
-            <label class="setting-label"></label>
-            <input id="" class="setting-input" placeholder="">
-        </div>
-        <div class="setting-item hide">
-            <label class="setting-label"></label>
-            <input id="" class="setting-input" placeholder="">
-        </div>
-        <div style="grid-column: span 2;">
-            <a href="javascript:save()">SAVE</a>
+        <div class="w3-margin-top w3-center w3-container stage">
+            <div class="wrapper">
+                <h1>設定</h1>
+                <h3>論壇</h3>
+                <p>以個人名義發言：<span class="settings"></span></p>
+                <p><i class="fas fa-flask w3-text-indigo"></i>啟用即時更新（測試功能）：<span class="settings"></span></p>
+            </div>
         </div>
     </div>
-    <script src="js/some.js"></script>
-    <script>window.scrollTo(0,24);</script>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
     <script>
-        var fontsList = xhr.json("fonts.json");
-
-        function save() {
-            // Font
-            localStorage["SysFont"] = JSON.stringify(fontsList[document.getElementById("sysfont").value]);
-            // Home Image
-            if(document.getElementById("homeImg").value) {
-                localStorage["SysUseHomeImage"] = "1";
-                localStorage["SysHomeImage"] = document.getElementById("homeImg").value;
+        var data = {
+            forum: {}
+        };
+        const se = document.getElementsByClassName("settings");
+        function refreh() {
+            if(data.forum.anonymous) {
+                se[0].innerHTML = '<i class="fas fa-toggle-off"></i>' + " 未啟用";
+                se[0].onclick = function() {
+                    data.forum.anonymous = false;
+                    update();
+                };
             } else {
-                localStorage["SysUseHomeImage"] = "";
-                localStorage["SysHomeImage"] = "";
+                se[0].innerHTML = '<i class="fas fa-toggle-on w3-text-blue"></i>' + " 已啟用";
+                se[0].onclick = function() {
+                    data.forum.anonymous = true;
+                    update();
+                };
             }
-            localStorage["SysHyperColor"] = "#"+document.getElementById("SysHyperColor").value;
-            localStorage["SysHoveredHyperColor"] = "#"+document.getElementById("SysHoveredHyperColor").value;
-
-            alert("Change Saved!");
-            styleChange();
-        }
-        function processImg(input, output, func=function(){}) {
-            var reader  = new FileReader();
-            reader.addEventListener("load", function () {
-                if(reader.result.length <= 4000000) {
-                    output.value = reader.result;
-                    func();
-                } else {
-                    alert("Failed: This image is too large.\nMaybe you can upload to Imgur or resize it?");
-                }
-            }, false);
-            if (input) {
-                reader.readAsDataURL(input);
+            
+            if(data.forum.listener) {
+                se[1].innerHTML = '<i class="fas fa-toggle-on w3-text-blue"></i>' + " 已啟用";
+                se[1].onclick = function() {
+                    data.forum.listener = false;
+                    update();
+                };
+            } else {
+                se[1].innerHTML = '<i class="fas fa-toggle-off"></i>' + " 未啟用";
+                se[1].onclick = function() {
+                    data.forum.listener = true;
+                    update();
+                };
             }
         }
-    </script>
-    <style id="custom-style-tag"></style>
-    <script>
-        document.getElementById("sysfont").options.selectedIndex = fontSelect();
-        if(localStorage["SysUseHomeImage"]) {
-            document.getElementById("homeImg").value = localStorage["SysHomeImage"];
-        }
-        styleChange();
-        function fontSelect() {
-            var x = document.getElementById("sysfont").options.length;
-            while(document.getElementById("sysfont").options[--x].innerHTML != JSON.parse(localStorage["SysFont"]).name) {}
-            return x;
-        }
-        function styleChange() {
-            var cs = document.getElementById("custom-style-tag");
-            if(localStorage["SysFont"]) {
-                cs.innerHTML = "@import url('"+JSON.parse(localStorage["SysFont"]).url+"');";
-                document.body.style.fontFamily = JSON.parse(localStorage["SysFont"]).name+",'Noto Sans TC'";
-            }
-            if(localStorage["SysHyperColor"]) {
-                cs.innerHTML += "a {color: "+localStorage["SysHyperColor"]+" !important}a:visited {color: "+localStorage["SysHyperColor"]+" !important}";
-            }
-            if(localStorage["SysHoveredHyperColor"]) {
-                cs.innerHTML += "a:hover {color: "+localStorage["SysHoveredHyperColor"]+" !important}";
-            }
+        function update() {
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").set(data.forum, {merge: true}).then(() => {
+                Swal.fire({
+                    title: "已變更",
+                    type: "success",
+                    toast: true,
+                    showComfirmButton: false,
+                    timer: 3000
+                });
+            });
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/jscolor-picker@2/jscolor.min.js"></script>
 </body>
 </html>
