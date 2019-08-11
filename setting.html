@@ -74,7 +74,7 @@
             forum: {}
         };
         const se = document.getElementsByClassName("settings");
-        function refreh() {
+        function refresh() {
             if(data.forum.anonymous) {
                 se[0].innerHTML = '<i class="fas fa-toggle-off"></i>' + " 未啟用";
                 se[0].onclick = function() {
