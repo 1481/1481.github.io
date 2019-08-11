@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <link href="../css/main.css" type="text/css" rel="stylesheet">
+    <link href="../css/loading.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="師大附中1481班 新聞">
     <link rel="icon" href="../icon.jpg" type="image/ico"/>
@@ -38,8 +39,9 @@
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
-        <div class="w3-container w3-center">
-            <h1 id="title">NEWS</h1>
+        <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="w3-container w3-center stage" style="display: none">
+            <h1 id="title">新聞</h1>
             <div class="TodayNews w3-margin-top w3-margin-bottom">
             </div>
         </div>
@@ -53,6 +55,8 @@
         if(parseInt(localStorage["NewsCachedTime"]) + 5*60*1000 > Date.now()) {
             news = JSON.parse(localStorage["NewsCache"]);
             placeNews();
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            document.getElementsByClassName("stage")[0].style.display = "";
         }
         else fetchNews();
         
@@ -74,6 +78,8 @@
                 localStorage["NewsCache"] = JSON.stringify(news);
                 localStorage["NewsCachedTime"] = Date.now();
                 placeNews();
+                document.getElementsByClassName("loading")[0].style.display = "none";
+                document.getElementsByClassName("stage")[0].style.display = "";
             });
         }
         function placeNews() {
