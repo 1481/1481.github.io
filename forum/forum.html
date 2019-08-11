@@ -109,7 +109,13 @@
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot(doc => {
                     if(doc.exists) {
                         settings = doc.data();
-                        refresh();
+                        Swal.fire({
+                            title: (settings.anonymous ? "以匿名身分留言" : "以個人身分留言"),
+                            type: "info",
+                            timer: 3000,
+                            toast: true,
+                            showConfirmButton: false
+                        });
                     } else {
                         settings = {
                             anonymous: false,
