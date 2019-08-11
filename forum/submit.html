@@ -4,6 +4,7 @@
     <title>新增貼文 | HSNU 1481</title>
     <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/jrainlau/elf@0.0.1/css/elf.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -214,7 +215,7 @@
                     var ran = random();
                     db.collection("Forums").doc(forum).collection("Articles").doc(ran).set(article).then(() => {
                         db.collection("Forums").doc(forum).collection("Comments").doc(ran).set({"comments":[]});
-                        Swal.fire('上傳成功!','新聞已發布','success').then(function(){location.href = "forum?f="+forum});
+                        Swal.fire('上傳成功!','貼文已發布','success').then(function(){location.href = "forum?f="+forum});
                     }).catch((err) => {
                         if (err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
                             err = "Missing or insufficient permissions."
