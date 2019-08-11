@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/loading.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
@@ -38,6 +39,9 @@
                 useCloud = true;
                 getStatus();
                 saveToLocal();
+            } else {
+                document.getElementsByClassName("loading")[0].style.display = "none";
+                document.getElementsByClassName("stage")[0].style.display = "";
             }
         });
         
@@ -49,6 +53,8 @@
                     gameCloud("Time Game").onSnapshot(function(doc) {
                         game = doc.data();
                         document.dispatchEvent(FF);
+                        document.getElementsByClassName("loading")[0].style.display = "none";
+                        document.getElementsByClassName("stage")[0].style.display = "";
                     });
                 }
             });
@@ -107,14 +113,17 @@
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
         </div>
-        <div class="w3-button w3-left" onclick="location.href='rank?game=Time Game'">
-            <i class="fas fa-chart-bar"></i><span> RANK</span>
-        </div>
-        <div class="w3-container w3-center gameContainer">
-            <h2>Your Points: <span id="p"></span></h2>
-            <h3>Best Record: <span id="r"></span></h3>
-            <button class="w3-button w3-round w3-border w3-margin-bottom" id="timeGame">TIME</button><br>
-            <button class="w3-button w3-round w3-border" id="button">Restart</button>
+        <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="stage" style="display: none">
+            <div class="w3-button w3-left" onclick="location.href='rank?game=Time Game'">
+                <i class="fas fa-chart-bar"></i><span> RANK</span>
+            </div>
+            <div class="w3-container w3-center gameContainer">
+                <h2>Your Points: <span id="p"></span></h2>
+                <h3>Best Record: <span id="r"></span></h3>
+                <button class="w3-button w3-round w3-border w3-margin-bottom" id="timeGame">TIME</button><br>
+                <button class="w3-button w3-round w3-border" id="button">Restart</button>
+            </div>
         </div>
     </div>
     <div class="footer w3-container w3-white">
