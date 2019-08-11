@@ -26,7 +26,7 @@
         var db = firebase.firestore();
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
-                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot.then(doc => {
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot(doc => {
                     if(doc.exists) {
                         data.forum = doc.data();
                         refresh();
