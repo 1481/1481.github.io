@@ -65,6 +65,8 @@
         if(parseInt(localStorage["ForumListCachedTime"]) + 5*60*1000 > Date.now()) {
             forumList = JSON.parse(localStorage["ForumListCache"]);
             listForum();
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            document.getElementsByClassName("ForumList")[0].style.display = "";
         }
         else fetchForumList();
         
