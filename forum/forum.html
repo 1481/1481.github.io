@@ -102,6 +102,22 @@
                 document.title = localStorage["ForumName_"+forum];
             });
         else document.title = localStorage["ForumName_"+forum];
+        var settings;
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot(doc => {
+                    if(doc.exists) {
+                        settings = doc.data();
+                        refresh();
+                    } else {
+                        settings = {
+                            anonymous: false,
+                            listener: false
+                        };
+                    }
+                });
+            }
+        });
     </script>
 </head>
 
@@ -288,12 +304,19 @@
                 return;
             }
             db.collection("Forums").doc(forum).collection("Comments").doc(id).get().then(doc=>{
+                var user;
+                if(settings) {
+                    if(settings.anonymous) user = "匿名使用者";
+                    else user = firebase.auth().currentUser.uid;
+                } else {
+                    user = "匿名使用者";
+                }
                 var d = doc.data().comments;
                 d.push({
                     ONLYKEY: ONLYKEY(),
                     comment: value,
                     time: new Date(),
-                    user: (firebase.auth().currentUser) ? firebase.auth().currentUser.uid : "匿名使用者"
+                    user: user
                 });
                 db.collection("Forums").doc(forum).collection("Comments").doc(id).update({"comments": d}).then(s=>{
                     Swal.fire("已回覆", "", "success");
