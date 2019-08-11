@@ -142,6 +142,8 @@
         var C = {total: 0, c: []};
         if(parseInt(localStorage["ForumCachedTime_"+forum]) + 1*60*1000 > Date.now()) {
             C = JSON.parse(localStorage["ForumCache_"+forum]);
+            document.getElementsByClassName("loading")[0].style.display = "none";
+            document.getElementsByClassName("stage")[0].style.display = "";
             parseC();
         }
         else fetchC();
