@@ -142,7 +142,7 @@
         fetchC();
         
         function fetchC() {
-            db.collection("Forums").doc(forum).collection("Articles").where("id", "<=", parseInt(urlKey("id"))).orderBy("time", "desc").limit(1).get().then(function(querySnapshot) {
+            db.collection("Forums").doc(forum).collection("Articles").where("id", "<=", parseInt(urlKey("id"))).orderBy("id", "desc").limit(1).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     var article = doc.data();
                     C.total++;
