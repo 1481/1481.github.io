@@ -212,7 +212,7 @@
                 var cTitle = document.createElement("h3");
                 var cAuthor = document.createElement("span");
                 var cTime = document.createElement("span");
-                var cId = document.createElement("span");
+                var cId = document.createElement("a");
                 var cComments = document.createElement("div");
                 var wrapper = document.createElement("div");
                 
@@ -234,10 +234,8 @@
                 cId.style.margin = "2px 0 0 0";
                 cId.style.cursor = "pointer";
                 cId.innerHTML = "#" + C.c[i].id;
-                var loc = "article?id="+C.c[i].id;
-                cId.onclick = function() {
-                    location.href = loc;
-                };
+                cId.href = "article?id="+C.c[i].id;
+                cId.target = "_blank";
                 cComments.id = C.c[i].file;
                 
                 cInfo.appendChild(cId);
