@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <title>分享的貼文 | HSNU 1481</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="分享的貼文 | HSNU 1481" name="description">
+    <meta content="preview.jpg" property="og:image">
+    <link href="../icon.jpg" rel="icon" type="image/ico">
+    
+    <!-- Styles -->
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
+    <link href="../css/loading.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .footer {
+            animation-delay: 0.5s !important;
+        }
+        .C {
+            max-width: 1000px;
+            display: inline-block;
+        }
+        .C:hover {
+            animation: zoomIn 2s forwards 1;
+        }
+        @media screen and (max-width: 400px) {
+            .author {
+                float: right !important;
+                clear: right;
+            }
+            img {
+                min-width: 50%;
+                max-width: 100%;
+            }
+        }
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            .C {
+                min-width: 350px;
+            }
+            img {
+                min-width: 50%;
+                max-width: 95%;
+            }
+        }
+        @media screen and (min-width: 700px) and (max-width: 1000px) {
+            .C {
+                min-width: 500px;
+            }
+            img {
+                min-width: 50%;
+                max-width: 90%;
+            }
+        }
+        @media screen and (min-width: 1000px) {
+            .C {
+                min-width: 800px;
+            }
+            img {
+                min-width: 50%;
+                max-width: 85%;
+            }
+        }
+        @keyframe zoomIn {
+            0% {
+                zoom: 1;
+                box-shadow: 0 4px 10px 0 rgba(0,0,0,0.001), 0 4px 20px 0 rgba(0,0,0,0.001);
+            }
+            100% {
+                zoom: 1.05;
+                box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1), 0 4px 20px 0 rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+    
+    <!-- Scripts -->
+    <script src="../js/only.js"></script>
+    <script src="../js/icon.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-tw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        const forum = urlKey("f");
+        
+        var settings;
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Settings").doc("forum").onSnapshot(doc => {
+                    if(doc.exists) {
+                        settings = doc.data();
+                        Swal.fire({
+                            title: (settings.anonymous ? "以匿名身分留言" : "以個人身分留言"),
+                            type: "info",
+                            timer: 3000,
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false
+                        });
+                    } else {
+                        settings = {
+                            anonymous: false,
+                            listener: false
+                        };
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body class="">
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
+        </div>
+        <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="w3-container stage" style="display: none">
+            <div class="Container w3-center">
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+        All rights reserved.</span>
+    </div>
+    <script>
+        fetchC();
+        
+        function fetchC() {
+            db.collection("Forums").doc(forum).collection("Articles").where("id", "<=", parseInt(urlKey("id"))).orderBy("time", "desc").limit(1).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    var article = doc.data();
+                    C.total++;
+                    C.c.push({
+                        file: doc.id,
+                        id: article.id,
+                        author: article.author,
+                        content: article.content,
+                        image: article.image,
+                        time: article.time.toDate().toLocaleString(),
+                        title: article.title
+                    });
+                    console.log(doc.id, " => ", doc.data());
+                })
+            }).then(()=>{
+                document.getElementsByClassName("loading")[0].style.display = "none";
+                document.getElementsByClassName("stage")[0].style.display = "";
+                parseC();
+            });
+        }
+        function parseC() {
+            var pContainer = document.createElement("div");
+            var cInfo = document.createElement("div");
+            var cTitle = document.createElement("h3");
+            var wrapper = document.createElement("div");
+            
+            pContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "C");
+            pContainer.style.overflow = "hidden";
+            pContainer.style.cursor = "pointer";
+            pContainer.onclick = function() {
+                location.href = "forum?f="+forum;
+            };
+            cInfo.classList.add("w3-container");
+            cTitle.style.fontSize = "1.4rem";
+            cTitle.innerHTML = forum;
+            
+            cInfo.appendChild(cTitle);
+            pContainer.appendChild(cInfo);
+            wrapper.appendChild(pContainer);
+            document.getElementsByClassName("Container")[0].appendChild(wrapper);
+            if(!C.total) {
+                Swal.fire("無法找到此篇貼文", "", "error").then(()=>{location.href = "forum?f="+forum});
+                return;
+            }
+            for(var i = 0; i < C.total; i++) {
+                var cContainer = document.createElement("div");
+                var cImage = document.createElement("img");
+                var cInfo = document.createElement("div");
+                var cContent = document.createElement("p");
+                var cTitle = document.createElement("h3");
+                var cAuthor = document.createElement("span");
+                var cTime = document.createElement("span");
+                var cId = document.createElement("a");
+                var cComments = document.createElement("div");
+                var wrapper = document.createElement("div");
+                
+                cContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "w3-hover-shadow", "C");
+                cContainer.style.overflow = "hidden";
+                cImage.src = C.c[i].image;
+                cImage.classList.add("w3-round");
+                if(!cImage.src || cImage.src == "") cImage.classList.add("hide");
+                cInfo.classList.add("w3-container");
+                cTitle.style.fontSize = "1.4rem";
+                cTitle.innerHTML = icon(C.c[i].title);
+                cContent.innerHTML = icon(C.c[i].content);
+                cAuthor.classList.add("author");
+                cAuthor.style.float = "left";
+                cTime.style.float = "right";
+                aun(C.c[i].author, cAuthor);
+                cTime.innerHTML = C.c[i].time;
+                cId.style.float = "left";
+                cId.style.margin = "2px 0 0 0";
+                cId.style.cursor = "pointer";
+                cId.innerHTML = "#" + C.c[i].id;
+                cId.href = "article?id="+C.c[i].id;
+                cId.target = "_blank";
+                cComments.id = C.c[i].file;
+                
+                cInfo.appendChild(cId);
+                cInfo.appendChild(document.createElement("br"));
+                cInfo.appendChild(cTitle);
+                cInfo.appendChild(cImage);
+                cInfo.appendChild(cContent);
+                cInfo.appendChild(cAuthor);
+                cInfo.appendChild(cTime);
+                cInfo.appendChild(cComments);
+                comments(cComments, C.c[i].file);
+                cContainer.appendChild(cInfo);
+                wrapper.appendChild(cContainer);
+                document.getElementsByClassName("Container")[0].appendChild(wrapper);
+            }
+        }
+        function comments(target, id) {
+            db.collection("Forums").doc(forum).collection("Comments").doc(id).get().then(doc=>{
+                var cmt = doc.data().comments;
+                for(var i = 0; i < cmt.length; i++) {
+                    var table = document.createElement("table");
+                    var tr = document.createElement("tr");
+                    var td = document.createElement("td");
+                    var nametime = document.createElement("span");
+                    var comment = document.createElement("p");
+                    
+                    table.classList.add("w3-border-top");
+                    table.style.textAlign = "left";
+                    table.style.clear = "both";
+                    table.style.width = "100%";
+                    nametime.style.color = "gray";
+                    nametime.style.fontSize = "0.9rem";
+                    var time = cmt[i].time.toDate().toLocaleString();
+                    cun(cmt[i].user, nametime, time);
+                    comment.style.margin = "0 0 8px 0";
+                    comment.innerHTML = icon(cmt[i].comment);
+                    
+                    tr.appendChild(nametime);
+                    tr.appendChild(comment);
+                    table.appendChild(tr);
+                    target.appendChild(table);
+                }
+                var table = document.createElement("table");
+                var tr = document.createElement("tr");
+                var td1 = document.createElement("td");
+                var td2 = document.createElement("td");
+                var input = document.createElement("input");
+                var button = document.createElement("button");
+                
+                table.classList.add("w3-border-top");
+                table.style.padding = "8px";
+                table.style.clear = "both";
+                table.style.width = "100%";
+                td1.style.width = "calc(100% - 60px)";
+                td2.style.width = "50px";
+                input.classList.add("w3-input");
+                input.style.width = "100%";
+                input.placeholder = "回覆...";
+                button.classList.add("w3-button");
+                button.style.width = "100%";
+                button.innerHTML = '<i class="fas fa-reply"></i>';
+                button.onclick = function() {
+                    commentOn(id);
+                };
+                
+                td1.appendChild(input);
+                td2.appendChild(button);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+                target.appendChild(table);
+            });
+        }
+        function commentOn(id) {
+            var value = document.getElementById(id).getElementsByTagName("input")[0].value;
+            if(!value) {
+                Swal.fire("錯誤", "不可以空白作為回覆內容", "error");
+                return;
+            }
+            db.collection("Forums").doc(forum).collection("Comments").doc(id).get().then(doc=>{
+                var user;
+                if(settings) {
+                    if(settings.anonymous) user = "匿名使用者";
+                    else user = firebase.auth().currentUser.uid;
+                } else {
+                    user = "匿名使用者";
+                }
+                var d = doc.data().comments;
+                d.push({
+                    ONLYKEY: ONLYKEY(),
+                    comment: value,
+                    time: new Date(),
+                    user: user
+                });
+                db.collection("Forums").doc(forum).collection("Comments").doc(id).update({"comments": d}).then(s=>{
+                    Swal.fire("已回覆", "", "success");
+                    // Reload
+                    document.getElementById(id).innerHTML = "";
+                    comments(document.getElementById(id), id);
+                }).catch(e=>Swal.fire("錯誤", "原因: "+e, "error"));
+            }).catch(e=>{
+                Swal.fire("錯誤", "原因: "+e, "error");
+            });
+        }
+        firebase.auth().onAuthStateChanged(function(user) {window.UID = user.uid});
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+        }
+        function aun(uid=UID, target) {
+            username(uid).then((r)=>{target.innerHTML = r});
+        }
+        function cun(uid=UID, target, time) {
+            username(uid).then((r)=>{target.innerHTML = r + "·" + time});
+        }
+    </script>
+    <script src="https://instant.page/1.2.2" type="module"></script>
+</body>
+</html>
