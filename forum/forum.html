@@ -27,6 +27,9 @@
         .hide {
             display: none !important;
         }
+        .articleId {
+            color: black !important;
+        }
         @media screen and (max-width: 400px) {
             .author {
                 float: right !important;
@@ -236,6 +239,7 @@
                 cId.innerHTML = "#" + C.c[i].id;
                 cId.href = "article?f="+forum+"&id="+C.c[i].id;
                 cId.target = "_blank";
+                cId.classList.add("articleId");
                 cComments.id = C.c[i].file;
                 
                 cInfo.appendChild(cId);
