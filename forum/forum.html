@@ -84,6 +84,7 @@
     <script src="../js/icon.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alexcorvi/anchorme.js@1.1.2/dist-browser/anchorme.min.js"></script>
     <script src="../js/moment-plugin.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
@@ -227,7 +228,7 @@
                 cInfo.classList.add("w3-container");
                 cTitle.style.fontSize = "1.4rem";
                 cTitle.innerHTML = icon(C.c[i].title);
-                cContent.innerHTML = icon(C.c[i].content);
+                cContent.innerHTML = anchorme(icon(C.c[i].content));
                 cAuthor.classList.add("author");
                 cAuthor.style.float = "left";
                 cTime.style.float = "right";
@@ -275,7 +276,7 @@
                     var time = cmt[i].time.toDate().toLocaleString();
                     cun(cmt[i].user, nametime, time);
                     comment.style.margin = "0 0 8px 0";
-                    comment.innerHTML = icon(cmt[i].comment);
+                    comment.innerHTML = anchorme(icon(cmt[i].comment));
                     
                     tr.appendChild(nametime);
                     tr.appendChild(comment);
