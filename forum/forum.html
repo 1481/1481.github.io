@@ -156,7 +156,7 @@
         else fetchC();
         
         function fetchC() {
-            db.collection("Forums").doc(forum).collection("Articles").orderBy("time", "desc").limit(6).get().then(function(querySnapshot) {
+            db.collection("Forums").doc(forum).collection("Articles").orderBy("time", "desc").limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     var article = doc.data();
                     C.total++;
