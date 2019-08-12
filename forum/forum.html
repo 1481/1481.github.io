@@ -78,6 +78,7 @@
     
     <!-- Scripts -->
     <script src="../js/only.js"></script>
+    <script src="../js/icon.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
     <script src="../js/moment-plugin.js"></script>
@@ -222,8 +223,8 @@
                 if(!cImage.src || cImage.src == "") cImage.classList.add("hide");
                 cInfo.classList.add("w3-container");
                 cTitle.style.fontSize = "1.4rem";
-                cTitle.innerHTML = C.c[i].title;
-                cContent.innerHTML = C.c[i].content;
+                cTitle.innerHTML = icon(C.c[i].title);
+                cContent.innerHTML = icon(C.c[i].content);
                 cAuthor.classList.add("author");
                 cAuthor.style.float = "left";
                 cTime.style.float = "right";
@@ -272,7 +273,7 @@
                     var time = cmt[i].time.toDate().toLocaleString();
                     cun(cmt[i].user, nametime, time);
                     comment.style.margin = "0 0 8px 0";
-                    comment.innerHTML = cmt[i].comment;
+                    comment.innerHTML = icon(cmt[i].comment);
                     
                     tr.appendChild(nametime);
                     tr.appendChild(comment);
