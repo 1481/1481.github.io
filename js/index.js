@@ -61,7 +61,7 @@ function placeNews() {
     }
 }
 function placeCurriculum() {
-    Fetch("curriculums/vocation.json")
+    Fetch("curriculums/108.1.json")
     .then(r=>r.json())
     .then(a=>{
         let standard = [[810, 900],[910, 1000],[1010, 1100],[1110, 1200],[1300, 1350],[1400, 1450],[1510, 1600],[1610, 1700]];
