@@ -75,7 +75,7 @@
         var lesson = document.getElementsByClassName("lesson");
         
         function placeCurriculum() {
-            fetch("curriculums/108.1.json").then(r => r.json()).then(a => {
+            fetch("curriculums/108.1.json?static=1").then(r => r.json()).then(a => {
                 let standard = [
                     [810, 900],
                     [910, 1000],
