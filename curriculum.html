@@ -96,7 +96,7 @@
                     [1510, 1600],
                     [1610, 1700]
                 ];
-                document.getElementById("day").options[d].selected = true;
+                document.getElementById("day").options[(d==0)? 6 : (d-1)].selected = true;
                 let n = moment().hour() * 100 + moment().minute();
                 let nl;
                 for (var i = 0; i < standard.length; i++)
