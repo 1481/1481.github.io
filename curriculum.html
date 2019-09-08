@@ -23,14 +23,18 @@
         </div>
         <table>
             <tr>
-                <td colspan="2">
-                    <select>
-                    </select>
-                </td>
-            </tr>
-            <tr>
                 <th>課表</th>
-                <th id="wk"></th>
+                <th id="wk">
+                    <select id="day" class="w3-select" style="max-height: 1.4rem" onchange="placeCurriculum(this.value)">
+                        <option value="1">週一</option>
+                        <option value="2">週二</option>
+                        <option value="3">週三</option>
+                        <option value="4">週四</option>
+                        <option value="5">週五</option>
+                        <option value="6">週六</option>
+                        <option value="0">週日</option>
+                    </select>
+                </th>
             </tr>
             <tr class="row">
                 <th class="time">08:10~09:00</th>
@@ -75,12 +79,12 @@
     </div>
     <script>
         var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-        placeCurriculum();
         var row = document.getElementsByClassName("row");
         var time = document.getElementsByClassName("time");
         var lesson = document.getElementsByClassName("lesson");
+        placeCurriculum(moment().day());
         
-        function placeCurriculum() {
+        function placeCurriculum(d) {
             fetch("curriculums/108.1.json?static=1").then(r => r.json()).then(a => {
                 let standard = [
                     [810, 900],
@@ -92,8 +96,7 @@
                     [1510, 1600],
                     [1610, 1700]
                 ];
-                let d = moment().day();
-                document.getElementById("wk").innerHTML = days[d];
+                document.getElementById("day").options[d].selected = true;
                 let n = moment().hour() * 100 + moment().minute();
                 let nl;
                 for (var i = 0; i < standard.length; i++)
