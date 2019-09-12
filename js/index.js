@@ -19,21 +19,24 @@ function Weather() {
 function ParseWeather() {
     Weather().then(weather => {
         var wx = parseInt(weather.records.locations[0].location[0].weatherElement[0].time[0].elementValue[1].value);
+        var wi = document.createElement("i");
+        wi.classList.add("fas");
         if(wx === 1) {
-            //sun
+            wi.classList.add("fa-sun");
         }
         if(wx >= 2 && wx <= 4) {
-            //cloud-sun
+            wi.classList.add("cloud-sun");
         }
         if(wx >= 5 && wx <= 7) {
-            //cloud-sun
+            wi.classList.add("cloud-sun");
         }
         if(wx === 8) {
-            //cloud-sun-rain
+            wi.classList.add("cloud-sun-rain");
         }
         if(wx >= 9 && wx <= 11) {
-            //cloud-rain
+            wi.classList.add("cloud-rain");
         }
+        document.getElementsByClassName("TodayTime")[1].appendChild(wi);
     })
 }
 function placeCurriculum() {
