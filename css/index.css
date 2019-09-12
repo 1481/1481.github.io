@@ -57,11 +57,11 @@ a.w3-bar-item.w3-button:visited {
     opacity: 0;
     animation: FadeInBottom 1s forwards 1;
 }
-.TodayTime > i, TodayTime > span {
+.TodayTime > i, .TodayTime > span {
     position: relative;
     opacity: 0;
     animation-delay: 1s !important;
-    animation: FadeInLeft 1s forwards 1;
+    animation: FadeIn 1s forwards 1;
 }
 .Curriculum {
     position: relative;
@@ -110,6 +110,14 @@ a.w3-bar-item.w3-button:visited {
     }
     100% {
         background-position: 0% 50%
+    }
+}
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 @keyframes FadeInBottom {
