@@ -5,7 +5,7 @@ function DynamicLoad(step) {
             document.getElementsByClassName("TodayTime")[1].innerHTML = moment().format('dddd');
             break;
         case 2:
-            ParseWeather();
+            GetWeather();
             break;
         case 3:
             placeCurriculum();
@@ -16,7 +16,7 @@ function DynamicLoad(step) {
 function Weather() {
     return (Fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization=CWB-32C02D9E-DEB3-4D3A-807A-7B2C816EB21C&locationName=%E5%A4%A7%E5%AE%89%E5%8D%80&elementName=Wx,AT,T,CI,WeatherDescription,PoP6h").then(r=>r.json()));
 }
-function ParseWeather() {
+function GetWeather() {
     Weather().then(weather => {
         var wx = parseInt(weather.records.locations[0].location[0].weatherElement[0].time[0].elementValue[1].value);
         var wi = document.createElement("i");
