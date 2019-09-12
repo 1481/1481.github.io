@@ -57,7 +57,7 @@ a.w3-bar-item.w3-button:visited {
     opacity: 0;
     animation: FadeInBottom 1s forwards 1;
 }
-.TodayNews {
+.TodayTime > i, TodayTime > span {
     position: relative;
     opacity: 0;
     animation-delay: 1s !important;
