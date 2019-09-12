@@ -45,6 +45,7 @@ function GetWeather() {
         document.getElementsByClassName("TodayTime")[1].appendChild(wi);
         var temp = document.createElement("span");
         temp.innerHTML = " "+weather.records.locations[0].location[0].weatherElement[2].time[0].elementValue[0].value+"°C";
+        temp.onclick = function(){Swal.fire(weather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value)};
         document.getElementsByClassName("TodayTime")[1].appendChild(temp);
     })
 }
