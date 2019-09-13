@@ -42,7 +42,7 @@ a.w3-bar-item.w3-button:visited {
     text-decoration: none;
 }
 .w3-bar-item {
-    padding: 8px 10px !important;
+    padding: 8px !important;
 }
 .BlueGradient {
     background: linear-gradient(90deg, RoyalBlue, SkyBlue);
