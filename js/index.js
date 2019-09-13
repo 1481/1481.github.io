@@ -27,7 +27,7 @@ function GetWeather() {
         var wi = document.createElement("i");
         wi.classList.add("fas", "w3-margin-left");
         if(wx === 1) {
-            wi.classList.add("fa-sun");
+            wi.classList.add("fa-sun", "fa-spin");
         }
         if(wx >= 2 && wx <= 4) {
             wi.classList.add("cloud-sun");
