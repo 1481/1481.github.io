@@ -57,11 +57,11 @@ a.w3-bar-item.w3-button:visited {
     opacity: 0;
     animation: FadeInBottom 0.5s forwards 1;
 }
-.TodayTime > i, .TodayTime > span {
+.TodayTime.Day {
     position: relative;
     opacity: 0;
     animation-delay: 0.5s !important;
-    animation: FadeIn 0.8s forwards 1;
+    animation: FadeInBottom 0.8s forwards 1;
 }
 .Curriculum > h2 {
     position: relative;
