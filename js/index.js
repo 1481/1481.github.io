@@ -74,10 +74,13 @@ function placeCurriculum() {
                 time.classList.add("right");
                 _name.classList.add("right");
                 time.style.animationDelay = String(1.8 + i*0.2)+"s";
+                _name.style.animationDelay = String(1.8 + i*0.2)+"s";
             }
             else {
                 time.classList.add("left");
                 _name.classList.add("left");
+                time.style.animationDelay = String(1.8 + i*0.2)+"s";
+                _name.style.animationDelay = String(1.8 + i*0.2)+"s";
             }
             item.style.left = "" + last_pos + "%";
             time.classList.add("curriculum-time");
