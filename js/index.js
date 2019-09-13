@@ -73,6 +73,7 @@ function placeCurriculum() {
             if(last_pos>0) {
                 time.classList.add("right");
                 _name.classList.add("right");
+                time.style.animationDelay = String(1.8 + i*0.2)+"s";
             }
             else {
                 time.classList.add("left");
