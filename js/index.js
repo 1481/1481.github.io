@@ -70,6 +70,8 @@ function placeCurriculum() {
             if(i == nl) item.classList.add("curriculum-now");
             item.classList.add("curriculum-item");
             last_pos = (last_pos==0) ? (Math.random()*40 - Math.random()*40) : ((last_pos>0) ? (-Math.random()*40) : (Math.random()*40));
+            if(last_pos>0) item.classList.add("right");
+            else item.classList.add("left");
             item.style.left = "" + last_pos + "%";
             time.classList.add("curriculum-time");
             _name.classList.add("curriculum-name");
