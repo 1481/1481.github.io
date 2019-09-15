@@ -30,16 +30,16 @@ function GetWeather() {
             wi.classList.add("fa-sun", "fa-spin");
         }
         if(wx >= 2 && wx <= 4) {
-            wi.classList.add("cloud-sun");
+            wi.classList.add("fa-cloud-sun");
         }
         if(wx >= 5 && wx <= 7) {
-            wi.classList.add("cloud-sun");
+            wi.classList.add("fa-cloud");
         }
         if(wx === 8) {
-            wi.classList.add("cloud-sun-rain");
+            wi.classList.add("fa-cloud-sun-rain");
         }
         if(wx >= 9 && wx <= 11) {
-            wi.classList.add("cloud-rain");
+            wi.classList.add("fa-cloud-rain");
         }
         wi.onclick = function(){Swal.fire(weather.records.locations[0].location[0].weatherElement[4].time[0].elementValue[0].value)};
         document.getElementsByClassName("TodayTime")[1].appendChild(wi);
