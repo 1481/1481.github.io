@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>超能絕殺 2.0</title>
-	<meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
 </head>
 <body>
@@ -19,18 +19,18 @@
             iconPrefix: 'plyr',
             iconUrl: 'https://cdn.plyr.io/3.5.6/plyr.svg'
         });
-		if(localStorage["_Player_PlayedTime_"+location.path]) {
-			player.once("canplay", function() {
+        if(localStorage["_Player_PlayedTime_"+location.path]) {
+            player.once("canplay", function() {
                 player.currentTime = parseInt(localStorage["_Player_PlayedTime_"+location.path]);
             });
-		}
-		player.once("canplay", function() {
-	        window.as = setInterval(function() {
-	            if(player.playing && player.currentTime > 5) {
-		    	    localStorage["_Player_PlayedTime_"+location.path] = player.currentTime - 5;
-		        }
-	        }, 5000);
-		}
+        }
+        player.once("canplay", function() {
+            window.asi = setInterval(function() {
+                if(player.playing && player.currentTime > 5) {
+                    localStorage["_Player_PlayedTime_"+location.path] = player.currentTime - 5;
+                }
+            }, 5000);
+        });
     </script>
 </body>
 </html>
