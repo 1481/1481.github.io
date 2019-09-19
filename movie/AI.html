@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A.I. 人工智慧</title>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
+</head>
+<body>
+
+<video id="player" playsinline controls>
+    <source src="http://co-co.ddns.net:8080/share.cgi/Artificial.Intelligence.2001.mp4?ssid=0Vr8KRe&fid=0Vr8KRe&path=%2F&filename=Artificial.Intelligence.2001.mp4&openfolder=normal&ep=" type="video/mp4" crossorigin />
+
+    <!-- Captions are optional -->
+    <track kind="captions" label="中文字幕" src="http://co-co.ddns.net:8080/share.cgi/Artificial.Intelligence.2001.vtt?ssid=0Vr8KRe&fid=0Vr8KRe&path=%2F&filename=Artificial.Intelligence.2001.vtt&openfolder=normal&ep=" srclang="zh-Hant" default crossorigin />
+</video>
+<script src="https://cdn.plyr.io/3.5.6/plyr.polyfilled.js"></script>
+<script>
+    const player = new Plyr('#player', {
+        captions: { active: true, language: 'zh-Hant', update: false },
+	loadSprite: true,
+	iconPrefix: 'plyr',
+        iconUrl: 'https://cdn.plyr.io/3.5.6/plyr.svg'
+    });
+</script>
+</body>
+</html>
