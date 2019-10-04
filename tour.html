@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>上傳班遊提案</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-storage.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <style>
+        body, h1, h2, h3, p, a, span, button {
+            font-family: "Comfortaa", Verdana, 'Microsoft JhengHei', 'PingFang', sans-serif;
+            font-weight: bold;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            background-image: url("https://pollinators-tw.github.io/resource/image/background/background_1.png");
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        .bar {
+            z-index: 10;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+        .sidebar {
+            z-index: 20;
+            position: fixed;
+            left: -200px;
+            animation: sidebar-hide-ani 0.8s forwards 1;
+        }
+        .sidebar-show {
+            animation: sidebar-show-ani 0.8s forwards 1;
+        }
+        @keyframes sidebar-show-ani {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: 0px;
+            }
+        }
+        @keyframes sidebar-hide-ani {
+            0% {
+                left: 0px;
+            }
+            100% {
+                left: -200px;
+            }
+        }
+        .barrier {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 11;
+            animation: barrier-gone-ani 0.8s forwards 1;
+            background-color: rgba(0, 0, 0, .6);
+        }
+        .barrier-active {
+            display: block !important;
+            animation: barrier-active-ani 0.8s forwards 1;
+        }
+        @keyframes barrier-active-ani {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes barrier-gone-ani {
+            0% {
+                opacity: 1;
+            }
+            99% {
+                opacity: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+            100% {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+        }
+        .w3-bar-item {
+            padding: 8px 10px !important;
+            font-size: 1.1rem;
+        }
+        .hide {
+            display: none !important;
+        }
+        .layer {
+            background-color: rgba(255, 255, 255, .7);
+        }
+        .input {
+            background-color: rgba(255, 255, 255, .5);
+            border: 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="bar w3-card w3-bar w3-white">
+        <a class="w3-bar-item w3-button" href="javascript:location.reload()"><b>上傳班遊提案</b></a>
+    </div>
+    <!-- Image -->
+    <div class="layer w3-container">
+        <h2>上傳班遊提案</h2>
+        <label>簡報</label>
+        <input class="w3-input input files" type="file" id="file-uploader" accept=".ppt,.pptx">
+        <br>
+        <label>組別（1～6）</label>
+        <input class="w3-input input team" type="number" name="team">
+        <br>
+        <button class="w3-button w3-margin-bottom w3-round submit" onclick="upload()">Upload</button>
+        
+    </div>
+    </div>
+    <div class="footer w3-container w3-center">
+        Copyright 2019 HSNU 1481.
+    </div>
+    <script>
+        const Send = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        
+        function getClass(cls, one=true) {
+            if(one) return document.getElementsByClassName(cls)[0];
+            return document.getElementsByClassName(cls);
+        }
+        
+        function upload() {
+            if(getClass("files").files.length<1 || getClass("team").value=="") {
+                Swal.fire("資料缺失", "請確實填寫資料", "error");
+                return;
+            }
+            getClass("submit").disabled = true;
+            var completed = 0, images = [];
+            for(var i = 0; i < getClass("files").files.length; i++) {
+                var file = getClass("files").files[i];
+                var storage = firebase.storage().ref("tour/"+ getClass("team").value +"/"+Date.now().toString(36)+"-"+file.name);
+                let task = storage.put(file);
+                task.on('state_changed', function progress(snapshot) {
+                    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                    console.log("Uploading Files: " + percentage + "%");
+                }, function error(err) {
+                    console.error("upload failed.");
+                    
+                },function complete() {
+                    console.log("upload successfully.");
+                    completed++;
+                    Send.fire({title: "已上傳", type: "success"});
+                });
+            }
+        }
+    </script>
+</body>
+</html>
