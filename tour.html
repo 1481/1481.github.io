@@ -168,6 +168,7 @@
                 return;
             }
             getClass("submit").disabled = true;
+                    Send.fire({title: "上傳中", type: "info"});
             var completed = 0, images = [];
             for(var i = 0; i < getClass("files").files.length; i++) {
                 var file = getClass("files").files[i];
