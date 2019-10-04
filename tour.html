@@ -183,8 +183,8 @@
                 },function complete() {
                     console.log("upload successfully.");
                     completed++;
-                    Send.fire({title: "已上傳", type: "success"});
-                    location.href = "/";
+                    Send.fire({title: "已上傳", type: "success"})
+                    .then(()=>{location.href = "/"});
                 });
             }
         }
