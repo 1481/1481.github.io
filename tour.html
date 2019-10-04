@@ -143,7 +143,17 @@
         <input class="w3-input input team" type="number" name="team">
         <br>
         <button class="w3-button w3-margin-bottom w3-round submit" onclick="upload()">Upload</button>
-        
+        <br>
+        <p>
+            
+            班遊提案分組<br>
+            第 1 組：10, 7, 11, 12, 14, 18 <br>
+            第 2 組：6, 5, 15, 17, 24 <br>
+            第 3 組：9, 16, 21, 22, 23, 27 <br>
+            第 4 組：28, 1, 2, 3, 13, 19 <br>
+            第 5 組：4, 8, 20, 25, 26, 29
+            
+        </p>
     </div>
     </div>
     <div class="footer w3-container w3-center">
@@ -168,7 +178,7 @@
                 return;
             }
             getClass("submit").disabled = true;
-                    Send.fire({title: "上傳中", type: "info"});
+            Send.fire({title: "上傳中", type: "info"});
             var completed = 0, images = [];
             for(var i = 0; i < getClass("files").files.length; i++) {
                 var file = getClass("files").files[i];
@@ -184,7 +194,7 @@
                     console.log("upload successfully.");
                     completed++;
                     Send.fire({title: "已上傳", type: "success"})
-                    .then(()=>{location.href = "/"});
+                        .then(()=>{location.href = "/"});
                 });
             }
         }
