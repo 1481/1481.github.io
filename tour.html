@@ -182,7 +182,7 @@
             var completed = 0, images = [];
             for(var i = 0; i < getClass("files").files.length; i++) {
                 var file = getClass("files").files[i];
-                var storage = firebase.storage().ref("tour/"+ getClass("team").value +"/"+Date.now().toString(36)+"-"+file.name);
+                var storage = firebase.storage().ref("tour/"+ getClass("team").value +"/"+getClass("team").value+"-"+Date.now().toString(36)+"-"+file.name);
                 let task = storage.put(file);
                 task.on('state_changed', function progress(snapshot) {
                     var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
