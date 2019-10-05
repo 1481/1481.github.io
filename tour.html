@@ -173,8 +173,8 @@
         }
         
         function upload() {
-            if(getClass("files").files.length<1 || getClass("team").value=="") {
-                Swal.fire("資料缺失", "請確實填寫資料", "error");
+            if(getClass("files").files.length<1 || getClass("team").value>5 || getClass("team").value<1) {
+                Swal.fire("資料缺失", "請確實填寫資料，組別請填數字", "error");
                 return;
             }
             getClass("submit").disabled = true;
