@@ -64,6 +64,13 @@
 
 <body>
     <div id="loading-barrier"></div>
+    <div id="black-barrier"></div>
+    <div id="side-bar" class="w3-sidebar w3-bar-block">
+        <a href="curriculum" class="w3-bar-item w3-button">課表</a>
+        <a href="forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="me" class="w3-bar-item w3-button login">登入</a>
+    </div>
     <div id="top-bar" class="w3-bar">
         <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
         <a class="w3-bar-item" href="about">關於</a>
@@ -86,36 +93,6 @@
     <div id="end-page">
         
     </div>
-    <!--
-    <div class="content">
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
-        </div>
-        <div style="height: 2rem;">
-            <span id="notice"></span>
-        </div>
-        <div class="w3-container">
-            <h1 class="TodayTime" style="font-size: 2.4rem;">
-            </h1>
-            <h2 class="TodayTime Day" style="font-size: 1.8rem; margin: -1rem 0 0 0;">
-            </h2>
-            <script>DynamicLoad(1)</script>
-            <script>DynamicLoad(2)</script>
-        </div>
-        <div class="Curriculum w3-container">
-            <h2 style="font-size: 2rem; font-weight: 700;">課表</h2>
-            <div class="w3-center">
-                <div class="curriculum-container">
-                </div>
-            </div>
-            <script>DynamicLoad(3)</script>
-        </div>
-    </div>
-    <div class="footer w3-container w3-white">
-        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-        All rights reserved.</span>
-    </div>
-    -->
     
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -124,6 +101,28 @@
         * {
             font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif;
             letter-spacing: 1px;
+        }
+        html, body {
+            height: 100%;
+        }
+        #black-barrier {
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0,0,0);
+            opacity: 0;
+            transition: opacity 0.3s, z-index 0.3s;
+        }
+        #side-bar {
+            z-index: 10;
+            position: fixed;
+            top: 0;
+            left: -180px;
+            width: 180px;
+            transition: left 0.3s;
         }
         #top-bar {
             z-index: 2;
@@ -148,7 +147,7 @@
         }
         #first-page {
             display: flex;
-            height: 100vh;
+            height: 100%;
             width: 100vw;
             background-color: #3525b0;
             flex-direction: column;
@@ -161,12 +160,12 @@
         }
         #second-page {
             display: flex;
-            height: 100vh;
+            height: 100%;
             width: 100vw;
         }
         #third-page {
             display: flex;
-            height: 100vh;
+            height: 100%;
             width: 100vw;
         }
         #end-page {
@@ -175,7 +174,13 @@
             width: 100vw;
         }
         .go-down {
-            font-size: 2rem;
+            font-size: 2.4rem;
+            position: absolute;
+            bottom: 8px;
+        }
+        .login {
+            position: absolute;
+            bottom: 0;
         }
     </style>
     <!-- Scripts -->
@@ -206,6 +211,24 @@
                 doc.id("top-bar").style.boxShadow = "none";
             }
         });
+        doc.id("black-barrier").addEventListener("click", () => {
+            sidebar();
+        });
+        doc.class("go-down")[0].addEventListener("click", () => {
+            doc.id("second-page").scrollIntoView({behavior: "smooth"});
+        });
+        function sidebar() {
+            if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+                doc.id("side-bar").style.left = "-180px";
+                doc.id("black-barrier").style.opacity = "0";
+                doc.id("black-barrier").style.zIndex = "-1";
+            }
+            else {
+                doc.id("side-bar").style.left = "0px";
+                doc.id("black-barrier").style.opacity = "0.5";
+                doc.id("black-barrier").style.zIndex = "5";
+            }
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://instant.page/1.2.2" type="module"></script>
