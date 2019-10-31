@@ -7,7 +7,7 @@
     <meta content="preview.jpg" property="og:image">
     <link href="icon.jpg" rel="icon" type="image/ico">
     <link href="/manifest.json?static=1" rel="manifest">
-    
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -31,7 +31,7 @@
         }
     }
     </script>
-    
+
     <!-- Apple PWA Meta -->
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="default" name="apple-mobile-web-app-status-bar-style">
@@ -96,19 +96,19 @@
         <p></p>
     </div>
     <div id="third-page">
-        
+
     </div>
     <div id="end-page">
-        
+
     </div>
-    
+
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
     <style>
         * {
-            font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif;
-            letter-spacing: 1px;
+            font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+            letter-spacing: 1px  !important;
         }
         html, body {
             height: 100%;
@@ -215,7 +215,7 @@
         doc.class = function(cls) {return document.getElementsByClassName(cls);};
         doc.tag = function(tag) {return document.getElementsByTagName(tag);};
         doc.create = function(elm) {return document.createElement(elm);};
-        
+
         window.addEventListener("load", () => {
             setTimeout(() => {
                 doc.id("loading-barrier").style.opacity = "0";
