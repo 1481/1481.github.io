@@ -92,8 +92,13 @@
     <div id="second-page" class="w3-container">
         <br><br>
         <h1>關於附中1481班</h1>
-        <img class="photo" src="">
-        <p></p>
+        <img class="photo onlyBig" src="https://fakeimg.pl/800x450/3525b0/b2f536/?retina=1&text=%E5%B8%AB%E5%A4%A7%E9%99%84%E4%B8%AD%201481&font=noto">
+        <p>
+          我們是師大附中1481班！<br>
+          我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br>
+          我們班目前有 29 位同學。<br>
+          想聯繫我們嗎？ 請到<a href="message">留言區</a>！
+        </p>
     </div>
     <div id="third-page">
 
@@ -174,6 +179,13 @@
             height: 100%;
             width: 100vw;
         }
+        #second-page > p {
+          font-size: 1.2rem;
+        }
+        #second-page > p > a {
+          color: #255fcc;
+          text-decoration: none;
+        }
         #third-page {
             display: flex;
             height: 100%;
@@ -194,6 +206,18 @@
         .login {
             position: absolute;
             bottom: 0;
+        }
+        .photo {
+          float: right;
+          margin: 32px;
+          width: 800px;
+          max-width: 40%;
+          border-radius: 4px;
+        }
+        @media screen and  (orientation: portrait) {
+          .onlyBig {
+            display: none;
+          }
         }
         @keyframes bg-animation {
             0%{background-position:0% 50%}
