@@ -338,12 +338,6 @@
             e.children[4].classList.add("show-right");
         }
     });
-    doc.class("gotopage").forEach(elm => {
-        elm.addEventListener("click", () => {
-            doc.id("loading-barrier").style.opacity = "1";
-            doc.id("loading-barrier").style.zIndex = "99999";
-        });
-    });
     doc.id("black-barrier").addEventListener("click", () => {
         sidebar();
     });
