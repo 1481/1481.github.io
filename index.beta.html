@@ -49,21 +49,21 @@
     <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
     <style>
+    #loading-barrier {
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        transition: opacity 0.4s, z-index 0.4s;
+    }
+    @media (prefers-color-scheme: dark) {
         #loading-barrier {
-            z-index: 99999;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background-color: white;
-            transition: opacity 0.4s, z-index 0.4s;
+            background-color: #1f1f1f;
         }
-        @media (prefers-color-scheme: dark) {
-            #loading-barrier {
-                background-color: #1f1f1f;
-            }
-        }
+    }
     </style>
 </head>
 
@@ -94,14 +94,19 @@
         <h1>關於附中1481班</h1>
         <img class="photo onlyBig" src="https://fakeimg.pl/800x450/3525b0/b2f536/?retina=1&text=%E5%B8%AB%E5%A4%A7%E9%99%84%E4%B8%AD%201481&font=noto">
         <p>
-          我們是師大附中1481班！<br>
-          我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br>
-          我們班目前有 29 位同學。<br>
-          想聯繫我們嗎？ 請到<a href="message">留言區</a>！
+            我們是師大附中1481班！<br>
+            我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br>
+            我們班目前有 29 位同學。<br>
+            想聯繫我們嗎？ 請到<a href="message">留言區</a>！
         </p>
     </div>
-    <div id="third-page">
-
+    <div id="third-page" class="w3-container">
+        <br><br>
+        <h1>參訪資訊</h1>
+        <p>
+            校園鄰近大安捷運站。
+        </p>
+        <p id="weather"></p>
     </div>
     <div id="end-page">
 
@@ -111,199 +116,252 @@
     <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
     <style>
-        * {
-            font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
-            letter-spacing: 1px  !important;
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+        letter-spacing: 1px  !important;
+    }
+    html, body {
+        height: 100%;
+    }
+    #black-barrier {
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0);
+        opacity: 0;
+        transition: opacity 0.3s, z-index 0.3s;
+    }
+    #side-bar {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        transition: left 0.3s;
+    }
+    #top-bar {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3rem;
+        width: 100vw;
+        color: white;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #top-bar.actived {
+        background: white;
+        color: black;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+    #top-bar > a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+    #top-bar > a > .mdi-menu {
+        font-size: 1.7rem;
+    }
+    #first-page {
+        display: flex;
+        height: 100%;
+        width: 100vw;
+        background: linear-gradient(270deg, #3525b0, #6925b0, #2363dc);
+        background-size: 600% 600%;
+        animation: bg-animation 30s ease infinite;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        color: white;
+    }
+    #first-page > #logo {
+        text-align: center;
+    }
+    #second-page {
+        display: block;
+        height: 100%;
+        width: 100vw;
+    }
+    #second-page > h1 {
+        opacity: 0;
+    }
+    #second-page > p {
+        font-size: 1.2rem;
+        opacity: 0;
+    }
+    #second-page > p > a {
+        color: #255fcc;
+        text-decoration: none;
+    }
+    #third-page {
+        display: block;
+        height: 100%;
+        width: 100vw;
+    }
+    #third-page > h1 {
+        opacity: 0;
+    }
+    #third-page > p {
+        font-size: 1.2rem;
+        opacity: 0;
+    }
+    #end-page {
+        display: block;
+        height: 3rem;
+        width: 100vw;
+    }
+    .go-down {
+        cursor: pointer;
+        font-size: 2.4rem;
+        position: absolute;
+        bottom: 8px;
+        animation: godown-animation 10s ease infinite;
+    }
+    .login {
+        position: absolute;
+        bottom: 0;
+    }
+    .photo {
+        float: right;
+        margin: 32px;
+        width: 800px;
+        max-width: 40%;
+        border-radius: 4px;
+        opacity: 0;
+    }
+    .show-left {
+        animation: show-left 0.5s ease 1 forwards;
+    }
+    .show-right {
+        animation: show-right 0.5s ease 1 forwards;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
         }
-        html, body {
-            height: 100%;
-        }
-        #black-barrier {
-            z-index: -1;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background-color: rgba(0,0,0);
-            opacity: 0;
-            transition: opacity 0.3s, z-index 0.3s;
-        }
-        #side-bar {
-            z-index: 10;
-            position: fixed;
-            top: 0;
-            left: -180px;
-            width: 180px;
-            transition: left 0.3s;
-        }
-        #top-bar {
-            z-index: 2;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3rem;
-            width: 100vw;
+    }
+    @media (prefers-color-scheme: dark) {
+        #top-bar.actived, #side-bar {
+            background: #1f1f1f;
             color: white;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
         }
-        #top-bar > a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            font-size: 1.2rem;
-            text-decoration: none;
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
         }
-        #top-bar > a > .mdi-menu {
-            font-size: 1.7rem;
+        #second-page, #third-page, #end-page {
+            background-color: #1f1f1f;
         }
-        #first-page {
-            display: flex;
-            height: 100%;
-            width: 100vw;
-            background: linear-gradient(270deg, #3525b0, #6925b0, #2363dc);
-            background-size: 600% 600%;
-            animation: bg-animation 30s ease infinite;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
+        #second-page > h1, #second-page > p, #third-page > h1, #third-page > p {
             color: white;
-        }
-        #first-page > #logo {
-            text-align: center;
-        }
-        #second-page {
-            display: block;
-            height: 100%;
-            width: 100vw;
-        }
-        #second-page > h1 {
-          opacity: 0;
-        }
-        #second-page > p {
-          font-size: 1.2rem;
-          opacity: 0;
         }
         #second-page > p > a {
-          color: #255fcc;
-          text-decoration: none;
+            color: orange;
         }
-        #third-page {
-            display: flex;
-            height: 100%;
-            width: 100vw;
-        }
-        #end-page {
-            display: flex;
-            height: 3rem;
-            width: 100vw;
-        }
-        .go-down {
-            cursor: pointer;
-            font-size: 2.4rem;
-            position: absolute;
-            bottom: 8px;
-            animation: godown-animation 10s ease infinite;
-        }
-        .login {
-            position: absolute;
-            bottom: 0;
-        }
-        .photo {
-          float: right;
-          margin: 32px;
-          width: 800px;
-          max-width: 40%;
-          border-radius: 4px;
-          opacity: 0;
-        }
-        .show-left {
-          animation: show-left 0.5s ease 1 forwards;
-        }
-        .show-right {
-          animation: show-right 0.5s ease 1 forwards;
-        }
-        @media screen and  (orientation: portrait) {
-          .onlyBig {
-            display: none;
-          }
-        }
-        @keyframes bg-animation {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-        @keyframes godown-animation {
-            0%{bottom: 8px}
-            90%{bottom: 8px}
-            95%{bottom: 0px}
-            100%{bottom: 8px}
-        }
-        @keyframes show-left {
-            from{position: relative; left: 32px; opacity: 0;}
-            to{position: relative; left: 0px; opacity: 1;}
-        }
-        @keyframes show-right {
-            from{position: relative; right: 32px; opacity: 0;}
-            to{position: relative; right: 0px; opacity: 1;}
-        }
+    }
+    @keyframes bg-animation {
+        0%{background-position:0% 50%}
+        50%{background-position:100% 50%}
+        100%{background-position:0% 50%}
+    }
+    @keyframes godown-animation {
+        0%{bottom: 8px}
+        90%{bottom: 8px}
+        95%{bottom: 0px}
+        100%{bottom: 8px}
+    }
+    @keyframes show-left {
+        from{position: relative; left: 32px; opacity: 0;}
+        to{position: relative; left: 0px; opacity: 1;}
+    }
+    @keyframes show-right {
+        from{position: relative; right: 32px; opacity: 0;}
+        to{position: relative; right: 0px; opacity: 1;}
+    }
     </style>
     <!-- Scripts -->
     <script>
-        // simplified
-        var doc = document;
-        doc.id = function(id) {return document.getElementById(id);};
-        doc.class = function(cls) {return document.getElementsByClassName(cls);};
-        doc.tag = function(tag) {return document.getElementsByTagName(tag);};
-        doc.create = function(elm) {return document.createElement(elm);};
+    // simplify
+    var doc = document;
+    doc.id = function(id) {return document.getElementById(id);};
+    doc.class = function(cls) {return document.getElementsByClassName(cls);};
+    doc.tag = function(tag) {return document.getElementsByTagName(tag);};
+    doc.create = function(elm) {return document.createElement(elm);};
 
-        window.addEventListener("load", () => {
-            setTimeout(() => {
-                doc.id("loading-barrier").style.opacity = "0";
-                doc.id("loading-barrier").style.zIndex = "-1";
-            }, 100);
-        });
-        window.addEventListener("scroll", () => {
-            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
-            if(scrollTop > 5) {
-                doc.id("top-bar").style.backgroundColor = "white";
-                doc.id("top-bar").style.color = "black";
-                doc.id("top-bar").style.boxShadow = "0px 1px 10px 0px rgba(0,0,0,0.75)";
-            }
-            else {
-                doc.id("top-bar").style.backgroundColor = "transparent";
-                doc.id("top-bar").style.color = "white";
-                doc.id("top-bar").style.boxShadow = "none";
-            }
-            if(scrollTop > 100) {
-              let e = doc.id("second-page");
-              e.children[2].classList.add("show-right");
-            }
-            if(scrollTop > 200) {
-              let e = doc.id("second-page");
-              e.children[3].classList.add("show-left");
-              e.children[4].classList.add("show-right");
-            }
-        });
-        doc.id("black-barrier").addEventListener("click", () => {
-            sidebar();
-        });
-        doc.class("go-down")[0].addEventListener("click", () => {
-            doc.id("second-page").scrollIntoView({behavior: "smooth"});
-        });
-        function sidebar() {
-            if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
-                doc.id("side-bar").style.left = "-180px";
-                doc.id("black-barrier").style.opacity = "0";
-                doc.id("black-barrier").style.zIndex = "-1";
-            }
-            else {
-                doc.id("side-bar").style.left = "0px";
-                doc.id("black-barrier").style.opacity = "0.5";
-                doc.id("black-barrier").style.zIndex = "5";
-            }
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            doc.id("loading-barrier").style.opacity = "0";
+            doc.id("loading-barrier").style.zIndex = "-1";
+        }, 100);
+        getWeather();
+    });
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
         }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+        if(scrollTop >= 100) {
+            let e = doc.id("second-page");
+            e.children[2].classList.add("show-right");
+        }
+        if(scrollTop >= 200) {
+            let e = doc.id("second-page");
+            e.children[3].classList.add("show-left");
+            e.children[4].classList.add("show-right");
+        }
+        if(scrollTop >= 900) {
+            let e = doc.id("third-page");
+            e.children[2].classList.add("show-right");
+        }
+        if(scrollTop >= 1000) {
+            let e = doc.id("third-page");
+            e.children[3].classList.add("show-right");
+        }
+        if(scrollTop >= 1100) {
+            let e = doc.id("third-page");
+            e.children[4].classList.add("show-right");
+        }
+    });
+    doc.id("black-barrier").addEventListener("click", () => {
+        sidebar();
+    });
+    doc.class("go-down")[0].addEventListener("click", () => {
+        doc.id("second-page").scrollIntoView({behavior: "smooth"});
+    });
+    function sidebar() {
+        if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+            doc.id("side-bar").style.left = "-180px";
+            doc.id("black-barrier").style.opacity = "0";
+            doc.id("black-barrier").style.zIndex = "-1";
+        }
+        else {
+            doc.id("side-bar").style.left = "0px";
+            doc.id("black-barrier").style.opacity = "0.5";
+            doc.id("black-barrier").style.zIndex = "5";
+        }
+    }
+    function getWeather() {
+        fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?Authorization=CWB-32C02D9E-DEB3-4D3A-807A-7B2C816EB21C&locationName=%E5%A4%A7%E5%AE%89%E5%8D%80&elementName=WeatherDescription")
+        .then(res => res.json()).then(weather => {
+            if(weather.success == false) {
+                doc.id("weather").innerHTML = "無法獲取天氣資訊";
+            }
+            else {
+                var data = weather.records.locations[0].location[0].weatherElement[0].time;
+                var val = data[0].elementValue[0].value.split("。");
+                doc.id("weather").innerHTML = "附中鄰近區域目前的天氣是" + val[0] + "，" + val[1].substr(0, 4) + "為" + val[1].substr(4) + "，" + val[2] + "，偏" + val[3] + "。";
+            }
+        });
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://instant.page/1.2.2" type="module"></script>
