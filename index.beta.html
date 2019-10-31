@@ -94,22 +94,22 @@
         <h1>關於附中1481班</h1>
         <img class="photo onlyBig" src="https://fakeimg.pl/800x450/3525b0/b2f536/?retina=1&text=%E5%B8%AB%E5%A4%A7%E9%99%84%E4%B8%AD%201481&font=noto">
         <p>
-            我們是師大附中1481班！<br>
-            我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br>
-            我們班目前有 29 位同學。<br>
-            想聯繫我們嗎？ 請到<a href="message">留言區</a>！
+            我們是師大附中1481班！<br><br>
+            我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br><br>
+            我們班目前有 29 位同學。<br><br>
+            想聯繫我們嗎？ 請到<a class="gotopage" href="message">留言區</a>！
         </p>
     </div>
     <div id="third-page" class="w3-container">
         <br><br>
         <h1>參訪資訊</h1>
         <p>
-            校園鄰近大安捷運站。
+            校園鄰近大安捷運站二號出口，可搭乘淡水信義線（紅線）或文湖線（棕線）前往。
         </p>
         <p id="weather"></p>
     </div>
     <div id="end-page">
-
+        <p>Copyright © 2019 師大附中1481班</p>
     </div>
 
     <!-- Styles -->
@@ -119,6 +119,9 @@
     * {
         font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
         letter-spacing: 1px  !important;
+    }
+    html {
+        background-color: snow;
     }
     html, body {
         height: 100%;
@@ -215,6 +218,7 @@
         display: block;
         height: 3rem;
         width: 100vw;
+        text-align: center;
     }
     .go-down {
         cursor: pointer;
@@ -247,6 +251,9 @@
         }
     }
     @media (prefers-color-scheme: dark) {
+        html {
+            background-color: #1f1f1f;
+        }
         #top-bar.actived, #side-bar {
             background: #1f1f1f;
             color: white;
@@ -258,7 +265,7 @@
         #second-page, #third-page, #end-page {
             background-color: #1f1f1f;
         }
-        #second-page > h1, #second-page > p, #third-page > h1, #third-page > p {
+        #second-page > h1, #second-page > p, #third-page > h1, #third-page > p, #end-page > p {
             color: white;
         }
         #second-page > p > a {
@@ -330,6 +337,12 @@
             let e = doc.id("third-page");
             e.children[4].classList.add("show-right");
         }
+    });
+    doc.class("gotopage").forEach(elm => {
+        elm.addEventListener("click", () => {
+            doc.id("loading-barrier").style.opacity = "1";
+            doc.id("loading-barrier").style.zIndex = "99999";
+        });
     });
     doc.id("black-barrier").addEventListener("click", () => {
         sidebar();
