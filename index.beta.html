@@ -186,6 +186,7 @@
             font-size: 2.4rem;
             position: absolute;
             bottom: 8px;
+            animation: godown-animation 10s ease infinite;
         }
         .login {
             position: absolute;
@@ -195,6 +196,12 @@
             0%{background-position:0% 50%}
             50%{background-position:100% 50%}
             100%{background-position:0% 50%}
+        }
+        @keyframes godown-animation {
+            0%{bottom: 8px}
+            90%{bottom: 8px}
+            95%{bottom: 0px}
+            100%{bottom: 8px}
         }
     </style>
     <!-- Scripts -->
