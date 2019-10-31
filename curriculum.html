@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
-    <meta content="師大附中1481班 課表" name="description">
+    <meta content="師大附中1481班 108學年度 課表 | HSNU 1481" name="description">
     <link href="icon.jpg" rel="icon" type="image/ico">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
@@ -11,16 +11,40 @@
     <link href="icon.jpg" rel="apple-touch-startup-image">
     <title>1481 課表</title>
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
-    <link href="css/curriculum.css" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
     <script src="https://cdn.jsdelivr.net/gh/moment/moment@2.24.0/moment.min.js"></script>
+
+    <style>
+    #loading-barrier {
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        transition: opacity 0.4s, z-index 0.4s;
+    }
+    @media (prefers-color-scheme: dark) {
+        #loading-barrier {
+            background-color: #1f1f1f;
+        }
+    }
+    </style>
 </head>
 <body>
+    <div id="loading-barrier"></div>
+    <div id="black-barrier"></div>
+    <div id="side-bar" class="w3-sidebar w3-bar-block">
+        <a href="/" class="w3-bar-item w3-button">首頁</a>
+        <a href="forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="me" class="w3-bar-item w3-button login">登入</a>
+    </div>
+    <div id="top-bar" class="w3-bar">
+        <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
+    </div>
     <div class="content">
-        <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
-        </div>
         <table>
             <tr>
                 <th>課表</th>
@@ -73,44 +97,177 @@
             </tr>
         </table>
     </div>
-    <div class="footer w3-container w3-white">
-        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-        All rights reserved.</span>
-    </div>
-    <script>
-        var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-        var row = document.getElementsByClassName("row");
-        var time = document.getElementsByClassName("time");
-        var lesson = document.getElementsByClassName("lesson");
-        placeCurriculum(moment().day());
-        
-        function placeCurriculum(d) {
-            fetch("curriculums/108.1.json?static=1").then(r => r.json()).then(a => {
-                let standard = [
-                    [810, 900],
-                    [910, 1000],
-                    [1010, 1100],
-                    [1110, 1200],
-                    [1300, 1350],
-                    [1400, 1450],
-                    [1510, 1600],
-                    [1610, 1700]
-                ];
-                document.getElementById("day").options[(d==0)? 6 : (d-1)].selected = true;
-                let n = moment().hour() * 100 + moment().minute();
-                let nl;
-                for (var i = 0; i < standard.length; i++)
-                    if (standard[i][0] <= n && standard[i][1] > n) nl = i;
-                for (var i = 0; i < a[d].length; i++) {
-                    if(i < nl) row[i].classList.add("passed");
-                    if(i == nl) row[i].classList.add("now");
-                    else row[i].classList.remove("now");
-                    time[i].innerHTML = ("" + parseInt(standard[i][0] / 100)).padStart(2, "0") + ":" + String(standard[i][0] % 100).padStart(2, "0") + "~" + ("" + parseInt(standard[i][1] / 100)).padStart(2, "0") + ":" + String(standard[i][1] % 100).padStart(2, "0");
-                    lesson[i].innerHTML = a[d][i];
-                }
-            });
+    <style>
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+        letter-spacing: 1px  !important;
+    }
+    html {
+        background-color: snow;
+    }
+    html, body {
+        height: 100%;
+    }
+    #black-barrier {
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0);
+        opacity: 0;
+        transition: opacity 0.3s, z-index 0.3s;
+    }
+    #side-bar {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        transition: left 0.3s;
+    }
+    #top-bar {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3rem;
+        width: 100vw;
+        color: black;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #top-bar.actived {
+        background: white;
+        color: black;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+    #top-bar > a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+    #top-bar > a > .mdi-menu {
+        font-size: 1.7rem;
+    }
+    .login {
+        position: absolute;
+        bottom: 0;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
         }
+    }
+    @media (prefers-color-scheme: dark) {
+        html {
+            background-color: #1f1f1f;
+            color: white;
+        }
+        #top-bar, #top-bar.actived, #side-bar {
+            background: #1f1f1f;
+            color: white;
+        }
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
+        }
+        select {
+            color: white;
+        }
+    }
+    th, td {
+        text-align: center;
+    }
+    .content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+    }
+    @media screen and (min-width: 350px){
+          .content {
+              font-size: 2rem;
+          }
+      }
+    </style>
+    <script>
+    // simplify
+    var doc = document;
+    doc.id = function(id) {return document.getElementById(id);};
+    doc.class = function(cls) {return document.getElementsByClassName(cls);};
+    doc.tag = function(tag) {return document.getElementsByTagName(tag);};
+    doc.create = function(elm) {return document.createElement(elm);};
+
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            doc.id("loading-barrier").style.opacity = "0";
+            doc.id("loading-barrier").style.zIndex = "-1";
+        }, 100);
+    });
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
+        }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+    });
+    doc.id("black-barrier").addEventListener("click", () => {
+        sidebar();
+    });
+    var days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
+    var row = document.getElementsByClassName("row");
+    var time = document.getElementsByClassName("time");
+    var lesson = document.getElementsByClassName("lesson");
+    placeCurriculum(moment().day());
+
+    function placeCurriculum(d) {
+        fetch("curriculums/108.1.json?static=1").then(r => r.json()).then(a => {
+            let standard = [
+                [810, 900],
+                [910, 1000],
+                [1010, 1100],
+                [1110, 1200],
+                [1300, 1350],
+                [1400, 1450],
+                [1510, 1600],
+                [1610, 1700]
+            ];
+            document.getElementById("day").options[(d==0)? 6 : (d-1)].selected = true;
+            let n = moment().hour() * 100 + moment().minute();
+            let nl;
+            for (var i = 0; i < standard.length; i++)
+            if (standard[i][0] <= n && standard[i][1] > n) nl = i;
+            for (var i = 0; i < a[d].length; i++) {
+                if(i < nl) row[i].classList.add("passed");
+                if(i == nl) row[i].classList.add("now");
+                else row[i].classList.remove("now");
+                time[i].innerHTML = ("" + parseInt(standard[i][0] / 100)).padStart(2, "0") + ":" + String(standard[i][0] % 100).padStart(2, "0") + "~" + ("" + parseInt(standard[i][1] / 100)).padStart(2, "0") + ":" + String(standard[i][1] % 100).padStart(2, "0");
+                lesson[i].innerHTML = a[d][i];
+            }
+        });
+    }
+    function sidebar() {
+        if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+            doc.id("side-bar").style.left = "-180px";
+            doc.id("black-barrier").style.opacity = "0";
+            doc.id("black-barrier").style.zIndex = "-1";
+        }
+        else {
+            doc.id("side-bar").style.left = "0px";
+            doc.id("black-barrier").style.opacity = "0.5";
+            doc.id("black-barrier").style.zIndex = "5";
+        }
+    }
     </script>
     <script src="https://instant.page/1.2.2" type="module">
-</body>
-</html>
+    </body>
+    </html>
