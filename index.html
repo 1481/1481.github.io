@@ -310,40 +310,44 @@
 
     window.addEventListener("load", () => {
         setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 50);
+        setTimeout(() => {
             doc.id("loading-barrier").style.opacity = "0";
             doc.id("loading-barrier").style.zIndex = "-1";
+
+            window.addEventListener("scroll", () => {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if(scrollTop > 5) {
+                    doc.id("top-bar").classList.add("actived");
+                }
+                else {
+                    doc.id("top-bar").classList.remove("actived");
+                }
+                if(scrollTop >= 100) {
+                    let e = doc.id("second-page");
+                    e.children[2].classList.add("show-right");
+                }
+                if(scrollTop >= 200) {
+                    let e = doc.id("second-page");
+                    e.children[3].classList.add("show-left");
+                    e.children[4].classList.add("show-right");
+                }
+                if(scrollTop >= 900) {
+                    let e = doc.id("third-page");
+                    e.children[2].classList.add("show-right");
+                }
+                if(scrollTop >= 1000) {
+                    let e = doc.id("third-page");
+                    e.children[3].classList.add("show-right");
+                }
+                if(scrollTop >= 1100) {
+                    let e = doc.id("third-page");
+                    e.children[4].classList.add("show-right");
+                }
+            });
         }, 100);
         getWeather();
-    });
-    window.addEventListener("scroll", () => {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
-        if(scrollTop > 5) {
-            doc.id("top-bar").classList.add("actived");
-        }
-        else {
-            doc.id("top-bar").classList.remove("actived");
-        }
-        if(scrollTop >= 100) {
-            let e = doc.id("second-page");
-            e.children[2].classList.add("show-right");
-        }
-        if(scrollTop >= 200) {
-            let e = doc.id("second-page");
-            e.children[3].classList.add("show-left");
-            e.children[4].classList.add("show-right");
-        }
-        if(scrollTop >= 900) {
-            let e = doc.id("third-page");
-            e.children[2].classList.add("show-right");
-        }
-        if(scrollTop >= 1000) {
-            let e = doc.id("third-page");
-            e.children[3].classList.add("show-right");
-        }
-        if(scrollTop >= 1100) {
-            let e = doc.id("third-page");
-            e.children[4].classList.add("show-right");
-        }
     });
     doc.id("black-barrier").addEventListener("click", () => {
         sidebar();
@@ -372,7 +376,7 @@
             else {
                 var data = weather.records.locations[0].location[0].weatherElement[0].time;
                 var val = data[0].elementValue[0].value.split("。");
-                doc.id("weather").innerHTML = "附中鄰近區域目前的天氣是" + val[0] + "，" + val[1].substr(0, 4) + "為" + val[1].substr(4) + "，" + val[2] + "，偏" + val[3] + "。";
+                doc.id("weather").innerHTML = "附中鄰近區域目前的天氣是" + val[0] + ((val[0]=="陰"||val[0]=="晴")?"天":"") + "，" + val[1].substr(0, 4) + "為" + val[1].substr(4) + "，" + val[2] + "，偏" + val[3] + "。";
             }
         });
     }
