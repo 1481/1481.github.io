@@ -41,8 +41,11 @@
     <div id="top-bar" class="w3-bar">
         <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
     </div>
-    <div class="content">
+    <div class="content w3-container">
 
+    </div>
+    <div id="end-page">
+        <p>Copyright © 2019 師大附中1481班</p>
     </div>
     
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
@@ -107,17 +110,19 @@
         position: absolute;
         bottom: 0;
     }
+    #end-page {
+        display: block;
+        height: 3rem;
+        width: 100vw;
+        text-align: center;
+    }
     @media screen and  (orientation: portrait) {
         .onlyBig {
             display: none;
         }
     }
     @media (prefers-color-scheme: dark) {
-        html {
-            background-color: #1f1f1f;
-            color: white;
-        }
-        #top-bar, #top-bar.actived, #side-bar {
+        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
             background: #1f1f1f;
             color: white;
         }
