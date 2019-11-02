@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center;background-color:black;">
+    <canvas width="1920" height="1080"></canvas>
+    <script>
+        var elm = document.getElementsByTagName("canvas")[0];
+        var length = 16;
+        var onf = false;
+        var sbj = {
+            elm: elm,
+            width: (elm.width / length),
+            height: (elm.height / length),
+            ctx: elm.getContext("2d"),
+            frame: null
+        };
+        document.body.addEventListener("click", () => {
+            if(!onf) action();
+            else onf = false;
+        });
+        
+        function render() {
+            var c = ["#fff", "#000"];
+            for(var i = 0; i < Math.floor(sbj.height); i++)
+                for(var j = 0; j < Math.floor(sbj.width); j++) {
+                    
+                    sbj.ctx.fillStyle = c[sbj.frame[i][j]];
+                    sbj.ctx.fillRect(j*(sbj.elm.width / sbj.width),i*(sbj.elm.height / sbj.height), (sbj.elm.width / sbj.width),(sbj.elm.height / sbj.height));
+                }
+        }
+        function make_line() {
+            var l = [];
+            for(var i = 0; i < sbj.width; i++)
+                l.push(Math.floor(Math.random()*2));
+            return l;
+        }
+        function push_frame() {
+            for(var i = Math.floor(sbj.height) - 1; i >= 0; i--) {
+                if(i) {
+                    sbj.frame[i] = sbj.frame[i - 1];
+                }
+                else {
+                    sbj.frame[i] = make_line();
+                }
+            }
+            render();
+            setTimeout(function(){push_frame()}, 25);
+        }
+        function action() {
+            sbj.frame = [];
+            for(var i = 0; i < Math.floor(sbj.height); i++)
+                sbj.frame.push(new Array(Math.floor(sbj.width)));
+            push_frame();
+        }
+    </script>
+</body>
+</html>
