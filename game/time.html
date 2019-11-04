@@ -22,6 +22,17 @@
         background-color: white;
         transition: opacity 0.4s, z-index 0.4s;
     }
+    #loading-barrier::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10%;
+        height: 3px;
+        background-color: #2196f3;
+        box-shadow: -2px 0px 8px 1px #2196f3;
+        transition: width 0.4s;
+    }
     @media (prefers-color-scheme: dark) {
         #loading-barrier {
             background-color: #1f1f1f;
@@ -158,6 +169,9 @@
         font-size: 1.2rem;
     }
     </style>
+    <style id="dy-style">
+
+    </style>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
@@ -205,8 +219,13 @@
 
     function SHOWPAGE() {
         if(PAGEREADY[0] && PAGEREADY[1]) {
+            doc.id("dy-style").sheet.insertRule("#loading-barrier#loading-barrier::before{width: 100%;}", 0);
             doc.id("loading-barrier").style.opacity = "0";
             doc.id("loading-barrier").style.zIndex = "-1";
+            return;
+        }
+        if (PAGEREADY[0] || PAGEREADY[1]) {
+            doc.id("dy-style").sheet.insertRule("#loading-barrier::before{width: 66%;}", 0);
         }
     }
 
