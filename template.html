@@ -10,7 +10,7 @@
     <link href="icon.jpg?static=1" rel="apple-touch-icon">
     <link href="icon.jpg?static=1" rel="apple-touch-startup-image">
     <title>1481 [page name]</title>
-    
+
     <style>
     #loading-barrier {
         z-index: 99999;
@@ -49,8 +49,8 @@
         <p>Copyright © 2019 師大附中1481班</p>
     </div>
 
-    <link href="/css/w3.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css">
+    <link href="/css/w3.css?static=1" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css?static=1">
     <style>
     * {
         font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
@@ -145,7 +145,7 @@
     doc.tag = function(tag) {return document.getElementsByTagName(tag);};
     doc.create = function(elm) {return document.createElement(elm);};
 
-    window.addEventListener("load", () => {
+    window.addEventListener("pageshow", () => {
         setTimeout(() => {
             doc.id("loading-barrier").style.opacity = "0";
             doc.id("loading-barrier").style.zIndex = "-1";

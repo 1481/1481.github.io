@@ -97,7 +97,7 @@
     <div id="second-page" class="w3-container">
         <br><br>
         <h1>關於附中1481班</h1>
-        <img class="photo onlyBig" src="https://fakeimg.pl/800x450/3525b0/b2f536/?retina=1&text=%E5%B8%AB%E5%A4%A7%E9%99%84%E4%B8%AD%201481&font=noto">
+        <img class="photo onlyBig" src="preview.jpg">
         <p>
             我們是師大附中1481班！<br><br>
             我們的校園坐落於美麗的大安區，而我們的教室又在校園中數一數二靠近藍天的地方！<br><br>
@@ -121,9 +121,9 @@
     </div>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="./css/w3.css">
-    <link rel="stylesheet" type="text/css" href="./css/materialdesignicons.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/sweetalert2/dark.min.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" type="text/css" href="./css/w3.css?static=1">
+    <link rel="stylesheet" type="text/css" href="./css/materialdesignicons.min.css?static=1">
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert2/dark.min.css?static=1" media="(prefers-color-scheme: dark)">
     <style>
     * {
         font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
@@ -310,7 +310,7 @@
     doc.tag = function(tag) {return document.getElementsByTagName(tag);};
     doc.create = function(elm) {return document.createElement(elm);};
 
-    window.addEventListener("load", () => {
+    window.addEventListener("pageshow", () => {
         setTimeout(() => {
             window.scrollTo(0, 0);
         }, 50);
