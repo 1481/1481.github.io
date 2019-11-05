@@ -43,7 +43,7 @@
         <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
     </div>
     <div class="content w3-container">
-        <br><br>
+        <br><br><br>
         <textarea id="code" class="w3-round"></textarea>
         <p id="output" class="w3-round"></p>
         <button id="compile" class="w3-button">Compile</button>
@@ -129,6 +129,8 @@
             width: 100%;
             font-size: 1.2rem;
             border: 1px black solid;
+            background: transparent;
+            color: black;
         }
         #output {
             height: 30%;
@@ -153,6 +155,7 @@
             }
             #code, #output {
                 border: 1px white solid;
+                color: white;
             }
         }
     </style>
