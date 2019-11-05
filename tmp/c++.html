@@ -207,14 +207,18 @@
             });
         });
 
-        function compile(code) {
+        function compile(code, input="") {
+            if(input) {
+                code = "/* " + input + " */" + "\n" + code;
+                
+            }
             return fetch("https://coliru.stacked-crooked.com/compile", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'text/plain;charset=UTF-8'
                 },
                 body: JSON.stringify({
-                    cmd: 'g++ -std=c++17 -O2 -Wall -pedantic -pthread main.cpp && ./a.out',
+                    cmd: 'g++ -std=c++17 -O2 -Wall -pedantic -pthread main.cpp && ./a.out < main.cpp',
                     src: code
                 })
             }).then(r=>r.text());
