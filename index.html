@@ -4,12 +4,12 @@
     <title>師大附中 1481 | HSNU 1481</title>
     <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="師大附中 1481 班 / 師大附中第 35 屆數理資優班 | HSNU 1481 / The 35th Mathematical Gifted Class of HSNU">
-    <meta content="preview.jpg?static=1" property="og:image">
+    <meta content="/preview.jpg?static=1" property="og:image">
     <meta content="師大附中 1481 班" property="og:image:alt">
     <meta content="https://1481.ga/" property="og:url">
     <meta content="師大附中 1481 | HSNU 1481" property="og:title">
     <meta content="師大附中 1481 班 / 師大附中第 35 屆數理資優班 | HSNU 1481 / The 35th Mathematical Gifted Class of HSNU" property="og:description">
-    <link href="icon.64.jpg?static=1" rel="icon" type="image/ico">
+    <link href="/icon.64.jpg?static=1" rel="icon" type="image/ico">
     <link href="/manifest.json?static=1" rel="manifest">
 
     <script type="application/ld+json">
@@ -76,10 +76,10 @@
     <div id="black-barrier"></div>
     <div id="side-bar" class="w3-sidebar w3-bar-block">
         <a href="/" class="w3-bar-item w3-button">首頁</a>
-        <a href="curriculum" class="w3-bar-item w3-button">課表</a>
-        <a href="forum" class="w3-bar-item w3-button">論壇</a>
-        <a href="game" class="w3-bar-item w3-button">遊戲</a>
-        <a href="login" class="w3-bar-item w3-button login">登入</a>
+        <a href="/curriculum" class="w3-bar-item w3-button">課表</a>
+        <a href="/forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="/game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="/login" class="w3-bar-item w3-button login">登入</a>
     </div>
     <div id="top-bar" class="w3-bar">
         <a class="w3-bar-item" href="javascript:sidebar()" aria-label="Menu"><span class="mdi mdi-menu"></span></a>
@@ -382,8 +382,7 @@
             }
         });
     }
-    </script>
-    <script>
+    // Service Worker
     if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
         .then(function() { console.log("Service Worker Registered"); });
