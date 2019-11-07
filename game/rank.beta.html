@@ -58,6 +58,7 @@
         <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
     </div>
     <div class="content w3-container w3-center">
+        <br><br>
         <div class="wrapper w3-center">
             <div class="w3-center w3-margin type"></div>
             <h1>排名</h1>
@@ -225,7 +226,7 @@
             for(var i = 0; i < fields.length; i++) {
                 let b = document.createElement("button");
                 b.innerHTML = fields[i].name;
-                b.classList.add("w3-button", "w3-border", "w3-round");
+                b.classList.add("w3-button", "w3-border", "w3-round", "w3-margin-left", "w3-margin-right");
                 let k = i;
                 b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+k};
                 document.getElementsByClassName("type")[0].appendChild(b);
