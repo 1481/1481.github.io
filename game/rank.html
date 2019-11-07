@@ -1,139 +1,290 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant-TW">
 <head>
-    <title>排名 | HSNU 1481</title>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="師大附中1481班 遊戲排名 | HSNU 1481" name="description">
+    <link href="/icon.64.jpg?static=1" rel="icon" type="image/ico">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link href="/icon.jpg?static=1" rel="apple-touch-icon">
+    <link href="/icon.jpg?static=1" rel="apple-touch-startup-image">
+    <title>1481 遊戲排名</title>
+    <style>
+    #loading-barrier {
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        transition: opacity 0.4s, z-index 0.4s;
+    }
+    @media (prefers-color-scheme: dark) {
+        #loading-barrier {
+            background-color: #1f1f1f;
+        }
+    }
+    </style>
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
-            authDomain: "hsnu-1481-website.firebaseapp.com",
-            databaseURL: "https://hsnu-1481-website.firebaseio.com",
-            projectId: "hsnu-1481-website",
-            storageBucket: "hsnu-1481-website.appspot.com",
-            messagingSenderId: "405025421965",
-            appId: "1:405025421965:web:7b6d32809d1eb939"
-        };
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+    var firebaseConfig = {
+        apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+        authDomain: "hsnu-1481-website.firebaseapp.com",
+        databaseURL: "https://hsnu-1481-website.firebaseio.com",
+        projectId: "hsnu-1481-website",
+        storageBucket: "hsnu-1481-website.appspot.com",
+        messagingSenderId: "405025421965",
+        appId: "1:405025421965:web:7b6d32809d1eb939"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
     </script>
-    <style>
-        .wrapper {
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-        }
-        .footer {
-            width: 100%;
-            text-align: center;
-        }
-        table {
-            display: inline-block;
-        }
-        td {
-            text-align: left;
-            font-size: 1.1rem;
-        }
-    </style>
 </head>
 <body>
-    <div class="content">
-        <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
-        </div>
-        <div class="w3-margin-top w3-center w3-container stage">
-            <div class="wrapper">
-                <div class="w3-center w3-margin type"></div>
-                <h1>排名</h1>
-                <div class="rank"></div>
-            </div>
+    <div id="loading-barrier"></div>
+    <div id="black-barrier"></div>
+    <div id="side-bar" class="w3-sidebar w3-bar-block">
+        <a href="/" class="w3-bar-item w3-button">首頁</a>
+        <a href="/curriculum" class="w3-bar-item w3-button">課表</a>
+        <a href="/forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="/game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="/login" class="w3-bar-item w3-button login">登入</a>
+    </div>
+    <div id="top-bar" class="w3-bar">
+        <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
+    </div>
+    <div class="content w3-container w3-center">
+        <br><br>
+        <div class="wrapper w3-center">
+            <div class="w3-center w3-margin type"></div>
+            <h1>排名</h1>
+            <div class="rank"></div>
         </div>
     </div>
-    <div class="footer w3-container w3-white">
-        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-            All rights reserved.</span>
+    <div id="end-page">
+        <p>Copyright © 2019 師大附中1481班</p>
     </div>
+
+    <link href="/css/w3.css?static=1" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css?static=1">
+    <style>
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+        letter-spacing: 1px  !important;
+    }
+    html {
+        background-color: snow;
+    }
+    html, body {
+        height: 100%;
+    }
+    #black-barrier {
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0);
+        opacity: 0;
+        transition: opacity 0.3s, z-index 0.3s;
+    }
+    #side-bar {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        transition: left 0.3s;
+    }
+    #top-bar {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3rem;
+        width: 100vw;
+        color: black;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #top-bar.actived {
+        background: white;
+        color: black;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+    #top-bar > a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+    #top-bar > a > .mdi-menu {
+        font-size: 1.7rem;
+    }
+    .login {
+        position: absolute;
+        bottom: 0;
+    }
+    .content {
+        min-height: 100%;
+        width: 100vw;
+    }
+    #end-page {
+        display: block;
+        height: 3rem;
+        width: 100vw;
+        text-align: center;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
+            background: #1f1f1f;
+            color: white;
+        }
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
+        }
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+    }
+    .type {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+    }
+    </style>
     <script>
-        const stage = document.getElementsByClassName("rank")[0];
-        
-        var fields;
-        if(!urlKey("game")) {
-            location.href="./";
-        } else {
-            
-            db.collection("Game").doc(urlKey("game")).get().then(doc => {
-                if(!doc.exists) location.href="./";
-                fields = doc.data().rank;
-                let r = 1;
-                for(var i = 0; i < fields.length; i++) {
-                    let b = document.createElement("button");
-                    b.innerHTML = fields[i].name;
-                    b.classList.add("w3-button", "w3-border", "w3-round");
-                    let k = i;
-                    b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+k};
-                    document.getElementsByClassName("type")[0].appendChild(b);
+    // simplify
+    var doc = document;
+    doc.id = function(id) {return document.getElementById(id);};
+    doc.class = function(cls) {return document.getElementsByClassName(cls);};
+    doc.tag = function(tag) {return document.getElementsByTagName(tag);};
+    doc.create = function(elm) {return document.createElement(elm);};
+
+    window.addEventListener("pageshow", () => {
+        setTimeout(() => {
+            doc.id("loading-barrier").style.opacity = "0";
+            doc.id("loading-barrier").style.zIndex = "-1";
+        }, 100);
+    });
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
+        }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+    });
+    doc.id("black-barrier").addEventListener("click", () => {
+        sidebar();
+    });
+
+    function sidebar() {
+        if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+            doc.id("side-bar").style.left = "-180px";
+            doc.id("black-barrier").style.opacity = "0";
+            doc.id("black-barrier").style.zIndex = "-1";
+        }
+        else {
+            doc.id("side-bar").style.left = "0px";
+            doc.id("black-barrier").style.opacity = "0.5";
+            doc.id("black-barrier").style.zIndex = "5";
+        }
+    }
+
+    const stage = document.getElementsByClassName("rank")[0];
+
+    var fields;
+    if(!urlKey("game")) {
+        location.href="./";
+    } else {
+
+        db.collection("Game").doc(urlKey("game")).get().then(doc => {
+            if(!doc.exists) location.href="./";
+            fields = doc.data().rank;
+            let r = 1;
+            for(var i = 0; i < fields.length; i++) {
+                let b = document.createElement("button");
+                b.innerHTML = fields[i].name;
+                b.classList.add("w3-button", "w3-border", "w3-round", "w3-margin-left", "w3-margin-right");
+                let k = i;
+                b.onclick = function(){location.href="?game="+urlKey("game")+"&rank="+k};
+                document.getElementsByClassName("type")[0].appendChild(b);
+            }
+            db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
+                document.getElementsByTagName("h1").innerHTML = fields[urlKey("rank") || 0].name + " 排名";
+
+                var table = document.createElement("table");
+                let hrow = document.createElement("tr");
+                let hcolumn = [];
+                for(var i = 0; i < 3; i++) {
+                    hcolumn[i] = document.createElement("td");
                 }
-                db.collection("Game").doc(urlKey("game")).collection("Data").orderBy(fields[urlKey("rank") || 0].name, fields[urlKey("rank") || 0].order).limit(20).get().then(function(querySnapshot) {
-                    document.getElementsByTagName("h1").innerHTML = fields[urlKey("rank") || 0].name + " 排名";
-                    
-                    var table = document.createElement("table");
-                    let hrow = document.createElement("tr");
-                    let hcolumn = [];
+                hcolumn[0].innerHTML = "排名";
+                hcolumn[1].innerHTML = "使用者名稱";
+                hcolumn[2].innerHTML = "分數";
+                hrow.appendChild(hcolumn[0]);
+                hrow.appendChild(hcolumn[1]);
+                hrow.appendChild(hcolumn[2]);
+                table.appendChild(hrow);
+
+                querySnapshot.forEach(function(doc) {
+
+                    let data = doc.data();
+                    let row = document.createElement("tr");
+                    let column = [];
                     for(var i = 0; i < 3; i++) {
-                        hcolumn[i] = document.createElement("td");
+                        column[i] = document.createElement("td");
                     }
-                    hcolumn[0].innerHTML = "排名";
-                    hcolumn[1].innerHTML = "使用者名稱";
-                    hcolumn[2].innerHTML = "分數";
-                    hrow.appendChild(hcolumn[0]);
-                    hrow.appendChild(hcolumn[1]);
-                    hrow.appendChild(hcolumn[2]);
-                    table.appendChild(hrow);
-                    
-                    querySnapshot.forEach(function(doc) {
-                        
-                        let data = doc.data();
-                        let row = document.createElement("tr");
-                        let column = [];
-                        for(var i = 0; i < 3; i++) {
-                            column[i] = document.createElement("td");
-                        }
-                        column[0].innerHTML = String(r++) + ".";
-                        column[1].innerHTML = doc.id;
-                        username(doc.id).then(name => {column[1].innerHTML = name});
-                        column[2].innerHTML = data[fields[urlKey("rank") || 0].name];
-                        row.appendChild(column[0]);
-                        row.appendChild(column[1]);
-                        row.appendChild(column[2]);
-                        table.appendChild(row);
-                    });
-                    stage.appendChild(table);
+                    column[0].innerHTML = String(r++) + ".";
+                    column[1].innerHTML = doc.id;
+                    username(doc.id).then(name => {column[1].innerHTML = name});
+                    column[2].innerHTML = data[fields[urlKey("rank") || 0].name];
+                    row.appendChild(column[0]);
+                    row.appendChild(column[1]);
+                    row.appendChild(column[2]);
+                    table.appendChild(row);
                 });
+                stage.appendChild(table);
             });
-        }
-        function username(uid=UID) {
-            console.log(uid);
-            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
-            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
-                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
-            else
-                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
-                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
-                    var l = JSON.parse(localStorage["UserNameList"]);
-                    l[uid] = doc.data().DisplayName;
-                    localStorage["UserNameList"] = JSON.stringify(l);
-                    return doc.data().DisplayName;
-                }));
-            return new Promise(x=>x("none"));
-        }
+        });
+    }
+    function username(uid=UID) {
+        console.log(uid);
+        if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+        if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+        return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+        else
+        return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+            localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+            var l = JSON.parse(localStorage["UserNameList"]);
+            l[uid] = doc.data().DisplayName;
+            localStorage["UserNameList"] = JSON.stringify(l);
+            return doc.data().DisplayName;
+        }));
+        return new Promise(x=>x("none"));
+    }
     </script>
+    <script src="https://instant.page/3.0.0" defer type="module"></script>
 </body>
 </html>
