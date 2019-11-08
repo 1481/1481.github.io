@@ -45,27 +45,28 @@
     <div class="content w3-container">
         <br><br><br>
         <h3>Code: </h3>
-        <textarea id="code" class="w3-round">
-            #include <bits/stdc++.h>
-            using namespace std;
+        <textarea id="code" class="w3-round" placeholder="Your Code">
+#include <bits/stdc++.h>
+using namespace std;
 
-            int main() {
-                ios_base::sync_with_stdio(0);
-                cin.tie(0);
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
 
-                string s;
-                while(cin >> s) {
-                    cout << "Hello, " << s << "!\n";
-                }
+    string s;
+    while(cin >> s) {
+        cout << "Hello, " << s << "!\n";
+    }
 
-                return 0;
-            }
+    return 0;
+}
         </textarea>
         <h3>Input: </h3>
-        <textarea id="input" class="w3-round">Jacob
-            Pascal
-            Jack
-            HSNU1481
+        <textarea id="input" class="w3-round" placeholder="Input Data">
+Jacob
+Pascal
+Jack
+HSNU1481
         </textarea>
         <h3>Output: </h3>
         <p id="output" class="w3-round"></p>
@@ -177,6 +178,7 @@
         border: 1px black solid;
         white-space: pre;
         padding: 2px 4px;
+        margin: 2px 0;
         overflow: scroll;
     }
     h3 {
