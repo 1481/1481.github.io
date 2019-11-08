@@ -247,9 +247,16 @@ HSNU1481
     });
 
     function compile(code, input="") {
+        var credentials = [
+            [
+                "8061fbe0080657002e6fc39973360fdb", 
+                "3ee9b229f1b49b813ab0f29eff8e5a289be8098f14da1020eaf120a77dbb496d"
+            ]
+        ];
+        var select = Math.floor(Math.random()*credentials.length);
         var data = {
-            clientId: "9d25265d182c0bf92a4fe8d46c067210",
-            clientSecret: "4b995d8208ca1e534688eb390fdac737b0fddd614c94635dd4ebf35e33587b43",
+            clientId: credentials[select][0],
+            clientSecret: credentials[select][1],
             language: "cpp",
             script: code,
             stdin: input,
