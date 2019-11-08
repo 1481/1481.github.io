@@ -240,6 +240,7 @@ HSNU1481
     doc.create = function(elm) {return document.createElement(elm);};
 
     if(location.key.code) doc.id("code").value = location.key.code;
+    if(location.key.input) doc.id("input").value = location.key.input;
 
     window.addEventListener("pageshow", () => {
         setTimeout(() => {
@@ -288,7 +289,11 @@ HSNU1481
     });
 
     doc.id("share").addEventListener("click", () => {
-        window.open("https://" + location.host + location.pathname + "?code=" + encodeURIComponent(doc.id("code").value), "_blank");
+        window.open(
+            "https://" + location.host + location.pathname +
+            "?code=" + encodeURIComponent(doc.id("code").value) +
+            "&input=" + encodeURIComponent(doc.id("input").value)
+        , "_blank");
     });
 
     function getBlockLevel(elm) {
