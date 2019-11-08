@@ -1,17 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
 <head>
-    <title>新聞 | HSNU 1481</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
-    <link href="../css/main.css" type="text/css" rel="stylesheet">
-    <link href="../css/loading.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="師大附中1481班 新聞">
-    <link rel="icon" href="../icon.jpg" type="image/ico"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="../icon.jpg">
-    <link rel="apple-touch-startup-image" href="../icon.jpg">
+    <meta charset="UTF-8">
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="師大附中1481班 新聞 | HSNU 1481" name="description">
+    <link href="/icon.64.jpg?static=1" rel="icon" type="image/ico">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link href="/icon.jpg?static=1" rel="apple-touch-icon">
+    <link href="/icon.jpg?static=1" rel="apple-touch-startup-image">
+    <title>1481 新聞</title>
+
+
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
     <script>
@@ -27,18 +27,38 @@
         var db = firebase.firestore();
     </script>
     <style>
-        .News {
-            max-width: 600px;
-            display: inline-block;
+    #loading-barrier {
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        transition: opacity 0.4s, z-index 0.4s;
+    }
+    @media (prefers-color-scheme: dark) {
+        #loading-barrier {
+            background-color: #1f1f1f;
         }
+    }
     </style>
 </head>
 <body>
-    <div class="content">
-        <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
-        </div>
+    <div id="loading-barrier"></div>
+    <div id="black-barrier"></div>
+    <div id="side-bar" class="w3-sidebar w3-bar-block">
+        <a href="/" class="w3-bar-item w3-button">首頁</a>
+        <a href="/curriculum" class="w3-bar-item w3-button">課表</a>
+        <a href="/forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="/game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="/login" class="w3-bar-item w3-button login">登入</a>
+    </div>
+    <div id="top-bar" class="w3-bar">
+        <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
+    </div>
+    <div class="content w3-container">
+        <br><br>
         <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
         <div class="w3-container w3-center stage" style="display: none">
             <h1 id="title">新聞</h1>
@@ -46,83 +66,215 @@
             </div>
         </div>
     </div>
-    <div class="footer w3-container w3-white">
-        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
-            All rights reserved.</span>
+    <div id="end-page">
+        <p>Copyright © 2019 師大附中1481班</p>
     </div>
+
+    <link href="/css/w3.css?static=1" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css?static=1">
+    <style>
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+        letter-spacing: 1px  !important;
+    }
+    html {
+        background-color: snow;
+    }
+    html, body {
+        height: 100%;
+    }
+    #black-barrier {
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0);
+        opacity: 0;
+        transition: opacity 0.3s, z-index 0.3s;
+    }
+    #side-bar {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        transition: left 0.3s;
+    }
+    #top-bar {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3rem;
+        width: 100vw;
+        color: black;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #top-bar.actived {
+        background: white;
+        color: black;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+    #top-bar > a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+    #top-bar > a > .mdi-menu {
+        font-size: 1.7rem;
+    }
+    .login {
+        position: absolute;
+        bottom: 0;
+    }
+    .content {
+        min-height: 100%;
+        width: 100vw;
+    }
+    #end-page {
+        display: block;
+        height: 3rem;
+        width: 100vw;
+        text-align: center;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
+            background: #1f1f1f;
+            color: white;
+        }
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
+        }
+    }
+    .News {
+        max-width: 600px;
+        display: inline-block;
+    }
+    </style>
     <script>
-        var news = {totalResults: 0, articles: []};
-        if(parseInt(localStorage["NewsCachedTime"]) + 5*60*1000 > Date.now()) {
-            news = JSON.parse(localStorage["NewsCache"]);
+    // simplify
+    var doc = document;
+    doc.id = function(id) {return document.getElementById(id);};
+    doc.class = function(cls) {return document.getElementsByClassName(cls);};
+    doc.tag = function(tag) {return document.getElementsByTagName(tag);};
+    doc.create = function(elm) {return document.createElement(elm);};
+
+    window.addEventListener("pageshow", () => {
+        setTimeout(() => {
+            doc.id("loading-barrier").style.opacity = "0";
+            doc.id("loading-barrier").style.zIndex = "-1";
+        }, 100);
+    });
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
+        }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+    });
+    doc.id("black-barrier").addEventListener("click", () => {
+        sidebar();
+    });
+
+    function sidebar() {
+        if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+            doc.id("side-bar").style.left = "-180px";
+            doc.id("black-barrier").style.opacity = "0";
+            doc.id("black-barrier").style.zIndex = "-1";
+        }
+        else {
+            doc.id("side-bar").style.left = "0px";
+            doc.id("black-barrier").style.opacity = "0.5";
+            doc.id("black-barrier").style.zIndex = "5";
+        }
+    }
+
+    var news = {totalResults: 0, articles: []};
+    if(parseInt(localStorage["NewsCachedTime"]) + 5*60*1000 > Date.now()) {
+        news = JSON.parse(localStorage["NewsCache"]);
+        placeNews();
+        doc.class("loading")[0].style.display = "none";
+        doc.class("stage")[0].style.display = "";
+    }
+    else fetchNews();
+
+    function fetchNews() {
+        db.collection("NEWS").orderBy("Time", "desc").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                var article = doc.data();
+                news.totalResults++;
+                news.articles.push({
+                    urlToImage: article.Image,
+                    title: article.Title,
+                    description: article.Content,
+                    author: article.Author,
+                    time: article.Time.toDate().toLocaleString()
+                });
+                console.log(doc.id, " => ", doc.data());
+            })
+        }).then(()=>{
+            localStorage["NewsCache"] = JSON.stringify(news);
+            localStorage["NewsCachedTime"] = Date.now();
             placeNews();
-            document.getElementsByClassName("loading")[0].style.display = "none";
-            document.getElementsByClassName("stage")[0].style.display = "";
+            doc.class("loading")[0].style.display = "none";
+            doc.class("stage")[0].style.display = "";
+        });
+    }
+    function placeNews() {
+        if(!news.totalResults) {
+            document.getElementsByClassName("TodayNews")[0].innerHTML = "最近沒有發布任何新聞";
+            return;
         }
-        else fetchNews();
-        
-        function fetchNews() {
-            db.collection("NEWS").orderBy("Time", "desc").limit(6).get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    var article = doc.data();
-                    news.totalResults++;
-                    news.articles.push({
-                        urlToImage: article.Image,
-                        title: article.Title,
-                        description: article.Content,
-                        author: article.Author,
-                        time: article.Time.toDate().toLocaleString()
-                    });
-                    console.log(doc.id, " => ", doc.data());
-                })
-            }).then(()=>{
-                localStorage["NewsCache"] = JSON.stringify(news);
-                localStorage["NewsCachedTime"] = Date.now();
-                placeNews();
-                document.getElementsByClassName("loading")[0].style.display = "none";
-                document.getElementsByClassName("stage")[0].style.display = "";
-            });
+        for(var i = 0; i < news.totalResults; i++) {
+            var newsContainer = doc.create("div");
+            var newsImage = doc.create("img");
+            var newsInfo = doc.create("div");
+            var newsTitle = doc.create("h3");
+            var newsDescription = doc.create("p");
+            var newsAuthor = doc.create("span");
+            var newsTimestamp = doc.create("span");
+            var wrapper = doc.create("div");
+
+            newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
+            newsContainer.style.overflow = "hidden";
+            newsImage.src = news.articles[i].urlToImage ? news.articles[i].urlToImage : "https://fakeimg.pl/600x400/bfff00/00a2ff/?text=%E6%96%B0%E8%81%9E&font=noto";
+            newsImage.style.width = "100%";
+            newsImage.style.objectFit = "cover";
+            newsImage.style.objectPosition = "top";
+            newsImage.style.maxHeight = "400px";
+            newsInfo.classList.add("w3-container");
+            newsTitle.style.fontSize = "1.4rem";
+            newsTitle.innerHTML = news.articles[i].title;
+            newsDescription.innerHTML = news.articles[i].description;
+            newsAuthor.style.float = "left";
+            newsTimestamp.style.float = "right";
+            newsAuthor.innerHTML = news.articles[i].author;
+            newsTimestamp.innerHTML = news.articles[i].time;
+
+            newsInfo.appendChild(newsTitle);
+            newsInfo.appendChild(newsDescription);
+            newsInfo.appendChild(newsAuthor);
+            newsInfo.appendChild(newsTimestamp);
+            newsContainer.appendChild(newsImage);
+            newsContainer.appendChild(newsInfo);
+            wrapper.appendChild(newsContainer);
+            doc.class("TodayNews")[0].appendChild(wrapper);
         }
-        function placeNews() {
-            if(!news.totalResults) {
-                document.getElementsByClassName("TodayNews")[0].innerHTML = "最近沒有發布任何新聞";
-                return;
-            }
-            for(var i = 0; i < news.totalResults; i++) {
-                var newsContainer = document.createElement("div");
-                var newsImage = document.createElement("img");
-                var newsInfo = document.createElement("div");
-                var newsTitle = document.createElement("h3");
-                var newsDescription = document.createElement("p");
-                var newsAuthor = document.createElement("span");
-                var newsTimestamp = document.createElement("span");
-                var wrapper = document.createElement("div");
-                
-                newsContainer.classList.add("w3-round-large", "w3-border", "w3-margin", "News");
-                newsContainer.style.overflow = "hidden";
-                newsImage.src = news.articles[i].urlToImage ? news.articles[i].urlToImage : "https://fakeimg.pl/600x400/bfff00/00a2ff/?text=%E6%96%B0%E8%81%9E&font=noto";
-                newsImage.style.width = "100%";
-                newsImage.style.objectFit = "cover";
-                newsImage.style.objectPosition = "top";
-                newsImage.style.maxHeight = "400px";
-                newsInfo.classList.add("w3-container");
-                newsTitle.style.fontSize = "1.4rem";
-                newsTitle.innerHTML = news.articles[i].title;
-                newsDescription.innerHTML = news.articles[i].description;
-                newsAuthor.style.float = "left";
-                newsTimestamp.style.float = "right";
-                newsAuthor.innerHTML = news.articles[i].author;
-                newsTimestamp.innerHTML = news.articles[i].time;
-                
-                newsInfo.appendChild(newsTitle);
-                newsInfo.appendChild(newsDescription);
-                newsInfo.appendChild(newsAuthor);
-                newsInfo.appendChild(newsTimestamp);
-                newsContainer.appendChild(newsImage);
-                newsContainer.appendChild(newsInfo);
-                wrapper.appendChild(newsContainer);
-                document.getElementsByClassName("TodayNews")[0].appendChild(wrapper);
-            }
-        }
+    }
     </script>
+    <script src="https://instant.page/3.0.0" defer type="module"></script>
 </body>
 </html>
