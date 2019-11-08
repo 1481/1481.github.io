@@ -243,6 +243,8 @@ HSNU1481
         doc.id("output").innerHTML = "Compiling...";
         compile(doc.id("code").value, doc.id("input").value).then(output => {
             doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"KB\n";
+        }).catch(() => {
+            doc.id("output").innerHTML = "Failed To Compile.";
         });
     });
 
