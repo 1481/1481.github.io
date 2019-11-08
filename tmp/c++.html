@@ -242,7 +242,12 @@ HSNU1481
     doc.id("compile").addEventListener("click", () => {
         doc.id("output").innerHTML = "Compiling...";
         compile(doc.id("code").value, doc.id("input").value).then(output => {
+            if(output.output.indexOf("JDoodle - Timeout")) {
+                doc.id("output").innerHTML = "TLE - Time Limit Exceed.";
+                return 0;
+            }
             doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"KB\n";
+            return 0;
         }).catch(() => {
             doc.id("output").innerHTML = "Failed To Compile.";
         });
