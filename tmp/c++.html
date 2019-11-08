@@ -270,37 +270,39 @@ HSNU1481
         if(cnt < 0) cnt = 0;
         return cnt;
     }
-    doc.id("code").addEventListener("keypress", e => {
-        if(e.keyCode == 13) {
-            var BlockLevel = getBlockLevel(doc.id("code"));
-            var pre = doc.id("code").selectionStart + 1;
-            var prefix = "";
-            for(var i = 0; i < BlockLevel; i++) prefix += "    ";
-            setTimeout(()=>{
-                doc.id("code").value = doc.id("code").value.substr(0, pre) + prefix + doc.id("code").value.substr(pre);
-                doc.id("code").setSelectionRange(pre + BlockLevel * 4, pre + BlockLevel * 4);
-            }, 1);
-        }
-        if(e.keyCode == 93 || e.keyCode == 125) {
-            var idx = doc.id("code").selectionStart - 1;
-            var alw = 1, depth = 0;
-            while(doc.id("code").value[idx] != "\n") {
-                depth++;
-                if(doc.id("code").value[idx--] != " ") alw = 0;
-                if(idx == -1) break;
+    if(!("ontouchstart" in document.documentElement)) {
+        doc.id("code").addEventListener("keypress", e => {
+            if(e.keyCode == 13) {
+                var BlockLevel = getBlockLevel(doc.id("code"));
+                var pre = doc.id("code").selectionStart + 1;
+                var prefix = "";
+                for(var i = 0; i < BlockLevel; i++) prefix += "    ";
+                setTimeout(()=>{
+                    doc.id("code").value = doc.id("code").value.substr(0, pre) + prefix + doc.id("code").value.substr(pre);
+                    doc.id("code").setSelectionRange(pre + BlockLevel * 4, pre + BlockLevel * 4);
+                }, 1);
             }
-            if(alw) {
-                idx = doc.id("code").selectionStart;
-                var tab = 4;
-                if(depth >= 4) {
-                    setTimeout(()=>{
-                        doc.id("code").value = doc.id("code").value.substr(0, idx - 4) + doc.id("code").value.substr(idx);
-                        doc.id("code").setSelectionRange(idx - 3, idx - 3);
-                    }, 1);
+            if(e.keyCode == 93 || e.keyCode == 125) {
+                var idx = doc.id("code").selectionStart - 1;
+                var alw = 1, depth = 0;
+                while(doc.id("code").value[idx] != "\n") {
+                    depth++;
+                    if(doc.id("code").value[idx--] != " ") alw = 0;
+                    if(idx == -1) break;
+                }
+                if(alw) {
+                    idx = doc.id("code").selectionStart;
+                    var tab = 4;
+                    if(depth >= 4) {
+                        setTimeout(()=>{
+                            doc.id("code").value = doc.id("code").value.substr(0, idx - 4) + doc.id("code").value.substr(idx);
+                            doc.id("code").setSelectionRange(idx - 3, idx - 3);
+                        }, 1);
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 
     function compile(code, input="") {
         var credentials = [
