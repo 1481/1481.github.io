@@ -187,14 +187,15 @@
         ]
     ];
     for (var i = 0; i < credentials.length; i++) {
+        let m = i;
         fetch("https://cors.1481.workers.dev/?https://api.jdoodle.com/v1/credit-spent", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({lientId: credentials[i][0],clientSecret: credentials[i][1]})
+            body: JSON.stringify({clientId: credentials[m][0],clientSecret: credentials[m][1]})
         }).then(r=>r.json()).then(s => {
-            doc.class("content")[0].innerHTML += "Compiler " + i + ": " + s.used + "/200<br>";
+            doc.class("content")[0].innerHTML += "Compiler " + m + ": " + s.used + "/200<br>";
         });
     }
     </script>
