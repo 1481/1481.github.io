@@ -44,7 +44,11 @@
     </div>
     <div class="content w3-container">
         <br><br><br>
+        <h3>Code: </h3>
         <textarea id="code" class="w3-round"></textarea>
+        <h3>Input: </h3>
+        <textarea id="input" class="w3-round"></textarea>
+        <h3>Output: </h3>
         <p id="output" class="w3-round"></p>
         <button id="compile" class="w3-button">Compile</button>
     </div>
@@ -125,19 +129,31 @@
         text-align: center;
     }
     #code {
-        height: 50vh;
+        height: 40vh;
         width: 100%;
         font-size: 1.2rem;
         border: 1px black solid;
         background: transparent;
         color: black;
+        padding: 2px 4px;
+    }
+    #input {
+        height: 20vh;
+        width: 100%;
+        font-size: 1.2rem;
+        border: 1px black solid;
+        background: transparent;
+        color: black;
+        padding: 2px 4px;
     }
     #output {
-        min-height: 30vh;
+        min-height: 20vh;
         width: 100%;
         font-size: 1.2rem;
         border: 1px black solid;
         white-space: pre;
+        padding: 2px 4px;
+        overflow: scroll;
     }
     @media screen and  (orientation: portrait) {
         .onlyBig {
@@ -153,7 +169,7 @@
             color:#fff !important;
             background-color:#636363 !important
         }
-        #code, #output {
+        #code, #input, #output {
             border: 1px white solid;
             color: white;
         }
@@ -201,8 +217,8 @@
 
     doc.id("compile").addEventListener("click", () => {
         doc.id("output").innerHTML = "Compiling...";
-        compile(doc.id("code").value).then(output => {
-            doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"\n";
+        compile(doc.id("code").value, doc.id("input").value).then(output => {
+            doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"KB\n";
         });
     });
 
