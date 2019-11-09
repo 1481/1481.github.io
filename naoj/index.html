@@ -98,7 +98,7 @@
         left: 0;
         height: 3rem;
         width: 100vw;
-        color: black;
+        color: white;
         transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
     }
     #top-bar.actived {
@@ -195,6 +195,16 @@
     doc.class = function(cls) {return document.getElementsByClassName(cls);};
     doc.tag = function(tag) {return document.getElementsByTagName(tag);};
     doc.create = function(elm) {return document.createElement(elm);};
+
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
+        }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+    });
 
     var library = {};
     fetch("https://raw.githubusercontent.com/1481/TP2/master/index.json")
