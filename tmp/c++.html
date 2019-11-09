@@ -239,8 +239,10 @@ HSNU1481
     doc.tag = function(tag) {return document.getElementsByTagName(tag);};
     doc.create = function(elm) {return document.createElement(elm);};
 
-    if(location.key.code) doc.id("code").value = location.key.code;
-    if(location.key.input) doc.id("input").value = location.key.input;
+    if(location.key.code) {
+        doc.id("code").value = location.key.code;
+        doc.id("input").value = location.key.input;
+    }
 
     window.addEventListener("pageshow", () => {
         setTimeout(() => {
