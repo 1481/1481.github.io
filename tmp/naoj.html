@@ -277,8 +277,14 @@ int main() {
         problem.output_files = [];
         for (var i = 0; i < p.TEST.score.length; i++) {
             let n = i;
-            fetch(BASE+p.TEST.input[n]).then(r=>r.text()).then(f=>{problem.input_files[n]=f});
-            fetch(BASE+p.TEST.output[n]).then(r=>r.text()).then(f=>{problem.output_files[n]=f});
+            fetch(BASE+p.TEST.input[n]).then(r=>r.text()).then(f=>{
+                while(f[f.length-1] == "\n") f=f.substr(0, f.length-1);
+                problem.input_files[n]=f;
+            });
+            fetch(BASE+p.TEST.output[n]).then(r=>r.text()).then(f=>{
+                while(f[f.length-1] == "\n") f=f.substr(0, f.length-1);
+                problem.output_files[n]=f;
+            });
         }
     });
 
