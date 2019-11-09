@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <meta content="師大附中1481班 Compiler Console | HSNU 1481" name="description">
+    <link href="/icon.64.jpg?static=1" rel="icon" type="image/ico">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link href="/icon.jpg?static=1" rel="apple-touch-icon">
+    <link href="/icon.jpg?static=1" rel="apple-touch-startup-image">
+    <title>Compiler Console | 1481 NAOJ</title>
+
+    <style>
+    #loading-barrier {
+        z-index: 99999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+        transition: opacity 0.4s, z-index 0.4s;
+    }
+    @media (prefers-color-scheme: dark) {
+        #loading-barrier {
+            background-color: #1f1f1f;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="loading-barrier"></div>
+    <div id="black-barrier"></div>
+    <div id="side-bar" class="w3-sidebar w3-bar-block">
+        <a href="/" class="w3-bar-item w3-button">首頁</a>
+        <a href="/curriculum" class="w3-bar-item w3-button">課表</a>
+        <a href="/forum" class="w3-bar-item w3-button">論壇</a>
+        <a href="/game" class="w3-bar-item w3-button">遊戲</a>
+        <a href="/login" class="w3-bar-item w3-button login">登入</a>
+    </div>
+    <div id="top-bar" class="w3-bar">
+        <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
+    </div>
+    <div class="content w3-container">
+        <br><br>
+    </div>
+    <div id="end-page">
+        <p>Copyright © 2019 師大附中1481班</p>
+    </div>
+
+    <link href="/css/w3.css?static=1" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css?static=1">
+    <style>
+    * {
+        font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
+        letter-spacing: 1px  !important;
+    }
+    html {
+        background-color: snow;
+    }
+    html, body {
+        height: 100%;
+    }
+    #black-barrier {
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0);
+        opacity: 0;
+        transition: opacity 0.3s, z-index 0.3s;
+    }
+    #side-bar {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        transition: left 0.3s;
+    }
+    #top-bar {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3rem;
+        width: 100vw;
+        color: black;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    #top-bar.actived {
+        background: white;
+        color: black;
+        box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+    #top-bar > a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+    #top-bar > a > .mdi-menu {
+        font-size: 1.7rem;
+    }
+    .login {
+        position: absolute;
+        bottom: 0;
+    }
+    .content {
+        min-height: 100%;
+        width: 100vw;
+        font-size: 1.2rem;
+    }
+    #end-page {
+        display: block;
+        height: 3rem;
+        width: 100vw;
+        text-align: center;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
+            background: #1f1f1f;
+            color: white;
+        }
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
+        }
+    }
+    </style>
+    <script>
+    // simplify
+    var doc = document;
+    doc.id = function(id) {return document.getElementById(id);};
+    doc.class = function(cls) {return document.getElementsByClassName(cls);};
+    doc.tag = function(tag) {return document.getElementsByTagName(tag);};
+    doc.create = function(elm) {return document.createElement(elm);};
+
+    window.addEventListener("pageshow", () => {
+        setTimeout(() => {
+            doc.id("loading-barrier").style.opacity = "0";
+            doc.id("loading-barrier").style.zIndex = "-1";
+        }, 100);
+    });
+    window.addEventListener("scroll", () => {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if(scrollTop > 5) {
+            doc.id("top-bar").classList.add("actived");
+        }
+        else {
+            doc.id("top-bar").classList.remove("actived");
+        }
+    });
+    doc.id("black-barrier").addEventListener("click", () => {
+        sidebar();
+    });
+
+    function sidebar() {
+        if(doc.id("side-bar").style.left && doc.id("side-bar").style.left != "-180px") {
+            doc.id("side-bar").style.left = "-180px";
+            doc.id("black-barrier").style.opacity = "0";
+            doc.id("black-barrier").style.zIndex = "-1";
+        }
+        else {
+            doc.id("side-bar").style.left = "0px";
+            doc.id("black-barrier").style.opacity = "0.5";
+            doc.id("black-barrier").style.zIndex = "5";
+        }
+    }
+    var credentials = [
+        [
+            "8061fbe0080657002e6fc39973360fdb",
+            "3ee9b229f1b49b813ab0f29eff8e5a289be8098f14da1020eaf120a77dbb496d"
+        ],
+        [
+            "f1c85d3d9a179f0a3a21ce15ca8fcb70",
+            "b6f06c0b80f31c0eb5bf681f6f61bb776dcf4425ef09465db475a797fbc749c8"
+        ],
+        [
+            "90af8589ab49b1015ba8338462035bcc",
+            "5cbbfd1e4f9b61574aa06ce459bc4a1581d82a47298059500baaba712babb2a4"
+        ]
+    ];
+    for (var i = 0; i < credentials.length; i++) {
+        let m = i;
+        fetch("https://cors.1481.workers.dev/?https://api.jdoodle.com/v1/credit-spent", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({clientId: credentials[m][0],clientSecret: credentials[m][1]})
+        }).then(r=>r.json()).then(s => {
+            doc.class("content")[0].innerHTML += "Compiler " + m + ": " + s.used + "/200<br>";
+        });
+    }
+    </script>
+    <script src="https://instant.page/3.0.0" defer type="module"></script>
+</body>
+</html>
