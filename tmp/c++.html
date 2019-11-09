@@ -281,6 +281,7 @@ HSNU1481
                 doc.id("output").innerHTML = "TLE - Time Limit Exceed.";
                 return 0;
             }
+            output.output = output.output.replace("JDoodle - output Limit reached", "Output Limit Exceed");
             doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"KB\n";
             return 0;
         }).catch(() => {
