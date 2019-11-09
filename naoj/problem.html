@@ -164,25 +164,6 @@ int main() {
         font-size: 16px;
         margin: 4px 0;
     }
-    @media screen and  (orientation: portrait) {
-        .onlyBig {
-            display: none;
-        }
-    }
-    @media (prefers-color-scheme: dark) {
-        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
-            background: #1f1f1f;
-            color: white;
-        }
-        .w3-button:hover{
-            color:#fff !important;
-            background-color:#636363 !important
-        }
-        #code, #problem-Input, #problem-Output {
-            border: 1px white solid;
-            color: white;
-        }
-    }
     #problem-Description {
         width: 100%;
         min-height: 6vh;
@@ -205,6 +186,25 @@ int main() {
         padding: 4px;
         white-space: pre;
         border: 1px black solid;
+    }
+    @media screen and  (orientation: portrait) {
+        .onlyBig {
+            display: none;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        html, #top-bar, #top-bar.actived, #side-bar, .content, #end-page {
+            background: #1f1f1f;
+            color: white;
+        }
+        .w3-button:hover{
+            color:#fff !important;
+            background-color:#636363 !important
+        }
+        #code, #problem-Input, #problem-Output {
+            border: 1px white solid;
+            color: white;
+        }
     }
     </style>
     <script>
