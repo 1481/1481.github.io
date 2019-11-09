@@ -336,26 +336,26 @@ int main() {
                     window.CE = 1;
                 }
                 window.judged++;
-            });
-            if(window.judged == problem.TEST.score.length) {
-                if(window.total >= 100) {
-                    Swal.fire("AC", "Score: "+window.total, "success");
-                }
-                else if(window.CE == 1) {
-                    output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
-                    Swal.fire("CE", output.output, "error");
-                }
-                else if(window.TLE == 1) {
-                    Swal.fire("TLE", "Time Limit Exceed.", "error");
+                if(window.judged == problem.TEST.score.length) {
+                    if(window.total >= 100) {
+                        Swal.fire("AC", "Score: "+window.total, "success");
+                    }
+                    else if(window.CE == 1) {
+                        output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
+                        Swal.fire("CE", output.output, "error");
+                    }
+                    else if(window.TLE == 1) {
+                        Swal.fire("TLE", "Time Limit Exceed.", "error");
+                    }
+                    else {
+                        Swal.fire("WA", "Score: "+window.total, "error");
+                    }
+                    doc.id("submit").disabled = false;
                 }
                 else {
-                    Swal.fire("WA", "Score: "+window.total, "error");
+                    msg.fire({type:'info', title:'Judging...'});
                 }
-                doc.id("submit").disabled = false;
-            }
-            else {
-                msg.fire({type:'info', title:'Judging...'});
-            }
+            });
         }
     });
 
