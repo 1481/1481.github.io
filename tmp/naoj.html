@@ -205,15 +205,20 @@ int main() {
     }
     #problem-Description {
         width: 100%;
-        min-height: 20vh;
+        min-height: 10vh;
     }
     #problem-Sample {
         width: 100%;
-        min-height: 20vh;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-around;
+    }
+    #problem-Sample > div {
+        min-height: 10vh;
+    }
+    #problem-Input, #problem-Output {
+        white-space: pre;
     }
     </style>
     <script>
