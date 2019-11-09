@@ -212,10 +212,10 @@
             for (var j = 0; j < library[alphabet[i]].length; j++) {
                 var link = doc.create("a");
                 var p = alphabet[i]+(library[alphabet[i]][j].toString().padStart(3, "0"));
-                a.href = "./problem?problem="+p;
-                a.innerHTML = p;
-                a.classList.add("problem-link");
-                box.appendChild(a);
+                link.href = "./problem?problem="+p;
+                link.innerHTML = p;
+                link.classList.add("problem-link");
+                box.appendChild(link);
             }
             doc.class("content")[0].appendChild(box);
         }
