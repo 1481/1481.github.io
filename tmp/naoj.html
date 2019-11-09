@@ -270,6 +270,7 @@ int main() {
     .catch(() => {location.href = "/";})
     .then(r=>r.json()).then(p => {
         problem = p;
+        document.title = p.Prefix + p.No + ": " + p.Name + " | 1481 NAOJ";
         doc.id("problem-Name").innerHTML = p.Prefix + p.No + ": " + p.Name;
         doc.id("problem-Description").innerHTML = p.Description;
         doc.id("problem-Input").innerHTML = p.Input;
