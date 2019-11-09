@@ -316,7 +316,7 @@ int main() {
     doc.id("submit").addEventListener("click", () => {
         doc.id("submit").disabled = true;
         msg.fire({
-            icon: 'info',
+            type: 'info',
             title: 'Submitted!'
         });
         window.judged = 0;
@@ -354,7 +354,7 @@ int main() {
                 doc.id("submit").disabled = false;
             }
             else {
-                msg.fire({icon:'info', title:'Judging...'});
+                msg.fire({type:'info', title:'Judging...'});
             }
         }
     });
