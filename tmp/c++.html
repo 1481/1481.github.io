@@ -277,6 +277,7 @@ HSNU1481
     doc.id("compile").addEventListener("click", () => {
         doc.id("output").innerHTML = "Compiling...";
         compile(doc.id("code").value, doc.id("input").value).then(output => {
+            output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
             output.output = output.output.replace("JDoodle - Timeout", "TLE - Time Limit Exceed.");
             output.output = output.output.replace("JDoodle - output Limit reached", "Output Limit Exceed");
             doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+"KB\n";
