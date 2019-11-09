@@ -252,12 +252,16 @@ int main() {
     if(!location.key.problem) {
         location.href = "/";
     }
+    var Meta = "https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/problem.json";
     var problem = {};
-    fetch("https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/problem.json")
+    fetch(Meta)
     .catch(() = > {location.href = "/";})
     .then(r=>r.json()).then(p => {
         problem = p;
-        
+        doc.id("problem-Name").innerHTML = p.Prefix + p.No + ": " + p.Name;
+        doc.id("problem-Description").innerHTML = p.Description;
+        doc.id("problem-Input").innerHTML = p.Input;
+        doc.id("problem-Output").innerHTML = p.Output;
     });
 
     window.addEventListener("pageshow", () => {
