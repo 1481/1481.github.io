@@ -255,7 +255,7 @@ int main() {
     var Meta = "https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/problem.json";
     var problem = {};
     fetch(Meta)
-    .catch(() = > {location.href = "/";})
+    .catch(() => {location.href = "/";})
     .then(r=>r.json()).then(p => {
         problem = p;
         doc.id("problem-Name").innerHTML = p.Prefix + p.No + ": " + p.Name;
