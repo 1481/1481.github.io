@@ -434,6 +434,7 @@ int main() {
     function saveSubmission(sbm) {
         sbm.uid = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
         sbm.submitTime = new Date();
+        sbm.problem = problem.Prefix + problem.No;
         db.collection("submissions").doc(Date.now().toString(36)+"-"+Math.floor(1000+Math.random()*9000).toString(36))
         .set(sbm).then(()=>{console.log("Submission Saved.")});
     }
