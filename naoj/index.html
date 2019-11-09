@@ -219,6 +219,9 @@
             doc.id("loading-barrier").style.zIndex = "-1";
         }, 100);
     });
+    doc.class("go-down")[0].addEventListener("click", () => {
+        doc.id("second-page").scrollIntoView({behavior: "smooth"});
+    });
     window.addEventListener("scroll", () => {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
         if(scrollTop > 5) {
