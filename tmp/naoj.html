@@ -70,7 +70,7 @@ int main() {
     return 0;
 }
 </textarea>
-<button class="w3-button w3-margin-top">Submit</button>
+<button class="w3-button w3-margin-top" id="submit">Submit</button>
     <div id="end-page">
         <p>Copyright © 2019 師大附中1481班</p>
     </div>
@@ -78,6 +78,7 @@ int main() {
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
     <link href="/css/w3.css?static=1" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css?static=1">
+    <link rel="stylesheet" type="text/css" href="/css/sweetalert2/dark.min.css?static=1" media="(prefers-color-scheme: dark)">
     <style>
     * {
         font-family: Verdana, '微軟正黑體', 'Microsoft JhengHei', 'PingFang', sans-serif !important;
@@ -205,7 +206,7 @@ int main() {
     }
     #problem-Description {
         width: 100%;
-        min-height: 10vh;
+        min-height: 6vh;
     }
     #problem-Sample {
         width: 100%;
@@ -215,10 +216,14 @@ int main() {
         justify-content: space-around;
     }
     #problem-Sample > div {
-        min-height: 10vh;
+        width: inherit;
+        padding: 0 4px;
     }
     #problem-Input, #problem-Output {
+        min-height: 10vh;
+        padding: 4px;
         white-space: pre;
+        border: 1px white solid;
     }
     </style>
     <script>
@@ -257,9 +262,9 @@ int main() {
     if(!location.key.problem) {
         location.href = "/";
     }
-    var Meta = "https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/problem.json";
+    var BASE = "https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/";
     var problem = {};
-    fetch(Meta)
+    fetch(BASE+"problem.json")
     .catch(() => {location.href = "/";})
     .then(r=>r.json()).then(p => {
         problem = p;
@@ -267,6 +272,13 @@ int main() {
         doc.id("problem-Description").innerHTML = p.Description;
         doc.id("problem-Input").innerHTML = p.Input;
         doc.id("problem-Output").innerHTML = p.Output;
+        problem.input_files = [];
+        problem.output_files = [];
+        for (var i = 0; i < p.TEST.score.length; i++) {
+            let n = i;
+            fetch(BASE+p.TEST.input[n]).then(r=>r.text()).then(f=>{problem.input_files[n]=f});
+            fetch(BASE+p.TEST.output[n]).then(r=>r.text()).then(f=>{problem.output_files[n]=f});
+        }
     });
 
     window.addEventListener("pageshow", () => {
@@ -301,31 +313,50 @@ int main() {
         }
     }
 
-    doc.id("compile").addEventListener("click", () => {
-        doc.id("output").innerHTML = "Compiling...";
-        compile(doc.id("code").value, doc.id("input").value).then(output => {
-            output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
-            output.output = output.output.replace("JDoodle - Timeout", "TLE - Time Limit Exceed.");
-            output.output = output.output.replace("JDoodle - output Limit reached", "Output Limit Exceed");
-            var BytesLevel = "KB";
-            if(output.memory >= 1000) {
-                output.memory /= 1000;
-                BytesLevel = "MB";
-            }
-            if(output.memory) output.memory = output.memory.toFixed(2);
-            doc.id("output").innerHTML = output.output+"\n----------\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+BytesLevel+"\n";
-            return 0;
-        }).catch(() => {
-            doc.id("output").innerHTML = "Failed To Compile.";
+    doc.id("submit").addEventListener("click", () => {
+        doc.id("submit").disabled = true;
+        msg.fire({
+            icon: 'info',
+            title: 'Submitted!'
         });
-    });
-
-    doc.id("share").addEventListener("click", () => {
-        window.open(
-            "https://" + location.host + location.pathname +
-            "?code=" + encodeURIComponent(doc.id("code").value) +
-            "&input=" + encodeURIComponent(doc.id("input").value)
-        , "_blank");
+        window.judged = 0;
+        window.total = 0;
+        window.TLE = 0;
+        window.CE = 0;
+        for(var i = 0; i < problem.score.length; i++) {
+            let n = i;
+            compile(doc.id("code").value, problem.input_files[n]).then(output => {
+                if(output.output == problem.output_files[n]) {
+                    window.total += problem.score[n];
+                }
+                if(output.output.indexOf("JDoodle - Timeout") >= 0) {
+                    window.TLE = 1;
+                }
+                if(output.output.indexOf("jdoodle.cpp") >= 0) {
+                    window.CE = 1;
+                }
+                window.judged++;
+            });
+            if(window.judged == problem.score.length) {
+                if(window.total >= 100) {
+                    Swal.fire("AC", "Score: "+window.total, "success");
+                }
+                else if(window.CE == 1) {
+                    output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
+                    Swal.fire("CE", output.output, "error");
+                }
+                else if(window.TLE == 1) {
+                    Swal.fire("TLE", "Time Limit Exceed.", "error");
+                }
+                else {
+                    Swal.fire("WA", "Score: "+window.total, "error");
+                }
+                doc.id("submit").disabled = false;
+            }
+            else {
+                msg.fire({icon:'info', title:'Judging...'});
+            }
+        }
     });
 
     function getBlockLevel(elm) {
@@ -405,6 +436,15 @@ int main() {
             body: JSON.stringify(data)
         }).then(r=>r.json());
     }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        const msg = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
     </script>
     <script src="https://instant.page/3.0.0" defer type="module"></script>
 </body>
