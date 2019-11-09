@@ -287,7 +287,7 @@ HSNU1481
                 output.memory /= 1000;
                 BytesLevel = "MB";
             }
-            doc.id("output").innerHTML = output.output+"\n\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory.toFixed(2)+BytesLevel+"\n";
+            doc.id("output").innerHTML = output.output+"\n----------\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory.toFixed(2)+BytesLevel+"\n";
             return 0;
         }).catch(() => {
             doc.id("output").innerHTML = "Failed To Compile.";
