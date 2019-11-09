@@ -323,11 +323,11 @@ int main() {
         window.total = 0;
         window.TLE = 0;
         window.CE = 0;
-        for(var i = 0; i < problem.score.length; i++) {
+        for(var i = 0; i < problem.TEST.score.length; i++) {
             let n = i;
             compile(doc.id("code").value, problem.input_files[n]).then(output => {
                 if(output.output == problem.output_files[n]) {
-                    window.total += problem.score[n];
+                    window.total += problem.TEST.score[n];
                 }
                 if(output.output.indexOf("JDoodle - Timeout") >= 0) {
                     window.TLE = 1;
@@ -337,7 +337,7 @@ int main() {
                 }
                 window.judged++;
             });
-            if(window.judged == problem.score.length) {
+            if(window.judged == problem.TEST.score.length) {
                 if(window.total >= 100) {
                     Swal.fire("AC", "Score: "+window.total, "success");
                 }
