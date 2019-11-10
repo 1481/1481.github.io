@@ -241,12 +241,12 @@ int main() {
     doc.create = function(elm) {return document.createElement(elm);};
 
     if(!location.key.problem) {
-        location.href = "/";
+        location.href = "library";
     }
     var BASE = "https://raw.githubusercontent.com/1481/TP2/master/"+location.key.problem.substr(0,1)+"/"+location.key.problem.substr(1)+"/";
     var problem = {};
     fetch(BASE+"problem.json")
-    .catch(() => {location.href = "/";})
+    .catch(() => {location.href = "library";})
     .then(r=>r.json()).then(p => {
         problem = p;
         document.title = p.Prefix + p.No + ": " + p.Name + " | 1481 NAOJ";
