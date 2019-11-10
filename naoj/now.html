@@ -199,6 +199,7 @@
                 memory /= 1000;
                 BytesLevel++;
             }
+            memory = memory.toFixed(2);
             detail.innerHTML = doc.data().time+"s, "+memory+BytesLevels[BytesLevel];
             box.appendChild(s_t);
             box.appendChild(problem);
