@@ -71,6 +71,7 @@ HSNU1481
         <h3>Output: </h3>
         <p id="output" class="w3-round"></p>
         <button id="compile" class="w3-button w3-margin-top w3-margin-right">Compile</button>
+        <button id="indent" class="w3-button w3-margin-top w3-margin-right">Indent</button>
         <button id="share" class="w3-button w3-margin-top w3-margin-right">Share</button>
     </div>
     <div id="end-page">
@@ -277,8 +278,11 @@ HSNU1481
     }
 
     doc.id("compile").addEventListener("click", () => {
+        doc.id("compile").disabled = true;
         doc.id("output").innerHTML = "Compiling...";
+        console.log("Compiling Source Code...");
         compile(doc.id("code").value, doc.id("input").value).then(output => {
+            console.log("Source Code Compiled.");
             output.output = output.output.replace(/jdoodle.cpp/gi, "main.cpp");
             output.output = output.output.replace("JDoodle - Timeout", "TLE - Time Limit Exceed.");
             output.output = output.output.replace("JDoodle - output Limit reached", "Output Limit Exceed");
@@ -288,11 +292,19 @@ HSNU1481
                 BytesLevel = "MB";
             }
             if(output.memory) output.memory = output.memory.toFixed(2);
+            console.log("Output Processed.");
             doc.id("output").innerHTML = output.output+"\n----------\n執行時間: "+output.cpuTime+"s    記憶體用量: "+output.memory+BytesLevel+"\n";
+            doc.id("compile").disabled = true;
             return 0;
         }).catch(() => {
             doc.id("output").innerHTML = "Failed To Compile.";
+            doc.id("compile").disabled = true;
         });
+    });
+
+    doc.id("indent").addEventListener("click", () => {
+        doc.id("code").value = js_beautify(doc.id("code").value);
+        console.log("Source Code Indented.");
     });
 
     doc.id("share").addEventListener("click", () => {
@@ -301,6 +313,7 @@ HSNU1481
             "?code=" + encodeURIComponent(doc.id("code").value) +
             "&input=" + encodeURIComponent(doc.id("input").value)
         , "_blank");
+        console.log("Shared.");
     });
 
     function getBlockLevel(elm) {
@@ -381,6 +394,7 @@ HSNU1481
         }).then(r=>r.json());
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.2/beautify.min.js" defer></script>
     <script src="https://instant.page/3.0.0" defer type="module"></script>
 </body>
 </html>
