@@ -3,14 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
-    <meta content="師大附中1481班 Not An Online Judge | HSNU 1481 - The 35th Mathematical Gifted Class of HSNU." name="description">
+    <meta content="師大附中1481班 NAOJ 動態 | HSNU 1481" name="description">
     <link href="/icon.64.jpg?static=1" rel="icon" type="image/ico">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
     <link href="/icon.jpg?static=1" rel="apple-touch-icon">
     <link href="/icon.jpg?static=1" rel="apple-touch-startup-image">
-    <title>1481 Not An Online Judge</title>
+    <title>動態 | 1481 NAOJ</title>
 
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAoiLcBvU8PiXK1NnIh2pipMBGMJzwc4TY",
+        authDomain: "hsnu1481-naoj.firebaseapp.com",
+        databaseURL: "https://hsnu1481-naoj.firebaseio.com",
+        projectId: "hsnu1481-naoj",
+        storageBucket: "hsnu1481-naoj.appspot.com",
+        messagingSenderId: "195028087427",
+        appId: "1:195028087427:web:e567076849c7a35792e1b6",
+        measurementId: "G-R2DYDZW2ZG"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+    </script>
     <style>
     #loading-barrier {
         z-index: 99999;
@@ -42,21 +61,10 @@
     <div id="top-bar" class="w3-bar">
         <a class="w3-bar-item" href="javascript:sidebar()"><span class="mdi mdi-menu"></span></a>
     </div>
-    <div id="first-page">
-        <div id="logo">
-            <h1>NAOJ</h1>
-            <h3>Not An Online Judge</h3>
-        </div>
-        <div class="holder"></div>
-        <span class="mdi mdi-chevron-down go-down"></span>
-    </div>
-    <div id="second-page" class="w3-container">
+    <div class="content w3-container">
         <br><br>
-        <h1>Browse Library</h1>
-        <a href="library">NAOJ Library</a>
-        <br><br><br>
-        <h1>Try Compiler</h1>
-        <a href="compiler">NAOJ Compiler</a>
+        <h2>動態</h2>
+        <div id="activaties"></div>
     </div>
     <div id="end-page">
         <p>Copyright © 2019 師大附中1481班</p>
@@ -101,7 +109,7 @@
         left: 0;
         height: 3rem;
         width: 100vw;
-        color: white;
+        color: black;
         transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
     }
     #top-bar.actived {
@@ -124,43 +132,26 @@
         position: absolute;
         bottom: 0;
     }
-    #first-page {
-        display: flex;
-        height: 100%;
+    .content {
+        min-height: 100%;
         width: 100vw;
-        background: linear-gradient(270deg, #3be348, #3b6be3, #d33be3);
-        background-size: 600% 600%;
-        animation: bg-animation 30s ease infinite;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        color: white;
-    }
-    #first-page > #logo {
-        text-align: center;
-    }
-    .go-down {
-        cursor: pointer;
-        font-size: 2.4rem;
-        position: absolute;
-        bottom: 8px;
-        animation: godown-animation 10s ease infinite;
-    }
-    #second-page {
-        display: block;
-        height: 100%;
-        width: 100vw;
-    }
-    #second-page > a {
-        color: #255fcc;
-        text-decoration: none;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
     #end-page {
         display: block;
         height: 3rem;
         width: 100vw;
         text-align: center;
+    }
+    #activaties {
+        width: 100%;
+    }
+    .submission {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 2px 0;
     }
     @media screen and  (orientation: portrait) {
         .onlyBig {
@@ -176,20 +167,6 @@
             color:#fff !important;
             background-color:#636363 !important
         }
-        #second-page > a {
-            color: orange;
-        }
-    }
-    @keyframes bg-animation {
-        0%{background-position:0% 50%}
-        50%{background-position:100% 50%}
-        100%{background-position:0% 50%}
-    }
-    @keyframes godown-animation {
-        0%{bottom: 8px}
-        90%{bottom: 8px}
-        95%{bottom: 0px}
-        100%{bottom: 8px}
     }
     </style>
     <script>
@@ -200,24 +177,41 @@
     doc.tag = function(tag) {return document.getElementsByTagName(tag);};
     doc.create = function(elm) {return document.createElement(elm);};
 
-    window.addEventListener("scroll", () => {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
-        if(scrollTop > 5) {
-            doc.id("top-bar").classList.add("actived");
-        }
-        else {
-            doc.id("top-bar").classList.remove("actived");
-        }
+    db.collection("submissions").orderBy("submitTime", "desc").limit(10).get().then(snap => {
+        snap.forEach(doc => {
+            var box = doc.create("div");
+            box.classList.add("submission");
+            var s_t = doc.create("p");
+            s_t.innerHTML = doc.data().submitTime;
+            var problem = doc.create("p");
+            problem.innerHTML = doc.data().problem;
+            var result = doc.create("p");
+            result.innerHTML = doc.data().result;
+            if(doc.data().result == "AC") {
+                result.color = "green";
+                result.innerHTML = "<b>"+result.innerHTML+"</b>";
+            }
+            var detail = doc.create("p");
+            var BytesLevels = ["KB", "MB", "GB"];
+            var BytesLevel = 0;
+            var memory = doc.data().memory;
+            if(memory >= 1000) {
+                memory /= 1000;
+                BytesLevel++;
+            }
+            detail.innerHTML = doc.data().time+"s, "+memory+BytesLevels[BytesLevel];
+            box.appendChild(s_t);
+            box.appendChild(problem);
+            box.appendChild(result);
+            box.appendChild(detail);
+            doc.id("activaties").appendChild(box);
+        });
     });
-
     window.addEventListener("pageshow", () => {
         setTimeout(() => {
             doc.id("loading-barrier").style.opacity = "0";
             doc.id("loading-barrier").style.zIndex = "-1";
         }, 100);
-    });
-    doc.class("go-down")[0].addEventListener("click", () => {
-        doc.id("second-page").scrollIntoView({behavior: "smooth"});
     });
     window.addEventListener("scroll", () => {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
