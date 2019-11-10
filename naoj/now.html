@@ -182,13 +182,13 @@
             var box = window.doc.create("div");
             box.classList.add("submission");
             var s_t = window.doc.create("p");
-            s_t.innerHTML = doc.data().submitTime;
+            s_t.innerHTML = doc.data().submitTime.toDate().toLocaleString();
             var problem = window.doc.create("p");
             problem.innerHTML = doc.data().problem;
             var result = window.doc.create("p");
             result.innerHTML = doc.data().result;
             if(doc.data().result == "AC") {
-                result.color = "green";
+                result.style.color = "green";
                 result.innerHTML = "<b>"+result.innerHTML+"</b>";
             }
             var detail = window.doc.create("p");
