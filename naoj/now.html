@@ -179,19 +179,19 @@
 
     db.collection("submissions").orderBy("submitTime", "desc").limit(10).get().then(snap => {
         snap.forEach(doc => {
-            var box = doc.create("div");
+            var box = window.doc.create("div");
             box.classList.add("submission");
-            var s_t = doc.create("p");
+            var s_t = window.doc.create("p");
             s_t.innerHTML = doc.data().submitTime;
-            var problem = doc.create("p");
+            var problem = window.doc.create("p");
             problem.innerHTML = doc.data().problem;
-            var result = doc.create("p");
+            var result = window.doc.create("p");
             result.innerHTML = doc.data().result;
             if(doc.data().result == "AC") {
                 result.color = "green";
                 result.innerHTML = "<b>"+result.innerHTML+"</b>";
             }
-            var detail = doc.create("p");
+            var detail = window.doc.create("p");
             var BytesLevels = ["KB", "MB", "GB"];
             var BytesLevel = 0;
             var memory = doc.data().memory;
