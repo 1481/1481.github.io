@@ -195,8 +195,8 @@
             var BytesLevels = ["KB", "MB", "GB"];
             var BytesLevel = 0;
             var memory = doc.data().memory;
-            if(memory >= 1000) {
-                memory /= 1000;
+            if(memory >= 1024) {
+                memory /= 1024;
                 BytesLevel++;
             }
             memory = memory.toFixed(2);
