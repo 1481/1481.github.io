@@ -338,9 +338,13 @@ int main() {
                         Swal.fire("TLE", "Time Limit Exceed.", "error");
                         submission.result = "TLE";
                     }
-                    else {
+                    else if(window.total == 0) {
                         Swal.fire("WA", "Score: "+window.total, "error");
                         submission.result = "WA";
+                    }
+                    else {
+                        Swal.fire("NA", "Score: "+window.total, "error");
+                        submission.result = "NA";
                     }
                     doc.id("submit").disabled = false;
                     submission.time = output.cpuTime;
