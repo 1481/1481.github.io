@@ -287,8 +287,8 @@ HSNU1481
             output.output = output.output.replace("JDoodle - Timeout", "TLE - Time Limit Exceed.");
             output.output = output.output.replace("JDoodle - output Limit reached", "Output Limit Exceed");
             var BytesLevel = "KB";
-            if(output.memory >= 1000) {
-                output.memory /= 1000;
+            if(output.memory >= 1024) {
+                output.memory /= 1024;
                 BytesLevel = "MB";
             }
             if(output.memory) output.memory = output.memory.toFixed(2);
