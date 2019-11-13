@@ -386,7 +386,10 @@
     // Service Worker
     if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
-        .then(function() { console.log("Service Worker Registered"); });
+        .then(reg => { 
+            console.log("Service Worker Registered"); 
+            reg.update();
+        });
     }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
