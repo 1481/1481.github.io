@@ -1,4 +1,5 @@
 self.addEventListener('install', event => {
+    self.skipWaiting();
     console.log('[Service Worker] Installed Service Worker!', event);
     event.waitUntil(
         caches.open('cache')
