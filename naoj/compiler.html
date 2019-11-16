@@ -363,34 +363,12 @@ HSNU1481
     }
 
     function compile(code, input="") {
-        var credentials = [
-            [
-                "8061fbe0080657002e6fc39973360fdb",
-                "3ee9b229f1b49b813ab0f29eff8e5a289be8098f14da1020eaf120a77dbb496d"
-            ],
-            [
-                "f1c85d3d9a179f0a3a21ce15ca8fcb70",
-                "b6f06c0b80f31c0eb5bf681f6f61bb776dcf4425ef09465db475a797fbc749c8"
-            ],
-            [
-                "90af8589ab49b1015ba8338462035bcc",
-                "5cbbfd1e4f9b61574aa06ce459bc4a1581d82a47298059500baaba712babb2a4"
-            ]
-        ];
-        var select = Math.floor(Math.random()*credentials.length);
         var data = {
-            clientId: credentials[select][0],
-            clientSecret: credentials[select][1],
-            language: "cpp",
-            script: code,
-            stdin: input,
-            versionIndex: "3"
+            code: code,
+            input: input
         };
-        return fetch("https://cors.1481.workers.dev/?https://api.jdoodle.com/v1/execute", {
+        return fetch("https://judge.1481.ga/", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(data)
         }).then(r=>r.json());
     }
