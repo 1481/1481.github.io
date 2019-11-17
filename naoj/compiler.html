@@ -327,14 +327,13 @@ HSNU1481
         console.log("Shared.");
     }
 
-    async function share_code() {
+    function share_code() {
         Swal.fire("Please Wait", "we are now saving your code...");
-        var url = await fetch("https://json.pascaltheelf.workers.dev/create", {
+        var n_w = window.open("url", "_blank");
+        fetch("https://json.pascaltheelf.workers.dev/create", {
             method: "POST",
             body: JSON.stringify({code: doc.id("code").value})
-        }).then(r=>r.text());
-        Swal.close();
-        window.open(url.replace("https://json.pascaltheelf.workers.dev/read", "https://code.1481.ga"), "_blank");
+        }).then(r=>r.text()).then(url => {n_w.location=url.replace("https://json.pascaltheelf.workers.dev/read", "https://code.1481.ga"); Swal.close();});
     }
 
     function getBlockLevel(elm) {
