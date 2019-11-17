@@ -310,13 +310,31 @@ HSNU1481
     });
 
     doc.id("share").addEventListener("click", () => {
+        Swal.fire({
+            html: '<button onclick="share_code()" class="w3-button w3-blue w3-round w3-xlarge">Just Share Code</button><p>or</p><button onclick="share_in_compiler()" class="w3-button w3-blue w3-round w3-xlarge">Share Code and Input</button>',
+            showConfirmButton: false,
+            focusConfirm: false
+        });
+    });
+
+    function share_in_compiler() {
+        Swal.close();
         window.open(
             "https://" + location.host + location.pathname +
             "?code=" + encodeURIComponent(doc.id("code").value) +
             "&input=" + encodeURIComponent(doc.id("input").value)
         , "_blank");
         console.log("Shared.");
-    });
+    }
+
+    async function share_code() {
+        Swal.close();
+        var url = await fetch("https://json.pascaltheelf.workers.dev/create", {
+            method: "POST",
+            body: JSON.stringify({code: doc.id("code").value})
+        }).then(r=>r.text());
+        window.open(url.replace("https://json.pascaltheelf.workers.dev/read", "https://code.1481.ga"), "_blank");
+    }
 
     function getBlockLevel(elm) {
         var cnt = 0;
