@@ -329,7 +329,7 @@ HSNU1481
 
     function share_code() {
         Swal.fire("Please Wait", "we are now saving your code...");
-        var n_w = window.open("url", "_blank");
+        var n_w = window.open("https://code.1481.ga/wait", "_blank");
         fetch("https://json.pascaltheelf.workers.dev/create", {
             method: "POST",
             body: JSON.stringify({code: doc.id("code").value})
