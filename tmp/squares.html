@@ -5,21 +5,32 @@
 </head>
 <body>
     
-    <canvas id="myCanvas" width="3400" height="1900" style="width:95%;border:1px solid #d3d3d3;"></canvas>
+    <canvas id="myCanvas" width="3600" height="2000" style="border:1px solid #d3d3d3;"></canvas>
     
     <script>
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
         
-        for(var i = 0; i < 19; i++)
-            for(var j = 0; j < 34; j++) {
+        for(var i = 0; i < 100; i++)
+            for(var j = 0; j < 180; j++) {
                 if((i+j)%2)
                     ctx.fillStyle = "black";
                 else
                     ctx.fillStyle = "white";
                 
-                ctx.fillRect(100*j,100*i,100,100);
+                ctx.fillRect(20*j,20*i,20,20);
             }
+        
+        for(var i = 0; i < 100; i++)
+            for(var j = 0; j < 45; j++) {
+                if((i+j)%2)
+                    ctx.fillStyle = "black";
+                else
+                    ctx.fillStyle = "white";
+                
+                ctx.fillRect(40*j,40*i,40,40);
+            }
+        
     </script>
 </body>
 </html>
