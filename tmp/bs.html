@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    
+    <h1 id="loading">Loading...</h1>
     <script>
-        var club;
-        fetch("https://bs.pascaltheelf.workers.dev/club/9C8JJU8").then(r=>r.json()).then(r=>{club=r}).then(show);
+        fetch("https://bs.pascaltheelf.workers.dev/club/9C8JJU8").then(r=>r.json()).then(show);
         
-        function show() {
+        function show(club) {
+            document.getElementById("loading").innerHTML = "";
             body.innerHTML += "<h1>"+club.name+"</h1>";
             body.innerHTML += "<p>"+club.description+"</p>";
             body.innerHTML += "<span>Trophies: "+club.trophies+"</span><br>";
