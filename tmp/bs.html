@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brawl Stars</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <script>
+        var club;
+        fetch("https://bs.pascaltheelf.workers.dev/club/9C8JJU8").then(r=>r.json()).then(r=>{club=r}).then(show);
+        
+        function show() {
+            body.innerHTML += "<h1>"+club.name+"</h1>";
+            body.innerHTML += "<p>"+club.description+"</p>";
+            body.innerHTML += "<span>Trophies: "+club.trophies+"</span><br>";
+        }
+        
+    </script>
+</body>
+</html>
