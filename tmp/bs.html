@@ -19,7 +19,7 @@
             for(var i = 0; i < club.members.length; i++) {
                 document.body.innerHTML += club.members[i].name+": "+club.members[i].trophies+"<br>";
             }
-            document.body.innerHTML += "</div>";
+            document.body.innerHTML += "</div><br><br>最後更新："+(new Date(club.updatedAt)).toLocaleString();
         }
         
     </script>
