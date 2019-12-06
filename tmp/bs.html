@@ -15,6 +15,11 @@
             document.body.innerHTML += "<h1>"+club.name+"</h1>";
             document.body.innerHTML += "<p>"+club.description+"</p>";
             document.body.innerHTML += "<span>Trophies: "+club.trophies+"</span><br>";
+            document.body.innerHTML += "<div>";
+            for(var i = 0; i < club.members.length; i++) {
+                document.body.innerHTML += club.members[i].name+": "+club.members[i].trophies;
+            }
+            document.body.innerHTML += "</div>";
         }
         
     </script>
