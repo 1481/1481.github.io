@@ -1,15 +1,17 @@
 <html>
 <body>
 <span>SRT: </span>
-<input type="file" onchange="conv(this.target.files[0])" />
+<input type="file" onchange="conv(this.files[0])" />
 <br>
 <textarea></textarea>
 <script src="srt2vtt.js"></script>
 <script>
 var ta = document.getElementsByClassName("textarea");
 function conv(file) {
+    alert("reading...");
     var reader = new FileReader();
     reader.onload = function (event) {
+        alert("finished.");
         ta[0].innerHTML += "data:text/vtt;charset=utf-8,"+srt2vtt(event.target.result);
         window.open("data:text/vtt;charset=utf-8,"+srt2vtt(event.target.result), "_blank");
     };
