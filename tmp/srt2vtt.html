@@ -1,0 +1,15 @@
+<html>
+<span>SRT: </span>
+<input type="file" onchange="conv(this.files[0])" />
+
+<script src="srt2vtt.js"></script>
+<script>
+function conv(file) {
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        window.open("data:text/vtt;charset=utf-8,"+srt2vtt(event.target.result), "_blank");
+    };
+    reader.readAsText(file);
+}
+</script>
+</html>
