@@ -1,4 +1,4 @@
-var srt = "SRT";
+function srt2vtt(srt) {
 var vtt = "WEBVTT \n\n";
 
 var split = srt.split("\n\n");
@@ -12,4 +12,6 @@ for(var i = 0; i < split.length; i++) {
         vtt += "\n";
     }
     catch(e) {}
+}
+return vtt;
 }
