@@ -8,6 +8,7 @@
 <script>
 var ta = document.getElementsByClassName("textarea");
 function conv(file) {
+try {
     alert("reading...");
     var reader = new FileReader();
     reader.onload = function (event) {
@@ -16,6 +17,10 @@ function conv(file) {
         window.open("data:text/vtt;charset=utf-8,"+srt2vtt(event.target.result), "_blank");
     };
     reader.readAsText(file);
+}
+catch(e) {
+    alert("error: "+e);
+}
 }
 </script>
 </body>
