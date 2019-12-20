@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>悲慘世界</title>
+    <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
+</head>
+<body>
+    
+    <video id="player" playsinline controls>
+        <source src="https://co-co.ddns.net:8082/share.cgi?ssid=0a6mkIe&fid=0a6mkIe&filename=Les.Misérables.2012.mp4&openfolder=forcedownload&ep=" type="video/mp4" crossorigin />
+        <track kind="captions" label="中文字幕" src="vtt/Les.Misérables.2012.vtt" srclang="zh-Hant" default />
+    </video>
+    <script src="https://cdn.plyr.io/3.5.6/plyr.polyfilled.js"></script>
+    <script>
+        const player = new Plyr('#player', {
+            captions: { active: true, language: 'zh-Hant', update: false },
+            loadSprite: true,
+            iconPrefix: 'plyr',
+            iconUrl: 'https://cdn.plyr.io/3.5.6/plyr.svg'
+        });
+        if(localStorage["_Player_PlayedTime_"+location.path]) {
+            player.once("canplay", function() {
+                player.currentTime = parseInt(localStorage["_Player_PlayedTime_"+location.path]);
+            });
+        }
+        player.once("canplay", function() {
+            window.asi = setInterval(function() {
+                if(player.playing && player.currentTime > 5) {
+                    localStorage["_Player_PlayedTime_"+location.path] = player.currentTime - 5;
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
