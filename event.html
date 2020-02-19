@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>設定 | HSNU 1481</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAW060kfFPzaSKzflp9eXesmyn-GMYj-M8",
+            authDomain: "hsnu-1481-website.firebaseapp.com",
+            databaseURL: "https://hsnu-1481-website.firebaseio.com",
+            projectId: "hsnu-1481-website",
+            storageBucket: "hsnu-1481-website.appspot.com",
+            messagingSenderId: "405025421965",
+            appId: "1:405025421965:web:7b6d32809d1eb939"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <style>
+        .wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            margin-top: 16px;
+            width: 90%;
+            max-width: 800px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="./">Special Event</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+        </div>
+    </nav>
+    <!-- Navigation End -->
+    <!-- Main Body Start -->
+    <div class="wrapper">
+        <div class="page page-home" style="display: none;">
+            
+        </div>
+        <div class="page page-signin">
+            <div class="form">
+                <fieldset>
+                    <legend>權限認證</legend>
+                    <div class="form-group">
+                        <label for="in-a">班級</label>
+                        <input type="text" class="form-control" id="in-a" placeholder="輸入班級">
+                    </div>
+                    <div class="form-group">
+                        <label for="in-b">座號</label>
+                        <input type="text" class="form-control" id="in-b" placeholder="輸入座號">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="signIn()">確認</button>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <!-- Main Body End -->
+    <script>
+        function signIn() {
+            if((document.getElementById("in-a").value == "1481" || document.getElementById("in-a").value == "1482") && document.getElementById("in-b").value.length > 0 && document.getElementById("in-b").value.length <= 2) {
+                db.collection("_VH").doc("Special Event").collection("VH").doc(""+(new Date() - 0)).set({
+                    time: new Date(),
+                    class: document.getElementById("in-a").value,
+                    number: document.getElementById("in-b").value,
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform
+                }).then(() => {
+                    console.log("logged.");
+                });
+                document.getElementsByClassName("page-home")[0].style.display = "block";
+                document.getElementsByClassName("page-signin")[0].style.display = "none";
+            }
+            else {
+                Swal.fire("Not Accept", "", "error");
+            }
+        }
+    </script>
+</body>
+</html>
