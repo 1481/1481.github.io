@@ -101,7 +101,7 @@
                 });
                 document.getElementsByClassName("page-home")[0].style.display = "block";
                 document.getElementsByClassName("page-signin")[0].style.display = "none";
-                localStorage["event-log"] = new Date() + 15*60*1000;
+                localStorage["event-log"] = Date.now() + 15*60*1000;
             }
             else {
                 Swal.fire("Not Accept", "", "error");
