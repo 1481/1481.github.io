@@ -59,6 +59,7 @@
         <div class="page page-home" style="display: none;">
             <br>
             <a href="https://drive.google.com/folderview?id=18UXHrBj9fgSDLnSVwFYdW2SiKFTjcarO" target="_blank">成發雲端硬碟</a>
+            <iframe src="https://drive.google.com/embeddedfolderview?id=18UXHrBj9fgSDLnSVwFYdW2SiKFTjcarO#list" style="width: 100%; max-height: 400px;" frameborder="0"></iframe>
         </div>
         <div class="page page-signin">
             <div class="form">
@@ -72,14 +73,22 @@
                         <label for="in-b">座號</label>
                         <input type="text" class="form-control" id="in-b" placeholder="輸入座號">
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="signIn()">確認</button>
+                    <button type="button" class="btn btn-primary" onclick="signIn(false)">確認</button>
                 </fieldset>
             </div>
         </div>
     </div>
     <!-- Main Body End -->
     <script>
-        function signIn() {
+        if(localStorage["event-log"]) {
+            if(parseInt(localStorage["event-log"]) - Date.now() >= 0) signIn(true);
+        }
+        function signIn(over) {
+            if(over) {
+                document.getElementsByClassName("page-home")[0].style.display = "block";
+                document.getElementsByClassName("page-signin")[0].style.display = "none";
+                return;
+            }
             if((document.getElementById("in-a").value == "1481" || document.getElementById("in-a").value == "1482") && document.getElementById("in-b").value.length > 0 && document.getElementById("in-b").value.length <= 2) {
                 db.collection("_VH").doc("Special Event").collection("VH").doc(""+(new Date() - 0)).set({
                     time: new Date(),
@@ -92,6 +101,7 @@
                 });
                 document.getElementsByClassName("page-home")[0].style.display = "block";
                 document.getElementsByClassName("page-signin")[0].style.display = "none";
+                localStorage["event-log"] = new Date() + 15*60*1000;
             }
             else {
                 Swal.fire("Not Accept", "", "error");
