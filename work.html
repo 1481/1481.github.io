@@ -48,6 +48,7 @@
             opt.value = entry;
             opt.innerHTML = entry.substring(0,10);
             document.getElementById("date").appendChild(opt);
+            document.getElementById("date").value = entry;
         }
         changeDate();
     });
@@ -55,8 +56,8 @@
     function changeDate() {
         var eid = document.getElementById("date").value;
         if(eid != "選擇日期") {
-            document.getElementById("day_jobs").innerHTML = "未打掃: " + (data[eid].jobs ? data[eid].jobs.join(", ") : "太好了，大家都很棒！");
-            document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都很棒！");
+            document.getElementById("day_jobs").innerHTML = "未打掃: " + (data[eid].jobs ? data[eid].jobs.join(", ") : "太好了，大家都有打掃！");
+            document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都有搬椅子！");
         }
     }
     </script>
