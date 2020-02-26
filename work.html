@@ -26,7 +26,7 @@
         <div>
             <div class="form-group">
                 <select class="custom-select" id="date" onchange="changeDate()">
-                    <option selected="" disabled="true" value="選擇日期">選擇日期</option>
+                    <option selected="" value="選擇日期">選擇日期</option>
                 </select>
             </div>
             <p id="day_jobs"></p>
@@ -54,8 +54,10 @@
 
     function changeDate() {
         var eid = document.getElementById("date").value;
-        document.getElementById("day_jobs").innerHTML = "未打掃: " + (data[eid].jobs ? data[eid].jobs.join(", ") : "太好了，大家都很棒！");
-        document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都很棒！");
+        if(eid != "選擇日期") {
+            document.getElementById("day_jobs").innerHTML = "未打掃: " + (data[eid].jobs ? data[eid].jobs.join(", ") : "太好了，大家都很棒！");
+            document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都很棒！");
+        }
     }
     </script>
 </body>
