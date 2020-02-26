@@ -31,6 +31,7 @@
             </div>
             <p id="day_jobs"></p>
             <p id="day_seats"></p>
+            <p id="comment"></p>
         </div>
         <div>
             <!--<legend>總計</legend>-->
@@ -58,6 +59,7 @@
         if(eid != "選擇日期") {
             document.getElementById("day_jobs").innerHTML = "未打掃: " + (data[eid].jobs ? data[eid].jobs.join(", ") : "太好了，大家都有打掃！");
             document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都有搬椅子！");
+            document.getElementById("comment").innerHTML = "股長當日的備註：" + (data[eid].comment ? data[eid]. comment : "今天沒有特別需要備註的。");
         }
     }
     </script>
