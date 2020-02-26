@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>打掃紀錄查詢</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="https://jacoblincool.github.io/simple_pages/CleaningChecking/index.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="./">打掃紀錄查詢</a>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+        </div>
+    </nav>
+
+    <div style="margin: 10px;">
+        <div>
+            <div class="form-group">
+                <select class="custom-select" id="date" onchange="changeDate()">
+                    <option selected="" disabled="true" value="選擇日期">選擇日期</option>
+                </select>
+            </div>
+            <p id="day_jobs"></p>
+            <p id="day_seats"></p>
+        </div>
+        <div>
+            <!--<legend>總計</legend>-->
+            
+        </div>
+    </div>
+
+    <script src="https://jacoblincool.github.io/simple_pages/CleaningChecking/index.js"></script>
+    <script>
+    var data = {};
+    firebase.database().ref("CleanChecking").on("value", function(snapshot) {
+        data = snapshot.val();
+        for(var entry in data) {
+            var opt = document.createElement("option");
+            opt.value = entry;
+            opt.innerHTML = entry.substring(0,10);
+            document.getElementById("date").appendChild(opt);
+        }
+        changeDate();
+    });
+
+    function changeDate() {
+        var eid = document.getElementById("date").value;
+        document.getElementById("day_jobs").innerHTML = "未打掃: " + data[eid].jobs.join(", ");
+        document.getElementById("day_seats").innerHTML = "未搬椅子: " + data[eid].seats.join(", ");
+    }
+    </script>
+</body>
+</html>
