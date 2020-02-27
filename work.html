@@ -10,14 +10,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rndme/download@1.4.8/download.min.js"></script>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="./">打掃紀錄查詢</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:downloadCSV()">下載</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -34,14 +41,20 @@
             <p id="comment"></p>
         </div>
         <div>
-            <!--<legend>總計</legend>-->
-            
+            <legend>統計</legend>
+            <ul class="list-group" id="total">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                座號 &emsp; 未搬椅子 &emsp; 未打掃 &emsp; 總計
+              </li>
+            </ul>
         </div>
     </div>
 
     <script src="https://jacoblincool.github.io/simple_pages/CleaningChecking/index.js"></script>
     <script>
-    var total = [];
+    var total = [], total_j = [], total_s = [];
+    var dates = [];
+    var dates_code = [];
     var data = {};
     firebase.database().ref("CleanChecking").once("value").then(function(snapshot) {
         data = snapshot.val();
@@ -49,8 +62,51 @@
             var opt = document.createElement("option");
             opt.value = entry;
             opt.innerHTML = entry.substring(0,10);
+            dates.push('"'+entry.substring(0,10)+'-搬椅子"');
+            dates.push('"'+entry.substring(0,10)+'-打掃"');
+            dates_code.push(entry);
             document.getElementById("date").appendChild(opt);
             document.getElementById("date").value = entry;
+            if(data[entry].seats) {
+              for(var i = 0; i < data[entry].seats.length; i++) {
+                if(total_s[data[entry].seats[i]]) {
+                  total_s[data[entry].seats[i]]++;
+                }
+                else {
+                  total_s[data[entry].seats[i]] = 1;
+                }
+                if(total[data[entry].seats[i]]) {
+                  total[data[entry].seats[i]]++;
+                }
+                else {
+                  total[data[entry].seats[i]] = 1;
+                }
+              }
+            }
+            if(data[entry].jobs) {
+              for(var i = 0; i < data[entry].jobs.length; i++) {
+                if(total_j[data[entry].jobs[i]]) {
+                  total_j[data[entry].jobs[i]]++;
+                }
+                else {
+                  total_j[data[entry].jobs[i]] = 1;
+                }
+                if(total[data[entry].jobs[i]]) {
+                  total[data[entry].jobs[i]]++;
+                }
+                else {
+                  total[data[entry].jobs[i]] = 1;
+                }
+              }
+            }
+        }
+        for(var i = 0; i < total.length; i++) {
+          if(total[i]) {
+            document.getElementById("total").innerHTML += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              ${i} &emsp;&emsp; ${total_s[i] || 0} &emsp;&emsp;&emsp;&emsp; ${total_j[i] || 0} &emsp;&emsp;&emsp; ${total[i]}
+            </li>`;
+          }
         }
         changeDate();
     });
@@ -62,6 +118,20 @@
             document.getElementById("day_seats").innerHTML = "未搬椅子: " + (data[eid].seats ? data[eid].seats.join(", ") : "太好了，大家都有搬椅子！");
             document.getElementById("comment").innerHTML = "股長當日的備註：" + (data[eid].comment ? data[eid]. comment : "今天沒有特別需要備註的。");
         }
+    }
+    function downloadCSV() {
+      var csv = `\ufeff"座號","總計","未搬椅子","未打掃",`+dates.join(",")+"\n";
+      for(var i = 1; i < 30; i++) {
+        if(sname[i]) {
+          csv += `${i},${total[i] ? total[i] : ''},${total_s[i] ? total_s[i] : ''},${total_j[i] ? total_j[i] : ''},`;
+          for(var j = 0; j < dates_code.length; j++) {
+            csv += `"${data[dates_code[j]].seats ? (data[dates_code[j]].seats.includes(i) ? "X" : "") : ""}",`;
+            csv += `"${data[dates_code[j]].jobs ? (data[dates_code[j]].jobs.includes(i) ? "X" : "") : ""}",`;
+          }
+          csv += "\n";
+        }
+      }
+      download(csv, "file.csv", "text/csv");
     }
     </script>
 </body>
