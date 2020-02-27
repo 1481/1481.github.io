@@ -41,8 +41,9 @@
 
     <script src="https://jacoblincool.github.io/simple_pages/CleaningChecking/index.js"></script>
     <script>
+    var total = [];
     var data = {};
-    firebase.database().ref("CleanChecking").on("value", function(snapshot) {
+    firebase.database().ref("CleanChecking").once("value").then(function(snapshot) {
         data = snapshot.val();
         for(var entry in data) {
             var opt = document.createElement("option");
