@@ -120,18 +120,12 @@
         }
     }
     function downloadCSV() {
-      var csv = `\ufeff"座號","總計","未搬椅子","未打掃",`+dates.join(",")+"\n";
-      for(var i = 1; i < 30; i++) {
-        if(sname[i]) {
-          csv += `${i},${total[i] ? total[i] : ''},${total_s[i] ? total_s[i] : ''},${total_j[i] ? total_j[i] : ''},`;
-          for(var j = 0; j < dates_code.length; j++) {
-            csv += `"${data[dates_code[j]].seats ? (data[dates_code[j]].seats.includes(i) ? "X" : "") : ""}",`;
-            csv += `"${data[dates_code[j]].jobs ? (data[dates_code[j]].jobs.includes(i) ? "X" : "") : ""}",`;
-          }
-          csv += "\n";
-        }
-      }
-      download(csv, "file.csv", "text/csv");
+      var CSVMkr = new Worker("work-csv.js");
+	  CSVMkr.postMessage({data, dates, sname, total, total_s, total_j, dates_code});
+	  CSVMkr.onmessage = function(e) {
+	    var csv = e.data;
+        download(csv, "file.csv", "text/csv");
+	  }
     }
     </script>
 </body>
