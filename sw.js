@@ -25,7 +25,7 @@ function precache() {
     return cache.addAll(assets);
   }).then(() => {
 	  console.log('[Service Worker] Precached Assets.');
-	  console.log('[Service Worker] Assets: ', asset);
+	  console.log('[Service Worker] Assets: ', assets);
   });
 }
 
