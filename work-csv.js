@@ -1,7 +1,7 @@
 onmessage = function(e) {
   var data = e.data;
   console.log('[CSV Maker] Received Data.', data);
-  console.log('[CSV Maker] Strat Encoding Proccess.');
+  console.log('[CSV Maker] Strat Encoding Process.');
   
   var csv = `\ufeff"座號","總計","未搬椅子","未打掃",`+data.dates.join(",")+"\n";
   for(var i = 1; i < 30; i++) {

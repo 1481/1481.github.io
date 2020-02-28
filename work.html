@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:downloadCSV()">下載</a>
+                    <a class="nav-link" href="javascript:downloadCSV()" id="download-to-csv">下載</a>
                 </li>
             </ul>
         </div>
@@ -120,11 +120,13 @@
         }
     }
     function downloadCSV() {
+	  document.getElementById("download-to-csv").innerHTML = "下載中...";
       var CSVMkr = new Worker("work-csv.js");
 	  CSVMkr.postMessage({data, dates, sname, total, total_s, total_j, dates_code});
 	  CSVMkr.onmessage = function(e) {
 	    var csv = e.data;
         download(csv, "file.csv", "text/csv");
+		document.getElementById("download-to-csv").innerHTML = "已下載";
 	  }
     }
     </script>
