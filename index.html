@@ -383,16 +383,14 @@
             }
         });
     }
-    // Service Worker
-    /*
+    // Register Service Worker
     if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/sw.js?v=2020.1')
         .then(reg => {
-            console.log("Service Worker Registered");
+            console.log("Service Worker Registered.");
             reg.update();
         });
     }
-    */
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://instant.page/3.0.0" type="module"></script>
