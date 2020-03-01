@@ -55,6 +55,7 @@
     
     <script src="https://jacoblincool.github.io/simple_pages/CleaningChecking/index.js"></script>
     <script>
+        setTimeout(function(){location.reload(true);}, 12*60*60*1000);
         var total = [], total_j = [], total_s = [];
         var dates = [];
         var dates_code = [];
@@ -130,17 +131,7 @@
                 document.getElementById("download-to-csv").innerHTML = "已下載";
             }
         }
-        function saveToSheet() {
-            var CSVMkr = new Worker("work-csv.js?v=1.1");
-            CSVMkr.postMessage({data, dates, sname, total, total_s, total_j, dates_code});
-            CSVMkr.onmessage = function(e) {
-                var csv = e.data;
-                fetch("https://script.google.com/macros/s/AKfycbzRwgo9ZjqA3th_iETs8b4p6KvHwdrtZN-IXJ-BqxB-evffCXA/exec", {
-                    method: "POST",
-                    body: "csv="+csv
-                }).then(()=>{console.log("Saved To Google SpreadSheet.")});
-            }
-        }
+        (function(){setInterval(function(){debugger;}, 50);setInterval(function(){debugger;}, 51);})();
     </script>
 </body>
 </html>
