@@ -122,7 +122,7 @@
         }
         function downloadCSV() {
             document.getElementById("download-to-csv").innerHTML = "下載中...";
-            var CSVMkr = new Worker("work-csv.js");
+            var CSVMkr = new Worker("work-csv.js?v=1.1");
             CSVMkr.postMessage({data, dates, sname, total, total_s, total_j, dates_code});
             CSVMkr.onmessage = function(e) {
                 var csv = e.data;
@@ -131,7 +131,7 @@
             }
         }
         function saveToSheet() {
-            var CSVMkr = new Worker("work-csv.js");
+            var CSVMkr = new Worker("work-csv.js?v=1.1");
             CSVMkr.postMessage({data, dates, sname, total, total_s, total_j, dates_code});
             CSVMkr.onmessage = function(e) {
                 var csv = e.data;
