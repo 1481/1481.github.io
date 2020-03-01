@@ -44,7 +44,7 @@
             <legend>統計</legend>
             <table class="table table-striped border" style="table-layout: fixed;">
                 <thead>
-                    <tr>
+                    <tr id="ths">
                         <th>座號</th><th>未搬椅子</th><th>未打掃</th><th>總計</th>
                     </tr>
                 </thead>
@@ -104,10 +104,15 @@
                     }
                 }
             }
+            var space_cell = 0;
+            while(parseFloat(getComputedStyle(document.getElementById("ths").children[0]).width) > 200) {
+                document.getElementById("ths").innerHTML += "<th></th>";
+                space_cell++;
+            }
             for(var i = 0; i < total.length; i++) {
                 if(total[i]) {
                     document.getElementById("total").innerHTML += `
-                    <tr><td>${i}</td><td>${total_s[i] || 0}</td><td>${total_j[i] || 0}</td><td>${total[i]}</td></tr>`;
+                    <tr><td>${i}</td><td>${total_s[i] || 0}</td><td>${total_j[i] || 0}</td><td>${total[i]}</td>${(function(){var s=""; for(var i=0; i<space_cell; i++) s+="<td></td>"; return s;})()}</tr>`;
                 }
             }
             changeDate();
