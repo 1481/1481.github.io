@@ -42,11 +42,11 @@
         </div>
         <div>
             <legend>統計</legend>
-            <ul class="list-group" id="total">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    座號 &emsp; 未搬椅子 &emsp; 未打掃 &emsp; 總計
-                </li>
-            </ul>
+            <table class="table" id="total">
+                <tr>
+                    <th>座號</th><th>未搬椅子</th><th>未打掃</th><th>總計</th>
+                </tr>
+            </table>
         </div>
     </div>
     
@@ -103,9 +103,7 @@
             for(var i = 0; i < total.length; i++) {
                 if(total[i]) {
                     document.getElementById("total").innerHTML += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              ${i} &emsp;&emsp; ${total_s[i] || 0} &emsp;&emsp;&emsp;&emsp; ${total_j[i] || 0} &emsp;&emsp;&emsp; ${total[i]}
-                    </li>`;
+                    <tr><td>${i}</td><td>${total_s[i] || 0}</td><td>${total_j[i] || 0}</td><td>${total[i]}</td></tr>`;
                 }
             }
             changeDate();
