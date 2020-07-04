@@ -167,12 +167,13 @@
         }
         
         function uploadArticle() {
+            Swal.fire('上傳中','請稍候','info');
             var article = {
                 "Title": elm.id("title").value,
                 "Content": elm.id("content").value,
                 "Author": elm.id("author").value,
                 "Time": new Date(),
-                "id": 0
+                "id": Date.now()
             };
             // FireStore
             db.collection("NEWS").orderBy("Time", "desc").limit(1).get().then(function(querySnapshot) {
@@ -183,7 +184,7 @@
                         location.href = "./";
                     }).catch((err) => {
                         if (err == "FirebaseError: [code=permission-denied]: Missing or insufficient permissions.") {
-                            err = "Missing or insufficient permissions."
+                            err = "無上傳權限"
                         }
                         Swal.fire('上傳失敗', '原因: '  + err, 'error');
                     });
