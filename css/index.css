@@ -98,7 +98,7 @@ a.w3-bar-item.w3-button:visited {
     font-size: 1rem;
 }
 .curriculum-name {
-    margin: -0.8rem 0 0 0;
+    margin: -0.8rem 0 0;
     font-size: 1.6rem;
 }
 .footer {
@@ -135,7 +135,7 @@ a.w3-bar-item.w3-button:visited {
     }
     100% {
         opacity: 1;
-        bottom: 0rem;
+        bottom: 0;
     }
 }
 @keyframes FadeInLeft {
@@ -145,7 +145,7 @@ a.w3-bar-item.w3-button:visited {
     }
     100% {
         opacity: 1;
-        left: 0rem;
+        left: 0;
     }
 }
 @keyframes FadeInRight {
@@ -155,6 +155,6 @@ a.w3-bar-item.w3-button:visited {
     }
     100% {
         opacity: 1;
-        left: 0rem;
+        left: 0;
     }
 }
